@@ -5,15 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - CCS Sit-in Monitoring System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
+        :root {
+            --font-body: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+            --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
+        }
+
         body {
             margin: 0; min-height: 100vh;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: var(--font-body);
             background: linear-gradient(135deg, #0a1628 0%, #0d2137 40%, #0f2b46 100%);
             color: #e0e6ed; overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6,
+        .navbar-brand {
+            font-family: var(--font-display);
+        }
+
+        i[class^="ri-"] {
+            font-size: 1.05em;
+            vertical-align: -0.12em;
         }
 
         /* ── Glowing Orbs ── */
@@ -41,7 +57,29 @@
             backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
-        .navbar-brand { color: #fff !important; font-size: 1rem; font-weight: 600; }
+        .navbar-brand {
+            color: #fff !important;
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+        .brand-logos {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .brand-logos img {
+            height: 30px;
+            width: auto;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 4px 6px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+            object-fit: contain;
+        }
         .nav-link { color: rgba(255,255,255,0.85) !important; font-size: 0.95rem; transition: color .2s; }
         .nav-link:hover, .nav-link.active { color: #fff !important; }
         .dropdown-menu {
@@ -54,17 +92,40 @@
         /* ── Login Layout ── */
         .login-section {
             min-height: calc(100vh - 56px);
-            display: flex; align-items: center; justify-content: center; padding: 40px 20px;
+            display: flex; align-items: center; justify-content: center; padding: 36px 20px;
         }
-        .login-wrapper {
-            display: flex; align-items: center; justify-content: center;
-            max-width: 1000px; width: 100%; gap: 60px;
+        .login-shell {
+            width: min(980px, 100%);
+            background: #ffffff;
+            border-radius: 22px;
+            display: grid;
+            grid-template-columns: minmax(280px, 1.1fr) minmax(320px, 0.9fr);
+            box-shadow: 0 20px 45px rgba(44, 31, 79, 0.12);
+            overflow: hidden;
         }
-        .logo-side { flex: 1; display: flex; align-items: center; justify-content: center; }
-        .logo-side img {
-            max-width: 340px; width: 100%; height: auto;
-            filter: drop-shadow(0 0 30px rgba(33,150,243,0.3));
-            animation: logoPulse 4s ease-in-out infinite;
+        .login-panel-left {
+            background: #2b124c;
+            position: relative;
+            padding: 36px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-panel-left::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(237, 180, 47, 0.18) 1px, transparent 1px);
+            background-size: 18px 18px;
+            opacity: 0.28;
+            pointer-events: none;
+        }
+        .login-panel-logo {
+            width: min(300px, 85%);
+            height: auto;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 18px 30px rgba(255, 255, 255, 0.18)) drop-shadow(0 20px 36px rgba(124, 58, 237, 0.28));
         }
         @keyframes logoPulse {
             0%, 100% { filter: drop-shadow(0 0 20px rgba(33,150,243,0.25)); }
@@ -73,13 +134,14 @@
 
         /* ── Glassmorphism Card ── */
         .form-side {
-            flex: 1; max-width: 440px; width: 100%;
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px; padding: 40px 36px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 420px;
+            width: 100%;
+            background: #ffffff;
+            padding: 30px 32px 26px;
             animation: cardReveal 0.8s ease-out 0.3s both;
+        }
+        .form-header {
+            margin-bottom: 14px;
         }
         @keyframes cardReveal {
             from { opacity: 0; transform: translateY(30px) scale(0.96); }
@@ -90,12 +152,15 @@
             background: linear-gradient(135deg, #fff, #93c5fd);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-        .form-side .subtitle { color: rgba(255,255,255,0.45); font-size: 0.9rem; margin-bottom: 28px; }
+        .form-side .subtitle { color: rgba(255,255,255,0.45); font-size: 0.94rem; margin-bottom: 0; }
 
-        .form-side .form-label { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 4px; font-weight: 500; }
+        .form-side .form-label { font-size: 0.86rem; color: rgba(255,255,255,0.6); margin-bottom: 6px; font-weight: 600; }
         .form-side .form-control {
             background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 10px; padding: 12px 14px; font-size: 0.95rem;
+            border-radius: 12px;
+            padding: 12px 14px;
+            min-height: 48px;
+            font-size: 0.96rem;
             color: #fff; transition: all 0.3s;
         }
         .form-side .form-control::placeholder { color: rgba(255,255,255,0.3); }
@@ -119,7 +184,9 @@
 
         .form-options {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 24px; font-size: 0.88rem;
+            margin-top: 0;
+            margin-bottom: 14px;
+            font-size: 0.88rem;
         }
         .form-options .form-check-label { color: rgba(255,255,255,0.6); }
         .form-options .form-check-input {
@@ -131,19 +198,27 @@
 
         .btn-login {
             background: linear-gradient(135deg, #2196F3, #1976D2);
-            border: none; color: #fff; padding: 13px 48px; border-radius: 10px;
+            border: none; color: #fff; padding: 13px 14px; border-radius: 10px;
+            width: 100%;
             font-size: 1.05rem; font-weight: 600; cursor: pointer;
             transition: all 0.3s; box-shadow: 0 4px 20px rgba(33,150,243,0.3);
         }
         .btn-login:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(33,150,243,0.45); color: #fff; }
         .btn-login:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        .btn-wrapper { text-align: center; }
+        .btn-wrapper { text-align: center; width: 100%; margin-top: 2px; }
 
-        .form-footer { text-align: center; margin-top: 22px; font-size: 0.93rem; color: rgba(255,255,255,0.5); }
+        .form-footer {
+            text-align: center;
+            margin-top: 14px;
+            padding-top: 10px;
+            border-top: 1px solid #ece6f7;
+            font-size: 0.93rem;
+            color: rgba(255,255,255,0.5);
+        }
         .form-footer a { color: #60a5fa; text-decoration: none; font-weight: 600; }
         .form-footer a:hover { text-decoration: underline; color: #93c5fd; }
 
-        .field-error { color: #f87171; font-size: 0.78rem; margin-top: 3px; min-height: 18px; }
+        .field-error { color: #f87171; font-size: 0.78rem; margin-top: 2px; min-height: 14px; }
 
         /* ── Toast ── */
         .toast-container-custom { position: fixed; top: 70px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
@@ -162,10 +237,148 @@
         @keyframes toastIn { from { opacity: 0; transform: translateX(40px) scale(0.9); } to { opacity: 1; transform: translateX(0) scale(1); } }
         @keyframes toastOut { to { opacity: 0; transform: translateX(40px) scale(0.9); } }
 
-        @media (max-width: 768px) {
-            .login-wrapper { flex-direction: column; gap: 30px; }
-            .logo-side img { max-width: 220px; }
-            .form-side { max-width: 100%; padding: 30px 24px; }
+        @media (max-width: 900px) {
+            .login-shell { grid-template-columns: 1fr; }
+            .login-panel-left { padding: 26px 20px; }
+            .login-panel-logo { width: min(240px, 80%); }
+            .form-side { max-width: 100%; padding: 28px 24px 24px; }
+            .form-options { gap: 10px; align-items: flex-start; flex-direction: column; }
+        }
+
+        /* Professional Light Theme Override */
+        :root {
+            --surface-bg: #f7f6fb;
+            --surface-card: #ffffff;
+            --surface-border: #e6e1f3;
+            --text-primary: #1f1b2d;
+            --text-muted: #6a637d;
+            --brand-primary: #2b124c;
+            --brand-primary-hover: #1f0d37;
+            --brand-soft: #efe9fb;
+            --brand-yellow: #edb42f;
+            --brand-yellow-hover: #d9a224;
+        }
+
+        body {
+            background: radial-gradient(circle at top right, #f6f1ff 0%, rgba(246, 241, 255, 0) 45%), #f7f6fb;
+            color: var(--text-primary);
+        }
+        .orb-container { display: none; }
+
+        .navbar {
+            background: var(--brand-primary);
+            border-bottom: 1px solid #3b1a63;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            box-shadow: 0 10px 24px rgba(43, 18, 76, 0.28);
+        }
+        .navbar-brand,
+        .nav-link,
+        .nav-link:hover,
+        .nav-link.active { color: #ffffff !important; }
+        .dropdown-menu {
+            background: #ffffff;
+            border: 1px solid var(--surface-border);
+        }
+        .dropdown-item { color: var(--text-primary); }
+        .dropdown-item:hover {
+            background: #f8f4ff;
+            color: var(--brand-primary);
+        }
+
+        .form-side {
+            background: #ffffff;
+            border: 0;
+            box-shadow: none;
+        }
+        .form-side h3 {
+            background: none;
+            -webkit-text-fill-color: var(--text-primary);
+            color: var(--text-primary);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .form-side .subtitle { color: #5b5470; font-size: 0.92rem; }
+        .form-side .form-label,
+        .form-options .form-check-label,
+        .form-footer { color: #4f4764; }
+        .form-side .form-control {
+            background: #f9f7ff;
+            border: none;
+            border-radius: 14px;
+            color: var(--text-primary);
+            box-shadow: inset 6px 6px 14px rgba(186, 170, 214, 0.25), inset -6px -6px 14px rgba(255, 255, 255, 0.9);
+            padding: 12px 14px;
+            min-height: 50px;
+        }
+        .form-side .form-label {
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .form-side .form-control::placeholder { color: #7d7395; }
+        .form-side .form-control:focus {
+            background: #f4f0ff;
+            box-shadow: inset 4px 4px 10px rgba(186, 170, 214, 0.32), inset -4px -4px 10px rgba(255, 255, 255, 0.95), 0 0 0 3px rgba(94, 58, 161, 0.12);
+            color: var(--text-primary);
+        }
+        .input-group .btn-toggle-pw {
+            background: #f9f7ff;
+            border: none;
+            color: #7d7395;
+            box-shadow: inset -6px -6px 14px rgba(255, 255, 255, 0.9), inset 6px 6px 14px rgba(186, 170, 214, 0.25);
+            border-radius: 0 14px 14px 0;
+        }
+        .input-group .btn-toggle-pw:hover {
+            color: var(--brand-primary);
+            background: #f4f0ff;
+        }
+        .form-options .form-check-input:checked {
+            background-color: var(--brand-primary);
+            border-color: var(--brand-primary);
+        }
+        .form-options a,
+        .form-footer a {
+            color: var(--brand-primary);
+        }
+        .form-options a:hover,
+        .form-footer a:hover {
+            color: var(--brand-primary-hover);
+        }
+
+        .login-section {
+            padding: 36px 20px;
+        }
+
+        .btn-login {
+            background: var(--brand-yellow);
+            border: 1px solid var(--brand-yellow);
+            color: #2b124c;
+            box-shadow: 10px 10px 20px rgba(186, 170, 214, 0.32), -10px -10px 20px rgba(255, 255, 255, 0.95);
+            border-radius: 999px;
+            letter-spacing: 0.02em;
+        }
+        .btn-login:hover {
+            background: var(--brand-yellow-hover);
+            border-color: var(--brand-yellow-hover);
+            box-shadow: 8px 8px 18px rgba(186, 170, 214, 0.35), -8px -8px 18px rgba(255, 255, 255, 0.95);
+            color: #1f0d37;
+            transform: translateY(-1px);
+        }
+
+        .field-error { color: #b3261e; }
+        .toast-notif {
+            background: #ffffff;
+            border: 1px solid var(--surface-border);
+            color: var(--text-primary);
+            box-shadow: 0 10px 24px rgba(44, 31, 79, 0.12);
+        }
+        .toast-notif.success { border-left: 4px solid #2e7d32; }
+        .toast-notif.error { border-left: 4px solid #c62828; }
+        .toast-notif.warning {
+            border-left: 4px solid var(--brand-yellow);
+            color: var(--text-primary);
         }
     </style>
 </head>
@@ -177,7 +390,13 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html"><i class="bi bi-mortarboard-fill me-2"></i>CCS Sit-in Monitoring</a>
+                <a class="navbar-brand" href="index.html">
+                    <span class="brand-logos">
+                        <img src="assets/ucmn_logo.jpg" alt="UCMN Logo">
+                        <img src="assets/ccs-logo.png" alt="CCS Logo">
+                    </span>
+                    CCS Sit-in Monitoring
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
@@ -201,26 +420,28 @@
 
         <!-- Login Section -->
         <div class="login-section">
-            <div class="login-wrapper">
-                <div class="logo-side">
-                    <img src="assets/ccs-logo.png" alt="College of Computer Studies Logo">
+            <div class="login-shell">
+                <div class="login-panel-left">
+                    <img src="assets/ccs-logo.png" alt="College of Computer Studies Logo" class="login-panel-logo">
                 </div>
                 <div class="form-side">
-                    <h3>Welcome Back</h3>
-                    <p class="subtitle">Sign in to your account</p>
+                    <div class="form-header">
+                        <h3>Welcome Back</h3>
+                        <p class="subtitle">Sign in to your account</p>
+                    </div>
 
                     <form id="loginForm" novalidate>
                         <div class="mb-3">
-                            <label class="form-label" for="idNumber"><i class="bi bi-person-badge me-1"></i>ID Number</label>
+                            <label class="form-label" for="idNumber"><i class="ri-id-card-line me-1"></i>ID Number</label>
                             <input type="text" class="form-control" id="idNumber" placeholder="Enter a valid ID number" required>
                             <div class="field-error" id="err-idNumber"></div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="password"><i class="bi bi-lock me-1"></i>Password</label>
+                            <label class="form-label" for="password"><i class="ri-lock-line me-1"></i>Password</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="password" placeholder="Enter password" required>
                                 <button class="btn btn-toggle-pw" type="button" id="togglePassword" aria-label="Toggle password visibility">
-                                    <i class="bi bi-eye"></i>
+                                    <i class="ri-eye-line"></i>
                                 </button>
                             </div>
                             <div class="field-error" id="err-password"></div>
@@ -235,9 +456,7 @@
                         </div>
 
                         <div class="btn-wrapper">
-                            <button type="submit" class="btn btn-login" id="loginBtn">
-                                <i class="bi bi-box-arrow-in-right me-1"></i> Login
-                            </button>
+                            <button type="submit" class="btn btn-login" id="loginBtn">Login</button>
                         </div>
                     </form>
 
@@ -256,10 +475,10 @@
         /* ── Toast ── */
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
-            const icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', warning: 'bi-exclamation-triangle-fill' };
+            const icons = { success: 'ri-checkbox-circle-fill', error: 'ri-close-circle-fill', warning: 'ri-error-warning-fill' };
             const toast = document.createElement('div');
             toast.className = `toast-notif ${type}`;
-            toast.innerHTML = `<i class="bi ${icons[type] || icons.success} toast-icon"></i><span>${message}</span>`;
+            toast.innerHTML = `<i class="${icons[type] || icons.success} toast-icon"></i><span>${message}</span>`;
             container.appendChild(toast);
             setTimeout(() => { toast.style.animation = 'toastOut 0.35s forwards'; setTimeout(() => toast.remove(), 350); }, 3500);
         }
@@ -268,8 +487,8 @@
         document.getElementById('togglePassword').addEventListener('click', function () {
             const pw = document.getElementById('password');
             const icon = this.querySelector('i');
-            if (pw.type === 'password') { pw.type = 'text'; icon.classList.replace('bi-eye', 'bi-eye-slash'); }
-            else { pw.type = 'password'; icon.classList.replace('bi-eye-slash', 'bi-eye'); }
+            if (pw.type === 'password') { pw.type = 'text'; icon.classList.replace('ri-eye-line', 'ri-eye-off-line'); }
+            else { pw.type = 'password'; icon.classList.replace('ri-eye-off-line', 'ri-eye-line'); }
         });
 
         /* ── Remember Me ── */
@@ -353,7 +572,7 @@
                 showToast('Network error. Please try again.', 'error');
             } finally {
                 loginBtn.disabled = false;
-                loginBtn.innerHTML = '<i class="bi bi-box-arrow-in-right me-1"></i> Login';
+                loginBtn.innerHTML = 'Login';
             }
         });
 

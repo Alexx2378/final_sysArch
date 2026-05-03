@@ -97,6 +97,20 @@ try {
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         )");
     }
+
+    $tableCheck = $pdo->prepare("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = :schema AND table_name = 'lab_rules'");
+    $tableCheck->execute([':schema' => $dbname]);
+    if ((int)$tableCheck->fetchColumn() === 0) {
+        $pdo->exec("CREATE TABLE lab_rules (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            title VARCHAR(150) NOT NULL,
+            body TEXT NOT NULL,
+            status ENUM('active', 'archived') NOT NULL DEFAULT 'active',
+            posted_by VARCHAR(100) NOT NULL DEFAULT 'CCS Admin',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )");
+    }
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Database connection failed: ' . $e->getMessage()]);

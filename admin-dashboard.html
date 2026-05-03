@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - CCS Sit-in Monitoring System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
         :root {
+            --font-body: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+            --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
             --bg-0: #081325;
             --bg-1: #0a1d34;
             --bg-2: #0f2b46;
@@ -26,13 +29,25 @@
         body {
             margin: 0;
             min-height: 100vh;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: var(--font-body);
             background:
                 radial-gradient(circle at top left, rgba(33, 150, 243, 0.15), transparent 32%),
                 radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.16), transparent 30%),
                 linear-gradient(135deg, var(--bg-0) 0%, var(--bg-1) 42%, var(--bg-2) 100%);
             color: var(--text);
             overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6,
+        .navbar-brand,
+        .hero-title,
+        .section-title {
+            font-family: var(--font-display);
+        }
+
+        i[class^="ri-"] {
+            font-size: 1.05em;
+            vertical-align: -0.12em;
         }
 
         .orb-container { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
@@ -60,7 +75,29 @@
             -webkit-backdrop-filter: blur(18px);
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
-        .navbar-brand { color: #fff !important; font-size: 1rem; font-weight: 600; }
+        .navbar-brand {
+            color: #fff !important;
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+        .brand-logos {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .brand-logos img {
+            height: 30px;
+            width: auto;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 4px 6px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+            object-fit: contain;
+        }
         .nav-link { color: rgba(255,255,255,0.8) !important; }
         .nav-link:hover, .nav-link.active { color: #fff !important; }
 
@@ -79,8 +116,31 @@
         }
 
         .hero-card { padding: 24px; }
-        .hero-title { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; }
-        .hero-subtitle { color: var(--muted); margin-bottom: 22px; }
+        .hero-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+        .hero-logo-mark {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: #ffffff;
+            padding: 8px;
+            box-shadow: 0 10px 22px rgba(43, 18, 76, 0.18);
+            object-fit: contain;
+        }
+        .hero-title-wrap { display: flex; flex-direction: column; gap: 2px; }
+        .hero-kicker {
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+        }
+        .hero-title { font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 800; margin: 0; }
+        .hero-subtitle { color: var(--muted); margin-bottom: 22px; max-width: 62ch; }
 
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
         .stat-box {
@@ -248,6 +308,237 @@
             .content-grid { grid-template-columns: 1fr; }
             .leaderboard-layout { grid-template-columns: 1fr; }
         }
+
+        /* Professional Light Theme Override */
+        :root {
+            --surface-bg: #f7f6fb;
+            --surface-card: #ffffff;
+            --surface-border: #e6e1f3;
+            --text-primary: #1f1b2d;
+            --text-muted: #6a637d;
+            --brand-primary: #2b124c;
+            --brand-primary-hover: #1f0d37;
+            --brand-soft: #efe9fb;
+            --brand-yellow: #edb42f;
+            --brand-yellow-hover: #d9a224;
+            --panel: #ffffff;
+            --border: #e6e1f3;
+            --text: #1f1b2d;
+            --muted: #6a637d;
+            --accent: #5e3aa1;
+            --accent-2: #7a54bc;
+            --shadow: 0 10px 24px rgba(44, 31, 79, 0.08);
+        }
+
+        body {
+            background: radial-gradient(circle at top right, #f6f1ff 0%, rgba(246, 241, 255, 0) 45%), #f7f6fb;
+            color: var(--text-primary);
+        }
+        .orb-container { display: none; }
+        .navbar {
+            background: var(--brand-primary);
+            border-bottom: 1px solid #3b1a63;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            box-shadow: 0 10px 24px rgba(43, 18, 76, 0.28);
+        }
+        .navbar-brand,
+        .nav-link,
+        .nav-link:hover,
+        .nav-link.active { color: #ffffff !important; }
+
+        .admin-nav .navbar-nav {
+            gap: 8px;
+            align-items: center;
+        }
+        .admin-nav .nav-link {
+            padding: 0.45rem 0.72rem;
+            border-radius: 10px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .admin-nav .nav-link.active,
+        .admin-nav .nav-link:hover {
+            background: rgba(237, 180, 47, 0.2);
+            color: #ffffff !important;
+        }
+        .admin-nav .dropdown-menu {
+            border-radius: 14px;
+            border: 1px solid var(--surface-border);
+            box-shadow: 0 12px 26px rgba(43, 18, 76, 0.16);
+            min-width: 220px;
+            padding: 8px;
+        }
+        .admin-nav .dropdown-item {
+            border-radius: 9px;
+            padding: 0.48rem 0.62rem;
+            color: var(--text-primary);
+            font-size: 0.86rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .admin-nav .dropdown-item.active,
+        .admin-nav .dropdown-item:hover {
+            background: #fff4d6;
+            color: #2b124c;
+        }
+        .admin-nav .nav-logout {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.24);
+        }
+
+        .chart-shell {
+            padding: 14px;
+            border: 1px solid var(--surface-border);
+            border-radius: 14px;
+            background: linear-gradient(180deg, #ffffff 0%, #fcf9ff 100%);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85);
+        }
+        .chart-canvas-wrap {
+            position: relative;
+            width: 100%;
+            height: 280px;
+        }
+        .chart-canvas-wrap.compact {
+            height: 240px;
+        }
+        .chart-caption {
+            margin-top: 10px;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+        .section-title .title-note {
+            margin-left: 8px;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+
+        .glass-card,
+        .content-card,
+        .hero-card {
+            background: #ffffff;
+            border: 1px solid var(--surface-border);
+            box-shadow: var(--shadow);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        .hero-title,
+        .section-title,
+        .announcement-feed-item .announcement-title,
+        .feedback-feed-item .feedback-subject {
+            color: var(--text-primary);
+        }
+        .hero-subtitle,
+        .empty-note,
+        .form-label,
+        .stat-label,
+        .section-title i,
+        .announcement-feed-item .announcement-head,
+        .feedback-feed-item .feedback-head {
+            color: var(--text-muted) !important;
+        }
+        .stat-box {
+            background: #faf8ff;
+            border: 1px solid #e5dcf5;
+        }
+        .stat-number { color: var(--brand-primary); }
+
+        .btn-primary-gradient {
+            background: var(--brand-yellow);
+            border: 1px solid var(--brand-yellow);
+            color: #2b124c;
+            box-shadow: 0 8px 18px rgba(237, 180, 47, 0.3);
+        }
+        .btn-primary-gradient:hover {
+            background: var(--brand-yellow-hover);
+            border-color: var(--brand-yellow-hover);
+            color: #1f0d37;
+        }
+        .btn-outline-soft {
+            background: #fff9e8;
+            border: 1px solid #e3ca88;
+            color: #2b124c;
+        }
+        .btn-outline-soft:hover {
+            background: #fdf1cf;
+            border-color: #e0bb5a;
+            color: #1f0d37;
+        }
+
+        .btn-success,
+        .btn.btn-success {
+            background: var(--brand-yellow);
+            border-color: var(--brand-yellow);
+            color: #2b124c;
+        }
+        .btn-success:hover,
+        .btn.btn-success:hover {
+            background: var(--brand-yellow-hover);
+            border-color: var(--brand-yellow-hover);
+            color: #1f0d37;
+        }
+
+        .form-control,
+        .form-select {
+            background: #ffffff;
+            border: 1px solid #d8d0e9;
+            color: var(--text-primary);
+        }
+        .form-control::placeholder { color: #a097b6; }
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #bca8e3;
+            box-shadow: 0 0 0 3px rgba(94, 58, 161, 0.12);
+            color: var(--text-primary);
+            background: #ffffff;
+        }
+        .form-select option { background: #ffffff; color: var(--text-primary); }
+
+        .announcement-feed-item,
+        .feedback-feed-item {
+            background: #ffffff;
+            border: 1px solid var(--surface-border);
+        }
+        .announcement-feed-item .announcement-body,
+        .feedback-feed-item .feedback-body {
+            color: var(--text-primary);
+        }
+
+        .table-dark-surface,
+        .table-dark-surface thead th {
+            --bs-table-bg: #ffffff;
+            --bs-table-color: #1f1b2d;
+            --bs-table-border-color: #e6e1f3;
+            color: #1f1b2d;
+        }
+        .table-dark-surface td,
+        .table-dark-surface th,
+        .text-white,
+        .text-light,
+        .text-white-50,
+        .text-muted {
+            color: #1f1b2d !important;
+        }
+
+        .toast-notif {
+            background: #ffffff;
+            border: 1px solid var(--surface-border);
+            color: var(--text-primary);
+            box-shadow: 0 10px 24px rgba(44, 31, 79, 0.12);
+        }
+        .toast-notif.success { border-left: 4px solid #2e7d32; }
+        .toast-notif.error { border-left: 4px solid #c62828; }
+        .toast-notif.warning {
+            border-left: 4px solid var(--brand-yellow);
+            color: var(--text-primary);
+        }
     </style>
 </head>
 <body>
@@ -258,25 +549,50 @@
     </div>
 
     <div class="page-wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark admin-nav">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html"><i class="bi bi-mortarboard-fill me-2"></i>CCS Sit-in Monitoring</a>
+                <a class="navbar-brand" href="index.html">
+                    <span class="brand-logos me-2">
+                        <img src="assets/ucmn_logo.jpg" alt="UCMN Logo">
+                        <img src="assets/ccs-logo.png" alt="CCS Logo">
+                    </span>
+                    CCS Sit-in Monitoring
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav align-items-lg-center gap-lg-1">
-                        <li class="nav-item"><a class="nav-link active" href="#" data-section="dashboard"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="announcements"><i class="bi bi-megaphone me-1"></i>Announcements</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="feedback"><i class="bi bi-chat-left-text me-1"></i>Feedback</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="search"><i class="bi bi-search me-1"></i>Search</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="sitin-form"><i class="bi bi-ui-checks-grid me-1"></i>Sit-in Form</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="students"><i class="bi bi-people me-1"></i>Student List</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="reservations"><i class="bi bi-inbox me-1"></i>Reservations</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="records"><i class="bi bi-journal-text me-1"></i>Current Sit-in</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="history"><i class="bi bi-clock-history me-1"></i>Session History</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="analytics"><i class="bi bi-graph-up me-1"></i>Analytics</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="reports"><i class="bi bi-file-earmark-text me-1"></i>Reports</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="rewards"><i class="bi bi-trophy me-1"></i>Leaderboard</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" id="logoutLink"><i class="bi bi-box-arrow-right me-1"></i>Logout</a></li>
+                    <ul class="navbar-nav align-items-lg-center">
+                        <li class="nav-item"><a class="nav-link active" href="#" data-section="dashboard"><i class="ri-dashboard-3-line me-1"></i>Dashboard</a></li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="ri-function-line me-1"></i>Operations</a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#" data-section="search"><i class="ri-search-line"></i>Search Students</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="sitin-form"><i class="ri-list-check-2"></i>Sit-in Form</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="students"><i class="ri-group-line"></i>Student List</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="records"><i class="ri-file-text-line"></i>Current Sit-in</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="reservations"><i class="ri-inbox-2-line"></i>Reservations</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="history"><i class="ri-time-line"></i>Session History</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="ri-line-chart-line me-1"></i>Insights</a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#" data-section="analytics"><i class="ri-line-chart-line"></i>Analytics</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="reports"><i class="ri-file-text-line"></i>Reports</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="rewards"><i class="ri-trophy-line"></i>Leaderboard</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="ri-chat-3-line me-1"></i>Community</a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#" data-section="announcements"><i class="ri-megaphone-line"></i>Announcements</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="feedback"><i class="ri-chat-3-line"></i>Feedback</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item"><a class="nav-link nav-logout" href="#" id="logoutLink"><i class="ri-logout-box-r-line me-1"></i>Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -287,8 +603,14 @@
         <main class="dashboard-shell container-fluid">
             <section class="section-panel active" data-panel="dashboard">
                 <div class="glass-card hero-card">
-                    <h1 class="hero-title mb-2">Admin Dashboard</h1>
-                    <p class="hero-subtitle">Monitor student registration, current sit-in sessions, and reward points earned from completed work.</p>
+                    <div class="hero-header">
+                        <img src="assets/ccs-logo.png" alt="CCS Logo" class="hero-logo-mark">
+                        <div class="hero-title-wrap">
+                            <span class="hero-kicker">College of Computing Studies</span>
+                            <h1 class="hero-title">Admin Command Center</h1>
+                        </div>
+                    </div>
+                    <p class="hero-subtitle">Track student registrations, live sit-in activity, reservations, and reward progress from a single organized view.</p>
                     <div class="stats-grid">
                         <div class="stat-box">
                             <div class="stat-number" id="registeredCount">0</div>
@@ -315,14 +637,19 @@
 
                 <div class="content-grid">
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="bi bi-pie-chart"></i>Language Usage</div>
-                        <canvas id="languagePieChart" height="230"></canvas>
+                        <div class="section-title"><i class="ri-pie-chart-line"></i>Language Usage <span class="title-note">Most used lab purposes</span></div>
+                        <div class="chart-shell">
+                            <div class="chart-canvas-wrap compact">
+                                <canvas id="languagePieChart"></canvas>
+                            </div>
+                            <div class="chart-caption">Distribution is generated from completed and active sit-in sessions.</div>
+                        </div>
                     </div>
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="bi bi-lightning-charge"></i>Quick Actions</div>
+                        <div class="section-title"><i class="ri-flashlight-line"></i>Quick Actions</div>
                         <div class="d-flex flex-wrap gap-2 mb-3">
-                            <button class="btn btn-primary-gradient" data-section-jump="search"><i class="bi bi-search me-1"></i>Search Student</button>
-                            <button class="btn btn-outline-soft" data-section-jump="sitin-form"><i class="bi bi-ui-checks-grid me-1"></i>Open Sit-in Form</button>
+                            <button class="btn btn-primary-gradient" data-section-jump="search"><i class="ri-search-line me-1"></i>Search Student</button>
+                            <button class="btn btn-outline-soft" data-section-jump="sitin-form"><i class="ri-list-check-2 me-1"></i>Open Sit-in Form</button>
                         </div>
                         <div class="empty-note">Use Search to find registered students, then open the sit-in form and submit a session.</div>
                     </div>
@@ -332,7 +659,7 @@
             <section class="section-panel" data-panel="announcements">
                 <div class="content-grid">
                     <div class="glass-card content-card">
-                        <div class="section-title mb-3"><i class="bi bi-megaphone"></i>Post Announcement</div>
+                        <div class="section-title mb-3"><i class="ri-megaphone-line"></i>Post Announcement</div>
                         <form id="announcementForm" class="row g-3" novalidate>
                             <div class="col-12">
                                 <label class="form-label" for="announcementTitle">Title</label>
@@ -351,18 +678,47 @@
                                 <textarea id="announcementBody" class="form-control" rows="6" placeholder="Write the announcement message here" required></textarea>
                             </div>
                             <div class="col-12 d-flex flex-wrap gap-2">
-                                <button type="submit" class="btn btn-primary-gradient"><i class="bi bi-send me-1"></i>Post Announcement</button>
-                                <button type="button" id="refreshAnnouncementsBtn" class="btn btn-outline-soft"><i class="bi bi-arrow-clockwise me-1"></i>Refresh List</button>
+                                <button type="submit" class="btn btn-primary-gradient"><i class="ri-send-plane-2-line me-1"></i>Post Announcement</button>
+                                <button type="button" id="refreshAnnouncementsBtn" class="btn btn-outline-soft"><i class="ri-refresh-line me-1"></i>Refresh List</button>
                             </div>
                         </form>
                     </div>
 
                     <div class="glass-card content-card">
                         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                            <div class="section-title mb-0"><i class="bi bi-list-ul"></i>Recent Announcements</div>
+                            <div class="section-title mb-0"><i class="ri-list-unordered"></i>Recent Announcements</div>
                         </div>
                         <div class="announcement-feed" id="adminAnnouncementList">
                             <div class="empty-note">Loading announcements...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid mt-3">
+                    <div class="glass-card content-card">
+                        <div class="section-title mb-3"><i class="ri-file-text-line"></i>Post Lab Rules</div>
+                        <form id="ruleForm" class="row g-3" novalidate>
+                            <div class="col-12">
+                                <label class="form-label" for="ruleTitle">Title</label>
+                                <input type="text" id="ruleTitle" class="form-control" placeholder="Enter rule title" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="ruleBody">Rule Details</label>
+                                <textarea id="ruleBody" class="form-control" rows="5" placeholder="Write the lab rule or regulation here" required></textarea>
+                            </div>
+                            <div class="col-12 d-flex flex-wrap gap-2">
+                                <button type="submit" class="btn btn-primary-gradient"><i class="ri-send-plane-2-line me-1"></i>Post Rule</button>
+                                <button type="button" id="refreshRulesBtn" class="btn btn-outline-soft"><i class="ri-refresh-line me-1"></i>Refresh Rules</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="glass-card content-card">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                            <div class="section-title mb-0"><i class="ri-file-list-3-line"></i>Active Rules</div>
+                        </div>
+                        <div class="announcement-feed" id="adminRuleList">
+                            <div class="empty-note">Loading rules...</div>
                         </div>
                     </div>
                 </div>
@@ -371,14 +727,14 @@
             <section class="section-panel" data-panel="feedback">
                 <div class="content-grid">
                     <div class="glass-card content-card">
-                        <div class="section-title mb-3"><i class="bi bi-chat-left-text"></i>Feedback Inbox</div>
+                        <div class="section-title mb-3"><i class="ri-chat-3-line"></i>Feedback Inbox</div>
                         <div class="feedback-feed" id="adminFeedbackList">
                             <div class="empty-note">Loading feedback...</div>
                         </div>
                     </div>
 
                     <div class="glass-card content-card">
-                        <div class="section-title mb-3"><i class="bi bi-check2-square"></i>Review Notes</div>
+                        <div class="section-title mb-3"><i class="ri-checkbox-line"></i>Review Notes</div>
                         <div class="empty-note mb-3">Use the reviewed button to mark items you have already handled.</div>
                         <div class="empty-note">New feedback entries appear here in reverse chronological order.</div>
                     </div>
@@ -387,13 +743,13 @@
 
             <section class="section-panel" data-panel="search">
                 <div class="glass-card content-card">
-                    <div class="section-title"><i class="bi bi-search"></i>Search Registered Students</div>
+                    <div class="section-title"><i class="ri-search-line"></i>Search Registered Students</div>
                     <div class="row g-2 mb-3">
                         <div class="col-md-8">
                             <input type="text" id="searchInput" class="form-control" placeholder="Search ID number, name, email, or course...">
                         </div>
                         <div class="col-md-4 d-grid">
-                            <button id="searchBtn" class="btn btn-primary-gradient"><i class="bi bi-search me-1"></i>Search</button>
+                            <button id="searchBtn" class="btn btn-primary-gradient"><i class="ri-search-line me-1"></i>Search</button>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -418,7 +774,7 @@
 
             <section class="section-panel" data-panel="sitin-form">
                 <div class="glass-card content-card">
-                    <div class="section-title"><i class="bi bi-ui-checks-grid"></i>Sit-in Form</div>
+                    <div class="section-title"><i class="ri-list-check-2"></i>Sit-in Form</div>
                     <form id="sitinForm" class="row g-3" novalidate>
                         <div class="col-md-4">
                             <label class="form-label" for="formIdNumber">ID Number</label>
@@ -506,8 +862,8 @@
                             <input type="text" id="formPurposeCustom" class="form-control" placeholder="e.g. Data Structures Lab">
                         </div>
                         <div class="col-12 d-flex flex-wrap gap-2">
-                            <button type="submit" class="btn btn-primary-gradient"><i class="bi bi-check2-circle me-1"></i>Save Sit-in</button>
-                            <button type="button" id="clearFormBtn" class="btn btn-outline-soft"><i class="bi bi-arrow-counterclockwise me-1"></i>Clear</button>
+                            <button type="submit" class="btn btn-primary-gradient"><i class="ri-checkbox-circle-line me-1"></i>Save Sit-in</button>
+                            <button type="button" id="clearFormBtn" class="btn btn-outline-soft"><i class="ri-restart-line me-1"></i>Clear</button>
                         </div>
                     </form>
                 </div>
@@ -515,7 +871,7 @@
 
             <section class="section-panel" data-panel="students">
                 <div class="glass-card content-card">
-                    <div class="section-title"><i class="bi bi-people"></i>Students Information</div>
+                    <div class="section-title"><i class="ri-group-line"></i>Students Information</div>
                     <div class="table-responsive">
                         <table class="table table-dark-surface align-middle">
                             <thead>
@@ -540,8 +896,8 @@
             <section class="section-panel" data-panel="records">
                 <div class="glass-card content-card">
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
-                        <div class="section-title mb-0"><i class="bi bi-journal-text"></i>Current Sit-in Records</div>
-                        <button id="refreshRecordsBtn" class="btn btn-outline-soft btn-sm"><i class="bi bi-arrow-clockwise me-1"></i>Refresh</button>
+                        <div class="section-title mb-0"><i class="ri-file-text-line"></i>Current Sit-in Records</div>
+                        <button id="refreshRecordsBtn" class="btn btn-outline-soft btn-sm"><i class="ri-refresh-line me-1"></i>Refresh</button>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-dark-surface align-middle">
@@ -569,8 +925,8 @@
             <section class="section-panel" data-panel="reservations">
                 <div class="glass-card content-card">
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
-                        <div class="section-title mb-0"><i class="bi bi-inbox"></i>Reservation Inbox</div>
-                        <button id="refreshReservationsBtn" class="btn btn-outline-soft btn-sm"><i class="bi bi-arrow-clockwise me-1"></i>Refresh</button>
+                        <div class="section-title mb-0"><i class="ri-inbox-2-line"></i>Reservation Inbox</div>
+                        <button id="refreshReservationsBtn" class="btn btn-outline-soft btn-sm"><i class="ri-refresh-line me-1"></i>Refresh</button>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-dark-surface align-middle">
@@ -597,8 +953,8 @@
             <section class="section-panel" data-panel="history">
                 <div class="glass-card content-card">
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
-                        <div class="section-title mb-0"><i class="bi bi-clock-history"></i>Session History</div>
-                        <button id="refreshHistoryBtn" class="btn btn-outline-soft btn-sm"><i class="bi bi-arrow-clockwise me-1"></i>Refresh</button>
+                        <div class="section-title mb-0"><i class="ri-time-line"></i>Session History</div>
+                        <button id="refreshHistoryBtn" class="btn btn-outline-soft btn-sm"><i class="ri-refresh-line me-1"></i>Refresh</button>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-dark-surface align-middle">
@@ -625,18 +981,28 @@
             <section class="section-panel" data-panel="analytics">
                 <div class="content-grid">
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="bi bi-pie-chart"></i>Reservation Status Analytics</div>
-                        <canvas id="reservationStatusChart" height="240"></canvas>
+                        <div class="section-title"><i class="ri-pie-chart-line"></i>Reservation Status <span class="title-note">Pending, approved, rejected</span></div>
+                        <div class="chart-shell">
+                            <div class="chart-canvas-wrap">
+                                <canvas id="reservationStatusChart"></canvas>
+                            </div>
+                            <div class="chart-caption">Track the current flow of reservation requests to quickly spot bottlenecks.</div>
+                        </div>
                     </div>
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="bi bi-bar-chart"></i>Leaderboard Analytics</div>
-                        <canvas id="leaderboardChart" height="240"></canvas>
+                        <div class="section-title"><i class="ri-bar-chart-2-line"></i>Leaderboard Analytics <span class="title-note">Top weighted performance</span></div>
+                        <div class="chart-shell">
+                            <div class="chart-canvas-wrap">
+                                <canvas id="leaderboardChart"></canvas>
+                            </div>
+                            <div class="chart-caption">Scores follow the weighted model already implemented in your system.</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="content-grid mt-4">
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="bi bi-activity"></i>Dashboard Highlights</div>
+                        <div class="section-title"><i class="ri-pulse-line"></i>Dashboard Highlights</div>
                         <div class="stats-grid">
                             <div class="stat-box"><div class="stat-number" id="analyticsStudents">0</div><div class="stat-label">Students</div></div>
                             <div class="stat-box"><div class="stat-number" id="analyticsActive">0</div><div class="stat-label">Active Sessions</div></div>
@@ -645,7 +1011,7 @@
                         </div>
                     </div>
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="bi bi-lightbulb"></i>Analytics Notes</div>
+                        <div class="section-title"><i class="ri-lightbulb-line"></i>Analytics Notes</div>
                         <ul class="rules-list ps-3 mb-0">
                             <li>Reservation status is grouped from the live reservation queue.</li>
                             <li>Leaderboard ranking reflects the 50/30/20 weighting already used by the system.</li>
@@ -658,17 +1024,17 @@
             <section class="section-panel" data-panel="reports">
                 <div class="content-grid">
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="bi bi-file-earmark-arrow-down"></i>Generate Reports</div>
+                        <div class="section-title"><i class="ri-file-download-line"></i>Generate Reports</div>
                         <div class="empty-note mb-3">Export the current dashboard data as CSV files.</div>
                         <div class="d-grid gap-2">
-                            <button class="btn btn-primary-gradient" id="downloadStudentsReportBtn"><i class="bi bi-people me-1"></i>Download Student Report</button>
-                            <button class="btn btn-outline-soft" id="downloadReservationsReportBtn"><i class="bi bi-inbox me-1"></i>Download Reservation Report</button>
-                            <button class="btn btn-outline-soft" id="downloadHistoryReportBtn"><i class="bi bi-clock-history me-1"></i>Download Session History Report</button>
-                            <button class="btn btn-outline-soft" id="downloadLeaderboardReportBtn"><i class="bi bi-trophy me-1"></i>Download Leaderboard Report</button>
+                            <button class="btn btn-primary-gradient" id="downloadStudentsReportBtn"><i class="ri-group-line me-1"></i>Download Student Report</button>
+                            <button class="btn btn-outline-soft" id="downloadReservationsReportBtn"><i class="ri-inbox-2-line me-1"></i>Download Reservation Report</button>
+                            <button class="btn btn-outline-soft" id="downloadHistoryReportBtn"><i class="ri-time-line me-1"></i>Download Session History Report</button>
+                            <button class="btn btn-outline-soft" id="downloadLeaderboardReportBtn"><i class="ri-trophy-line me-1"></i>Download Leaderboard Report</button>
                         </div>
                     </div>
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="bi bi-journal-check"></i>Report Notes</div>
+                        <div class="section-title"><i class="ri-file-check-line"></i>Report Notes</div>
                         <ul class="rules-list ps-3 mb-0">
                             <li>Reports use the data already loaded in the admin dashboard.</li>
                             <li>CSV exports can be opened directly in Excel or Google Sheets.</li>
@@ -682,7 +1048,7 @@
                 <div class="leaderboard-layout">
                     <div class="leaderboard-column">
                         <div class="glass-card content-card">
-                            <div class="section-title"><i class="bi bi-trophy"></i>Leaderboard</div>
+                            <div class="section-title"><i class="ri-trophy-line"></i>Leaderboard</div>
                             <div class="empty-note mb-3">Ranking uses 50% earned points, 30% total sit-in hours, and 20% task completion.</div>
                             <div class="table-responsive">
                                 <table class="table table-dark-surface align-middle">
@@ -704,7 +1070,7 @@
                         </div>
 
                         <div class="glass-card content-card">
-                            <div class="section-title"><i class="bi bi-gift"></i>Award Reward Points</div>
+                            <div class="section-title"><i class="ri-gift-line"></i>Award Reward Points</div>
                             <form id="rewardForm" class="row g-3" novalidate>
                                 <div class="col-12">
                                     <label class="form-label" for="rewardIdNumber">ID Number</label>
@@ -719,8 +1085,8 @@
                                     <textarea id="rewardDescription" class="form-control" rows="4" placeholder="Reason for awarding points" required></textarea>
                                 </div>
                                 <div class="col-12 d-flex flex-wrap gap-2">
-                                    <button type="submit" class="btn btn-primary-gradient"><i class="bi bi-check2-circle me-1"></i>Award Points</button>
-                                    <button type="button" class="btn btn-outline-soft" id="clearRewardFormBtn"><i class="bi bi-arrow-counterclockwise me-1"></i>Clear</button>
+                                    <button type="submit" class="btn btn-primary-gradient"><i class="ri-checkbox-circle-line me-1"></i>Award Points</button>
+                                    <button type="button" class="btn btn-outline-soft" id="clearRewardFormBtn"><i class="ri-restart-line me-1"></i>Clear</button>
                                 </div>
                             </form>
                         </div>
@@ -728,7 +1094,7 @@
 
                     <div class="leaderboard-column">
                         <div class="glass-card content-card">
-                            <div class="section-title"><i class="bi bi-lightbulb"></i>Scoring Breakdown</div>
+                            <div class="section-title"><i class="ri-lightbulb-line"></i>Scoring Breakdown</div>
                             <div class="small-note mb-3">This matches the percentages from the sketch.</div>
                             <div class="d-grid gap-3">
                                 <div>
@@ -747,7 +1113,7 @@
                         </div>
 
                         <div class="glass-card content-card">
-                            <div class="section-title"><i class="bi bi-bar-chart-fill"></i>Leaderboard Bar Graph</div>
+                            <div class="section-title"><i class="ri-bar-chart-2-fill"></i>Leaderboard Bar Graph</div>
                             <div class="empty-note mb-3">Different colors show points, hours, and tasks contributions for the top five students.</div>
                             <div style="height: 320px;">
                                 <canvas id="leaderboardSectionChart"></canvas>
@@ -757,7 +1123,7 @@
                 </div>
 
                 <div class="glass-card content-card mt-4">
-                    <div class="section-title"><i class="bi bi-clock-history"></i>Reward History</div>
+                    <div class="section-title"><i class="ri-time-line"></i>Reward History</div>
                     <div class="table-responsive">
                         <table class="table table-dark-surface align-middle">
                             <thead>
@@ -790,10 +1156,28 @@
         let studentCache = [];
         let reservationCache = [];
         let announcementCache = [];
+        let ruleCache = [];
         let feedbackCache = [];
         let adminHistoryCache = [];
         let rewardHistoryCache = [];
         let adminLeaderboardCache = [];
+
+        function uiColor(variableName, fallback) {
+            const value = getComputedStyle(document.documentElement).getPropertyValue(variableName).trim();
+            return value || fallback;
+        }
+
+        function getChartTheme() {
+            return {
+                text: uiColor('--text-primary', '#1f1b2d'),
+                muted: uiColor('--text-muted', '#6a637d'),
+                border: uiColor('--surface-border', '#e6e1f3'),
+                brand: uiColor('--brand-primary', '#2b124c'),
+                brandSoft: uiColor('--brand-soft', '#efe9fb'),
+                yellow: uiColor('--brand-yellow', '#edb42f'),
+                yellowHover: uiColor('--brand-yellow-hover', '#d9a224')
+            };
+        }
 
         const userRaw = localStorage.getItem(USER_KEY);
         if (!userRaw) {
@@ -806,10 +1190,10 @@
 
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
-            const icons = { success: 'bi-check-circle-fill', error: 'bi-x-circle-fill', warning: 'bi-exclamation-triangle-fill' };
+            const icons = { success: 'ri-checkbox-circle-fill', error: 'ri-close-circle-fill', warning: 'ri-error-warning-fill' };
             const toast = document.createElement('div');
             toast.className = `toast-notif ${type}`;
-            toast.innerHTML = `<i class="bi ${icons[type] || icons.success}"></i><span>${message}</span>`;
+            toast.innerHTML = `<i class="${icons[type] || icons.success}"></i><span>${message}</span>`;
             container.appendChild(toast);
             setTimeout(() => {
                 toast.style.animation = 'toastOut 0.3s forwards';
@@ -846,6 +1230,7 @@
             const values = Object.values(data || {});
             const ctx = document.getElementById('languagePieChart');
             if (!ctx) return;
+            const theme = getChartTheme();
             if (languageChart) languageChart.destroy();
             languageChart = new Chart(ctx, {
                 type: 'pie',
@@ -853,14 +1238,30 @@
                     labels,
                     datasets: [{
                         data: values,
-                        backgroundColor: ['#2196f3', '#57c6ff', '#7c3aed', '#f97316', '#f43f5e', '#fbbf24'],
-                        borderColor: '#0f2b46',
-                        borderWidth: 1
+                        backgroundColor: ['#2b124c', '#5e3aa1', '#7a54bc', '#9b83cf', '#edb42f', '#d9a224'],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
                     }]
                 },
                 options: {
+                    maintainAspectRatio: false,
                     plugins: {
-                        legend: { labels: { color: '#e6edf7' } }
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: theme.text,
+                                usePointStyle: true,
+                                boxWidth: 10,
+                                padding: 14
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#ffffff',
+                            titleColor: theme.text,
+                            bodyColor: theme.text,
+                            borderColor: theme.border,
+                            borderWidth: 1
+                        }
                     }
                 }
             });
@@ -882,8 +1283,8 @@
                         <td>${student.year_level}</td>
                         <td>${student.email || '-'}</td>
                         <td class="d-flex flex-wrap gap-2">
-                            <button class="btn btn-primary-gradient btn-sm" data-use-student="${student.id}"><i class="bi bi-plus-circle me-1"></i> Sit-in</button>
-                            <button class="btn btn-outline-soft btn-sm" data-reset-sessions="${student.id}" data-id-number="${student.id_number}"><i class="bi bi-arrow-counterclockwise me-1"></i>Reset</button>
+                            <button class="btn btn-primary-gradient btn-sm" data-use-student="${student.id}"><i class="ri-add-circle-line me-1"></i> Sit-in</button>
+                            <button class="btn btn-outline-soft btn-sm" data-reset-sessions="${student.id}" data-id-number="${student.id_number}"><i class="ri-restart-line me-1"></i>Reset</button>
                         </td>
                     </tr>
                 `;
@@ -907,8 +1308,8 @@
                         <td>${student.email || '-'}</td>
                         <td>${student.address || '-'}</td>
                         <td class="d-flex flex-wrap gap-2">
-                            <button class="btn btn-outline-soft btn-sm" data-use-student="${student.id}"><i class="bi bi-ui-checks-grid me-1"></i>Sit-in</button>
-                            <button class="btn btn-outline-soft btn-sm" data-reset-sessions="${student.id}" data-id-number="${student.id_number}"><i class="bi bi-arrow-counterclockwise me-1"></i>Reset</button>
+                            <button class="btn btn-outline-soft btn-sm" data-use-student="${student.id}"><i class="ri-list-check-2 me-1"></i>Sit-in</button>
+                            <button class="btn btn-outline-soft btn-sm" data-reset-sessions="${student.id}" data-id-number="${student.id_number}"><i class="ri-restart-line me-1"></i>Reset</button>
                         </td>
                     </tr>
                 `;
@@ -931,7 +1332,7 @@
                     <td>${record.elapsed_time || '-'}</td>
                     <td>${record.remaining_sessions}</td>
                     <td>${new Date(record.time_in).toLocaleString()}</td>
-                    <td><button class="btn btn-danger btn-sm" data-end-session="${record.id}"><i class="bi bi-stop-circle me-1"></i>End</button></td>
+                    <td><button class="btn btn-danger btn-sm" data-end-session="${record.id}"><i class="ri-stop-circle-line me-1"></i>End</button></td>
                 </tr>
             `).join('');
         }
@@ -953,8 +1354,8 @@
 
                 const actionButtons = reservation.status === 'pending'
                     ? `
-                        <button class="btn btn-success btn-sm me-1" data-approve-reservation="${reservation.id}"><i class="bi bi-check-lg me-1"></i>Approve</button>
-                        <button class="btn btn-outline-soft btn-sm" data-reject-reservation="${reservation.id}"><i class="bi bi-x-lg me-1"></i>Reject</button>
+                        <button class="btn btn-success btn-sm me-1" data-approve-reservation="${reservation.id}"><i class="ri-check-line me-1"></i>Approve</button>
+                        <button class="btn btn-outline-soft btn-sm" data-reject-reservation="${reservation.id}"><i class="ri-close-line me-1"></i>Reject</button>
                     `
                     : '-';
 
@@ -1007,6 +1408,7 @@
         function renderReservationStatusAnalytics(reservations) {
             const canvas = document.getElementById('reservationStatusChart');
             if (!canvas) return;
+            const theme = getChartTheme();
 
             const statusCounts = { pending: 0, approved: 0, rejected: 0 };
             reservations.forEach(item => {
@@ -1023,14 +1425,32 @@
                     labels: ['Pending', 'Approved', 'Rejected'],
                     datasets: [{
                         data: [statusCounts.pending, statusCounts.approved, statusCounts.rejected],
-                        backgroundColor: ['#fbbf24', '#22c55e', '#ef4444'],
-                        borderColor: '#0f2b46',
-                        borderWidth: 1
+                        backgroundColor: [theme.yellow, '#2b124c', '#7a54bc'],
+                        borderColor: '#ffffff',
+                        borderWidth: 2,
+                        hoverOffset: 6
                     }]
                 },
                 options: {
+                    maintainAspectRatio: false,
+                    cutout: '56%',
                     plugins: {
-                        legend: { labels: { color: '#e6edf7' } }
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: theme.text,
+                                usePointStyle: true,
+                                boxWidth: 10,
+                                padding: 14
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#ffffff',
+                            titleColor: theme.text,
+                            bodyColor: theme.text,
+                            borderColor: theme.border,
+                            borderWidth: 1
+                        }
                     }
                 }
             });
@@ -1039,6 +1459,7 @@
         function renderLeaderboardAnalytics(leaderboard) {
             const canvas = document.getElementById('leaderboardChart');
             if (!canvas) return;
+            const theme = getChartTheme();
 
             const topEntries = (leaderboard || []).slice(0, 5);
             if (leaderboardChart) leaderboardChart.destroy();
@@ -1049,20 +1470,28 @@
                     datasets: [{
                         label: 'Weighted Score',
                         data: topEntries.map(item => Number(item.leaderboard_score || 0)),
-                        backgroundColor: '#57c6ff',
-                        borderColor: '#2196f3',
+                        backgroundColor: theme.yellow,
+                        borderColor: theme.yellowHover,
                         borderWidth: 1,
                         borderRadius: 8
                     }]
                 },
                 options: {
+                    maintainAspectRatio: false,
                     indexAxis: 'y',
                     plugins: {
-                        legend: { labels: { color: '#e6edf7' } }
+                        legend: { labels: { color: theme.text } },
+                        tooltip: {
+                            backgroundColor: '#ffffff',
+                            titleColor: theme.text,
+                            bodyColor: theme.text,
+                            borderColor: theme.border,
+                            borderWidth: 1
+                        }
                     },
                     scales: {
-                        x: { ticks: { color: '#e6edf7' }, grid: { color: 'rgba(255,255,255,0.08)' } },
-                        y: { ticks: { color: '#e6edf7' }, grid: { color: 'rgba(255,255,255,0.08)' } }
+                        x: { ticks: { color: theme.text }, grid: { color: 'rgba(43,18,76,0.10)' } },
+                        y: { ticks: { color: theme.text }, grid: { color: 'rgba(43,18,76,0.08)' } }
                     }
                 }
             });
@@ -1071,6 +1500,7 @@
         function renderLeaderboardSectionChart(leaderboard) {
             const canvas = document.getElementById('leaderboardSectionChart');
             if (!canvas) return;
+            const theme = getChartTheme();
 
             const topEntries = (leaderboard || []).slice(0, 5);
             const labels = topEntries.map(item => [item.first_name, item.last_name].filter(Boolean).join(' ').trim() || item.id_number);
@@ -1094,7 +1524,7 @@
                     const yScale = chart.scales.y;
 
                     ctx.save();
-                    ctx.fillStyle = '#ffffff';
+                    ctx.fillStyle = theme.text;
                     ctx.font = '600 13px Segoe UI, Arial, sans-serif';
                     ctx.textAlign = 'center';
 
@@ -1117,8 +1547,8 @@
                         {
                             label: 'Points (50%)',
                             data: pointsScore,
-                            backgroundColor: 'rgba(87, 198, 255, 0.92)',
-                            borderColor: '#2196f3',
+                            backgroundColor: 'rgba(43, 18, 76, 0.9)',
+                            borderColor: '#2b124c',
                             borderWidth: 1,
                             borderRadius: 8,
                             stack: 'score',
@@ -1128,8 +1558,8 @@
                         {
                             label: 'Duration / Hours (30%)',
                             data: hoursScore,
-                            backgroundColor: 'rgba(167, 139, 250, 0.9)',
-                            borderColor: '#7c3aed',
+                            backgroundColor: 'rgba(122, 84, 188, 0.88)',
+                            borderColor: '#7a54bc',
                             borderWidth: 1,
                             borderRadius: 8,
                             stack: 'score',
@@ -1139,8 +1569,8 @@
                         {
                             label: 'Tasks (20%)',
                             data: tasksScore,
-                            backgroundColor: 'rgba(74, 222, 128, 0.9)',
-                            borderColor: '#16a34a',
+                            backgroundColor: 'rgba(237, 180, 47, 0.92)',
+                            borderColor: '#d9a224',
                             borderWidth: 1,
                             borderRadius: 8,
                             stack: 'score',
@@ -1156,12 +1586,14 @@
                         legend: {
                             display: true,
                             position: 'bottom',
-                            labels: { color: '#e6edf7' }
+                            labels: { color: theme.text }
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(8,19,37,0.96)',
-                            titleColor: '#e6edf7',
-                            bodyColor: '#e6edf7',
+                            backgroundColor: '#ffffff',
+                            titleColor: theme.text,
+                            bodyColor: theme.text,
+                            borderColor: theme.border,
+                            borderWidth: 1,
                             callbacks: {
                                 label: (context) => {
                                     const value = Number(context.raw || 0);
@@ -1178,7 +1610,7 @@
                         x: {
                             stacked: true,
                             ticks: {
-                                color: '#e6edf7',
+                                color: theme.text,
                                 font: { size: 11 },
                                 maxRotation: 0,
                                 minRotation: 0,
@@ -1192,10 +1624,10 @@
                             beginAtZero: true,
                             suggestedMax: totalMax,
                             ticks: {
-                                color: '#e6edf7',
+                                color: theme.text,
                                 callback: (value) => `${value}%`
                             },
-                            grid: { color: 'rgba(255,255,255,0.06)' },
+                            grid: { color: 'rgba(43,18,76,0.10)' },
                             border: { display: false }
                         }
                     }
@@ -1369,6 +1801,31 @@
             }).join('');
         }
 
+        function renderRules(rules) {
+            const container = document.getElementById('adminRuleList');
+            if (!container) return;
+
+            if (!rules.length) {
+                container.innerHTML = '<div class="empty-note">No rules posted yet.</div>';
+                return;
+            }
+
+            container.innerHTML = rules.map(item => {
+                const createdAt = item.created_at ? new Date(item.created_at).toLocaleString() : '-';
+                return `
+                    <div class="announcement-feed-item">
+                        <div class="announcement-head">
+                            <span class="badge text-bg-warning">RULE</span>
+                            <span>${escapeHtml(item.posted_by || 'CCS Admin')}</span>
+                            <span>${escapeHtml(createdAt)}</span>
+                        </div>
+                        <div class="announcement-title">${escapeHtml(item.title || 'Lab Rule')}</div>
+                        <div class="announcement-body">${escapeHtml(item.body || '')}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
         function renderFeedbacks(feedbacks) {
             const container = document.getElementById('adminFeedbackList');
             if (!container) return;
@@ -1392,7 +1849,7 @@
                         </div>
                         <div class="feedback-subject">${escapeHtml(item.subject || 'Feedback')}</div>
                         <div class="feedback-body mb-3">${escapeHtml(item.message || '')}</div>
-                        ${item.status !== 'reviewed' ? `<button class="btn btn-outline-soft btn-sm" data-review-feedback="${item.id}"><i class="bi bi-check2 me-1"></i>Mark Reviewed</button>` : ''}
+                        ${item.status !== 'reviewed' ? `<button class="btn btn-outline-soft btn-sm" data-review-feedback="${item.id}"><i class="ri-check-double-line me-1"></i>Mark Reviewed</button>` : ''}
                     </div>
                 `;
             }).join('');
@@ -1534,6 +1991,20 @@
                 renderAnnouncements(announcementCache);
             } catch (error) {
                 showToast('Network error while loading announcements.', 'error');
+            }
+        }
+
+        async function loadRules() {
+            try {
+                const data = await apiGet('rules');
+                if (!data.success) {
+                    showToast(data.message || 'Unable to load rules.', 'error');
+                    return;
+                }
+                ruleCache = data.rules || [];
+                renderRules(ruleCache);
+            } catch (error) {
+                showToast('Network error while loading rules.', 'error');
             }
         }
 
@@ -1719,6 +2190,32 @@
             }
         });
 
+        document.getElementById('ruleForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const title = document.getElementById('ruleTitle').value.trim();
+            const body = document.getElementById('ruleBody').value.trim();
+
+            if (!title || !body) {
+                showToast('Title and rule details are required.', 'error');
+                return;
+            }
+
+            const data = await apiPost('create_rule', {
+                title,
+                body,
+                posted_by: 'CCS Admin'
+            });
+
+            if (data.success) {
+                showToast('Rule posted successfully.', 'success');
+                this.reset();
+                await loadRules();
+            } else {
+                showToast(data.message || 'Failed to post rule.', 'error');
+            }
+        });
+
         document.getElementById('sitinForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const idNumber = document.getElementById('formIdNumber').value.trim();
@@ -1752,6 +2249,7 @@
         document.getElementById('refreshReservationsBtn').addEventListener('click', loadReservations);
         document.getElementById('refreshHistoryBtn').addEventListener('click', loadDashboard);
         document.getElementById('refreshAnnouncementsBtn').addEventListener('click', loadAnnouncements);
+        document.getElementById('refreshRulesBtn').addEventListener('click', loadRules);
         document.getElementById('refreshFeedbacksBtn')?.addEventListener('click', loadFeedbacks);
 
         setActiveSection('dashboard');
@@ -1759,6 +2257,7 @@
         loadDashboard();
         loadReservations();
         loadAnnouncements();
+        loadRules();
         loadFeedbacks();
     </script>
 </body>

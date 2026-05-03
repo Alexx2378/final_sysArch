@@ -82,6 +82,17 @@ CREATE TABLE IF NOT EXISTS feedback_entries (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- Lab rules table
+CREATE TABLE IF NOT EXISTS lab_rules (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(150) NOT NULL,
+    body TEXT NOT NULL,
+    status ENUM('active', 'archived') NOT NULL DEFAULT 'active',
+    posted_by VARCHAR(100) NOT NULL DEFAULT 'CCS Admin',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 -- Insert default admin account (password: admin123)
 INSERT IGNORE INTO users (id_number, last_name, first_name, course, year_level, email, password_hash, remaining_sessions, reward_points, role)
 VALUES ('00-0000', 'Admin', 'System', 'BSIT', 4, 'admin@ccs.uc.edu.ph',

@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard - CCS Sit-in Monitoring System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
         :root {
+            --font-body: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+            --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
             --bg-0: #081325;
             --bg-1: #0a1d34;
             --bg-2: #0f2b46;
@@ -28,13 +31,26 @@
         body {
             margin: 0;
             min-height: 100vh;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: var(--font-body);
             background:
                 radial-gradient(circle at top left, rgba(33, 150, 243, 0.15), transparent 32%),
                 radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.16), transparent 30%),
                 linear-gradient(135deg, var(--bg-0) 0%, var(--bg-1) 42%, var(--bg-2) 100%);
             color: var(--text);
             overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6,
+        .navbar-brand,
+        .hero-title,
+        .section-title,
+        .profile-name {
+            font-family: var(--font-display);
+        }
+
+        i[class^="ri-"] {
+            font-size: 1.05em;
+            vertical-align: -0.12em;
         }
 
         .orb-container {
@@ -82,6 +98,24 @@
             font-size: 1rem;
             font-weight: 600;
             letter-spacing: 0.2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+        .brand-logos {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .brand-logos img {
+            height: 30px;
+            width: auto;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 4px 6px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+            object-fit: contain;
         }
         .nav-link {
             color: rgba(255,255,255,0.8) !important;
@@ -90,9 +124,48 @@
         }
         .nav-link:hover,
         .nav-link.active { color: #fff !important; }
+        .menu-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px !important;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.16);
+            background: rgba(255,255,255,0.06);
+        }
+        .menu-toggle::after { margin-left: 6px; }
+        .navbar .dropdown-menu {
+            background: rgba(12, 26, 46, 0.98);
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.32);
+            border-radius: 14px;
+            padding: 8px;
+            min-width: 240px;
+        }
+        .navbar .dropdown-item {
+            color: rgba(255,255,255,0.85);
+            border-radius: 10px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .navbar .dropdown-item:hover,
+        .navbar .dropdown-item:focus {
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+        }
+        .navbar .dropdown-item.active {
+            background: rgba(87, 198, 255, 0.2);
+            color: #fff;
+            font-weight: 600;
+        }
+        .navbar .dropdown-divider { border-top: 1px solid rgba(255,255,255,0.12); }
 
         .dashboard-shell {
-            padding: 28px 20px 48px;
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 24px 20px 44px;
         }
 
         .section-panel {
@@ -107,8 +180,8 @@
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.25fr 0.95fr;
-            gap: 22px;
+            grid-template-columns: 1.35fr 0.95fr;
+            gap: 18px;
         }
 
         .glass-card {
@@ -116,13 +189,26 @@
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
             border: 1px solid var(--border);
-            border-radius: 18px;
+            border-radius: 20px;
             box-shadow: var(--shadow);
         }
 
         .hero-card {
-            padding: 28px;
-            min-height: 360px;
+            padding: 26px;
+            min-height: 340px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            right: -120px;
+            top: -120px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(87, 198, 255, 0.2) 0%, rgba(87, 198, 255, 0) 70%);
+            pointer-events: none;
         }
         .hero-badge {
             display: inline-flex;
@@ -135,7 +221,7 @@
             color: #d7ebff;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
         .hero-title {
             font-size: clamp(2rem, 3vw, 3.15rem);
@@ -150,16 +236,34 @@
         }
         .hero-subtitle {
             color: var(--muted);
-            max-width: 62ch;
-            margin-bottom: 24px;
-            font-size: 1rem;
-            line-height: 1.7;
+            max-width: 58ch;
+            margin-bottom: 14px;
+            font-size: 0.98rem;
+            line-height: 1.65;
+        }
+        .home-feature-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .home-feature-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #d7ebff;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.14);
         }
         .hero-actions {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 24px;
+            margin-bottom: 18px;
         }
         .btn-soft,
         .btn-primary-gradient,
@@ -186,13 +290,25 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 12px;
+            gap: 10px;
         }
         .stat-box {
-            padding: 18px 16px;
+            padding: 14px 14px;
             border-radius: 16px;
             background: rgba(255,255,255,0.045);
             border: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--accent), var(--accent-2));
+            opacity: 0.75;
         }
         .stat-number {
             font-size: 1.6rem;
@@ -209,11 +325,11 @@
         }
 
         .profile-summary-card {
-            padding: 24px;
+            padding: 22px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            min-height: 360px;
+            gap: 14px;
+            min-height: 340px;
         }
         .profile-photo {
             width: 138px;
@@ -236,19 +352,19 @@
         }
 
         .content-grid {
-            margin-top: 22px;
+            margin-top: 18px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 22px;
+            gap: 18px;
         }
         .content-card {
-            padding: 22px;
-            min-height: 280px;
+            padding: 20px;
+            min-height: 260px;
         }
         .section-title {
             font-size: 1.05rem;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -266,24 +382,148 @@
             font-size: 0.92rem;
             line-height: 1.7;
         }
+        .feedback-panel-grid {
+            display: grid;
+            grid-template-columns: minmax(300px, 0.95fr) minmax(360px, 1.05fr);
+            gap: 18px;
+            align-items: start;
+        }
+        .feedback-compose-card,
+        .feedback-history-card {
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+            padding: 18px;
+        }
+        .feedback-compose-head,
+        .feedback-history-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .feedback-helper-note {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.62);
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+        #feedbackMessage {
+            min-height: 150px;
+            resize: vertical;
+        }
         .feedback-item,
         .feedback-empty {
             color: rgba(255,255,255,0.82);
-            font-size: 0.94rem;
-            line-height: 1.65;
+            font-size: 0.93rem;
+            line-height: 1.6;
         }
-        .feedback-item + .feedback-item { margin-top: 16px; }
+        .feedback-item {
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+        }
+        .feedback-item + .feedback-item { margin-top: 12px; }
+        .feedback-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
         .feedback-chip {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.8rem;
-            padding: 6px 10px;
+            font-size: 0.78rem;
+            padding: 5px 10px;
             border-radius: 999px;
             color: #d7ebff;
             background: rgba(87, 198, 255, 0.14);
             border: 1px solid rgba(87, 198, 255, 0.2);
+        }
+        .feedback-message {
             margin-bottom: 10px;
+        }
+        .feedback-status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        .feedback-status-pill.new {
+            background: rgba(237, 180, 47, 0.18);
+            border: 1px solid rgba(237, 180, 47, 0.42);
+            color: #f3dfae;
+        }
+        .feedback-status-pill.reviewed {
+            background: rgba(22, 163, 74, 0.16);
+            border: 1px solid rgba(22, 163, 74, 0.38);
+            color: #b9f6ca;
+        }
+        .reservation-panel-grid {
+            display: grid;
+            grid-template-columns: minmax(420px, 1.2fr) minmax(280px, 0.8fr);
+            gap: 18px;
+            align-items: start;
+        }
+        .reservation-form-card,
+        .reservation-notes-card {
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+            padding: 18px;
+        }
+        .reservation-card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .reservation-subtitle {
+            font-size: 0.84rem;
+            color: rgba(255,255,255,0.62);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .reservation-student-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+        .reservation-student-item {
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            padding: 10px 12px;
+        }
+        .reservation-student-item .caption {
+            display: block;
+            font-size: 0.74rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.54);
+            margin-bottom: 4px;
+        }
+        .reservation-student-item .value {
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 600;
+            word-break: break-word;
+        }
+        .reservation-notes-card .rules-list li {
+            margin-bottom: 10px;
+            line-height: 1.55;
+        }
+        .reservation-notes-card .rules-list li:last-child {
+            margin-bottom: 0;
         }
         .announcement-chip {
             display: inline-flex;
@@ -302,16 +542,86 @@
             overflow: auto;
             padding-right: 8px;
         }
+        .scroll-pane::-webkit-scrollbar { width: 8px; }
+        .scroll-pane::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.22);
+            border-radius: 999px;
+        }
+        .scroll-pane::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.06);
+            border-radius: 999px;
+        }
 
         .form-shell {
             display: grid;
-            grid-template-columns: 320px 1fr;
-            gap: 22px;
+            grid-template-columns: minmax(280px, 0.85fr) minmax(460px, 1.15fr);
+            gap: 20px;
             align-items: start;
         }
+        .edit-profile-shell {
+            display: grid;
+            gap: 16px;
+        }
+        .edit-profile-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: linear-gradient(135deg, rgba(87,198,255,0.1), rgba(33,150,243,0.04));
+            position: relative;
+            overflow: hidden;
+        }
+        .edit-profile-topbar::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, rgba(87,198,255,0.9), rgba(33,150,243,0.3));
+        }
+        .edit-profile-topbar .title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+        .edit-profile-topbar .subtitle {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+        .edit-profile-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #d7ebff;
+            border: 1px solid rgba(87, 198, 255, 0.22);
+            background: rgba(87, 198, 255, 0.14);
+            white-space: nowrap;
+        }
         .avatar-card {
-            padding: 24px;
+            padding: 22px;
             text-align: center;
+            position: sticky;
+            top: 92px;
+            overflow: hidden;
+        }
+        .avatar-card::after {
+            content: '';
+            position: absolute;
+            inset: auto -20% -30% -20%;
+            height: 150px;
+            background: radial-gradient(circle, rgba(87,198,255,0.18), rgba(87,198,255,0));
+            pointer-events: none;
         }
         .avatar-frame {
             width: 170px;
@@ -334,7 +644,55 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
+            margin-top: 12px;
+        }
+        .avatar-meta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #d7ebff;
+            background: rgba(87, 198, 255, 0.14);
+            border: 1px solid rgba(87, 198, 255, 0.24);
+        }
+        .avatar-tip-list {
+            margin: 14px 0 0;
+            padding-left: 16px;
+            text-align: left;
+            color: var(--muted);
+            font-size: 0.82rem;
+            line-height: 1.55;
+        }
+        .avatar-tip-list li + li { margin-top: 6px; }
+        .profile-glance {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
             margin-top: 14px;
+        }
+        .glance-item {
+            border-radius: 12px;
+            padding: 10px 8px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.05);
+        }
+        .glance-item .label {
+            display: block;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.55);
+        }
+        .glance-item .value {
+            display: block;
+            margin-top: 4px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
         }
         .small-note {
             color: var(--muted);
@@ -343,7 +701,32 @@
         }
 
         .form-card {
-            padding: 24px;
+            padding: 22px;
+        }
+        .edit-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .edit-header-note {
+            margin: 2px 0 0;
+            font-size: 0.83rem;
+            color: var(--muted);
+        }
+        .edit-header-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: #d7ebff;
+            border: 1px solid rgba(87, 198, 255, 0.22);
+            background: rgba(87, 198, 255, 0.14);
+            white-space: nowrap;
         }
         .form-label {
             color: rgba(255,255,255,0.68);
@@ -373,7 +756,11 @@
             display: flex;
             gap: 12px;
             align-items: center;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
         }
         .preview-thumb {
             width: 64px;
@@ -388,10 +775,37 @@
             font-size: 0.82rem;
             margin-top: 4px;
         }
+        .profile-section {
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            background: rgba(255,255,255,0.03);
+            padding: 14px;
+        }
+        .profile-section + .profile-section {
+            margin-top: 12px;
+        }
+        .profile-section-title {
+            margin-bottom: 10px;
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 700;
+            color: rgba(255,255,255,0.55);
+        }
+        .profile-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .profile-actions .btn {
+            min-width: 140px;
+        }
 
         .history-card,
         .reservation-card {
-            padding: 22px;
+            padding: 20px;
         }
         .table-dark-surface {
             --bs-table-bg: transparent;
@@ -405,6 +819,12 @@
             text-transform: uppercase;
             letter-spacing: 0.04em;
             border-bottom: 1px solid rgba(255,255,255,0.12);
+        }
+        .table-dark-surface tbody tr {
+            transition: background-color .2s ease;
+        }
+        .table-dark-surface tbody tr:hover {
+            background: rgba(255,255,255,0.04);
         }
 
         .toast-container-custom {
@@ -493,6 +913,330 @@
             .hero-actions .dropdown .btn { width: 100%; }
             .toast-notif { min-width: 0; width: calc(100vw - 36px); }
         }
+
+        /* Professional Light Theme Override */
+        :root {
+            --surface-bg: #f7f6fb;
+            --surface-card: #ffffff;
+            --surface-border: #e6e1f3;
+            --text-primary: #1f1b2d;
+            --text-muted: #6a637d;
+            --brand-primary: #2b124c;
+            --brand-primary-hover: #1f0d37;
+            --brand-soft: #efe9fb;
+            --brand-yellow: #edb42f;
+            --brand-yellow-hover: #d9a224;
+            --success: #2e7d32;
+            --danger: #c62828;
+            --panel: #ffffff;
+            --panel-strong: #ffffff;
+            --border: #e6e1f3;
+            --text: #1f1b2d;
+            --muted: #6a637d;
+            --accent: #5e3aa1;
+            --accent-2: #7a54bc;
+            --shadow: 0 10px 24px rgba(44, 31, 79, 0.08);
+        }
+
+        body {
+            background: radial-gradient(circle at top right, #f6f1ff 0%, rgba(246, 241, 255, 0) 45%), #f7f6fb;
+            color: var(--text-primary);
+        }
+        .orb-container { display: none; }
+        .navbar {
+            background: var(--brand-primary);
+            border-bottom: 1px solid #3b1a63;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            box-shadow: 0 10px 24px rgba(43, 18, 76, 0.28);
+        }
+        .navbar-brand,
+        .nav-link,
+        .nav-link:hover,
+        .nav-link.active { color: #ffffff !important; }
+        .navbar-nav {
+            gap: 6px;
+        }
+        .navbar .nav-link {
+            border-radius: 999px;
+            padding: 8px 12px !important;
+            border: 1px solid transparent;
+        }
+        .navbar .nav-link:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.18);
+        }
+        .navbar .nav-link.active {
+            background: #f2d48d;
+            color: #2b124c !important;
+            border-color: #f2d48d;
+        }
+        .menu-toggle {
+            border-color: rgba(255,255,255,0.24);
+            background: rgba(255,255,255,0.12);
+        }
+        .navbar .dropdown-menu {
+            background: #3a1b63;
+            border: 1px solid rgba(255,255,255,0.16);
+            box-shadow: 0 16px 30px rgba(43, 18, 76, 0.28);
+        }
+        .navbar .dropdown-item {
+            color: #ffffff;
+        }
+        .navbar .dropdown-item:hover,
+        .navbar .dropdown-item:focus {
+            background: rgba(255,255,255,0.16);
+            color: #ffffff;
+        }
+        .navbar .dropdown-item.active {
+            background: #f2d48d;
+            color: #2b124c;
+        }
+        .navbar .dropdown-divider { border-top: 1px solid rgba(255,255,255,0.2); }
+
+        .glass-card,
+        .content-card,
+        .hero-card,
+        .profile-summary-card,
+        .avatar-card,
+        .form-card,
+        .history-card,
+        .reservation-card,
+        .camera-card {
+            background: #ffffff;
+            border: 1px solid var(--surface-border);
+            box-shadow: var(--shadow);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+        .hero-card,
+        .profile-summary-card,
+        .content-card,
+        .history-card,
+        .reservation-card,
+        .form-card,
+        .avatar-card {
+            box-shadow: 0 14px 30px rgba(44, 31, 79, 0.09);
+        }
+        .camera-overlay { background: rgba(31, 27, 45, 0.5); }
+        .camera-preview { background: #1f1b2d; }
+
+        .hero-title {
+            background: none;
+            -webkit-text-fill-color: var(--text-primary);
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        .hero-subtitle,
+        .profile-meta,
+        .small-note,
+        .announcement-empty,
+        .feedback-empty,
+        .stat-label,
+        .section-title i,
+        .form-label,
+        .field-hint,
+        .empty-note { color: var(--text-muted) !important; }
+
+        .profile-name,
+        .section-title,
+        .preview-row .fw-semibold,
+        .rules-list li,
+        .announcement-item,
+        .feedback-item { color: var(--text-primary); }
+
+        .hero-badge,
+        .feedback-chip,
+        .announcement-chip {
+            color: #2b124c;
+            background: #fff4d6;
+            border: 1px solid #f2d48d;
+        }
+        .home-feature-chip {
+            color: #2b124c;
+            background: #fff9e8;
+            border: 1px solid #ead8a8;
+        }
+        .hero-badge {
+            box-shadow: inset 0 -1px 0 rgba(242, 212, 141, 0.5);
+        }
+        .feedback-compose-card,
+        .feedback-history-card {
+            background: #faf8ff;
+            border: 1px solid #e5dcf5;
+        }
+        .avatar-meta-pill,
+        .edit-header-badge,
+        .edit-profile-tag {
+            background: #fff4d6;
+            border: 1px solid #f2d48d;
+            color: #2b124c;
+        }
+        .edit-profile-topbar {
+            background: #faf8ff;
+            border: 1px solid #e5dcf5;
+        }
+        .edit-profile-topbar::before {
+            background: linear-gradient(180deg, #5e3aa1, #edb42f);
+        }
+        .preview-row,
+        .profile-section {
+            background: #ffffff;
+            border: 1px solid #e5dcf5;
+        }
+        .profile-section-title {
+            color: #7f7697;
+        }
+        .glance-item {
+            background: #ffffff;
+            border: 1px solid #e5dcf5;
+        }
+        .glance-item .label { color: #7f7697; }
+        .glance-item .value { color: var(--text-primary); }
+        .reservation-form-card,
+        .reservation-notes-card {
+            background: #faf8ff;
+            border: 1px solid #e5dcf5;
+        }
+        .reservation-subtitle { color: var(--text-muted); }
+        .reservation-student-item {
+            background: #ffffff;
+            border: 1px solid #e5dcf5;
+        }
+        .reservation-student-item .caption { color: #7f7697; }
+        .reservation-student-item .value { color: var(--text-primary); }
+        .feedback-helper-note { color: var(--text-muted); }
+        .feedback-item {
+            background: #ffffff;
+            border: 1px solid #e5dcf5;
+        }
+        .feedback-status-pill.new {
+            background: #fff4d6;
+            border: 1px solid #f2d48d;
+            color: #6d4f15;
+        }
+        .feedback-status-pill.reviewed {
+            background: #e8f7ec;
+            border: 1px solid #bde5c8;
+            color: #1d5d34;
+        }
+        .stat-box {
+            background: #faf8ff;
+            border: 1px solid #e5dcf5;
+        }
+        .stat-box::before {
+            background: linear-gradient(180deg, #5e3aa1, #edb42f);
+            opacity: 0.9;
+        }
+        .stat-number { color: var(--brand-primary); }
+
+        .btn-primary-gradient {
+            background: var(--brand-yellow);
+            border: 1px solid var(--brand-yellow);
+            color: #2b124c;
+            box-shadow: 0 8px 18px rgba(237, 180, 47, 0.3);
+        }
+        .btn-primary-gradient:hover {
+            background: var(--brand-yellow-hover);
+            border-color: var(--brand-yellow-hover);
+            color: #1f0d37;
+        }
+        .btn-outline-soft,
+        .btn-soft {
+            background: #fff9e8;
+            border: 1px solid #e3ca88;
+            color: #2b124c;
+        }
+        .btn-outline-soft:hover,
+        .btn-soft:hover {
+            background: #fdf1cf;
+            border-color: #e0bb5a;
+            color: #1f0d37;
+        }
+
+        .btn-success,
+        .btn.btn-success {
+            background: var(--brand-yellow);
+            border-color: var(--brand-yellow);
+            color: #2b124c;
+        }
+        .btn-success:hover,
+        .btn.btn-success:hover {
+            background: var(--brand-yellow-hover);
+            border-color: var(--brand-yellow-hover);
+            color: #1f0d37;
+        }
+
+        .form-control,
+        .form-select {
+            background: #ffffff;
+            border: 1px solid #d8d0e9;
+            color: var(--text-primary);
+        }
+        .form-control::placeholder { color: #a097b6; }
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #bca8e3;
+            box-shadow: 0 0 0 3px rgba(94, 58, 161, 0.12);
+            color: var(--text-primary);
+            background: #ffffff;
+        }
+        .form-select option { background: #ffffff; color: var(--text-primary); }
+
+        .table-dark-surface,
+        .table-dark-surface thead th {
+            --bs-table-bg: #ffffff;
+            --bs-table-color: #1f1b2d;
+            --bs-table-border-color: #e6e1f3;
+            color: #1f1b2d;
+        }
+        .table-dark-surface td,
+        .table-dark-surface th,
+        .text-white,
+        .text-light,
+        .text-white-50,
+        .text-muted {
+            color: #1f1b2d !important;
+        }
+        .table-dark-surface tbody tr:hover {
+            background: #faf4ff;
+        }
+
+        .toast-notif {
+            background: #ffffff;
+            border: 1px solid var(--surface-border);
+            color: var(--text-primary);
+            box-shadow: 0 10px 24px rgba(44, 31, 79, 0.12);
+        }
+        .toast-notif.success { border-left: 4px solid #2e7d32; }
+        .toast-notif.error { border-left: 4px solid #c62828; }
+        .toast-notif.warning {
+            border-left: 4px solid var(--brand-yellow);
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 992px) {
+            .feedback-panel-grid {
+                grid-template-columns: 1fr;
+            }
+            .reservation-panel-grid {
+                grid-template-columns: 1fr;
+            }
+            .reservation-student-grid {
+                grid-template-columns: 1fr;
+            }
+            .edit-header {
+                flex-direction: column;
+            }
+            .edit-profile-topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .avatar-card {
+                position: static;
+                top: auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -505,21 +1249,35 @@
     <div class="page-wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="dashboard.html"><i class="bi bi-mortarboard-fill me-2"></i>CCS Sit-in Monitoring</a>
+                <a class="navbar-brand" href="dashboard.html">
+                    <span class="brand-logos me-2">
+                        <img src="assets/ucmn_logo.jpg" alt="UCMN Logo">
+                        <img src="assets/ccs-logo.png" alt="CCS Logo">
+                    </span>
+                    CCS Sit-in Monitoring
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav align-items-lg-center gap-lg-1">
-                        <li class="nav-item"><a class="nav-link active" href="#" data-section="home"><i class="bi bi-house me-1"></i>Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="edit-profile"><i class="bi bi-pencil-square me-1"></i>Edit Profile</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="history"><i class="bi bi-clock-history me-1"></i>History</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="rewards"><i class="bi bi-trophy me-1"></i>Rewards</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="notifications"><i class="bi bi-bell me-1"></i>Notifications</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="reservation"><i class="bi bi-journal-bookmark me-1"></i>Reservation</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="reservation-status"><i class="bi bi-inbox me-1"></i>Reservation Status</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" data-section="feedback"><i class="bi bi-chat-left-text me-1"></i>Feedback</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#" id="logoutLink"><i class="bi bi-box-arrow-right me-1"></i>Logout</a></li>
+                    <ul class="navbar-nav align-items-lg-center">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle menu-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="ri-grid-line me-1"></i><span id="navSectionLabel">Dashboard</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item active" href="#" data-section="home" data-section-label="Home"><i class="ri-home-4-line"></i>Home</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="edit-profile" data-section-label="Edit Profile"><i class="ri-edit-line"></i>Edit Profile</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="history" data-section-label="History"><i class="ri-time-line"></i>History</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="rewards" data-section-label="Rewards"><i class="ri-trophy-line"></i>Rewards</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="notifications" data-section-label="Notifications"><i class="ri-notification-3-line"></i>Notifications</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="reservation" data-section-label="Reservation"><i class="ri-bookmark-3-line"></i>Reservation</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="reservation-status" data-section-label="Reservation Status"><i class="ri-inbox-2-line"></i>Reservation Status</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="feedback" data-section-label="Feedback"><i class="ri-chat-3-line"></i>Feedback</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" id="logoutLink"><i class="ri-logout-box-r-line"></i>Logout</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -531,14 +1289,19 @@
             <section class="section-panel active" data-panel="home">
                 <div class="hero-grid">
                     <div class="glass-card hero-card">
-                        <div class="hero-badge"><i class="bi bi-stars"></i> Student Dashboard</div>
-                        <h1 class="hero-title" id="homeTitle">Welcome back!</h1>
-                        <p class="hero-subtitle" id="homeSubtitle">Manage your profile, review announcements, and prepare your next lab reservation from a single student dashboard.</p>
+                        <div class="hero-badge"><i class="ri-sparkling-line"></i> Student Dashboard</div>
+                        <h1 class="hero-title" id="homeTitle">Welcome to your CCS workspace</h1>
+                        <p class="hero-subtitle" id="homeSubtitle">Review your academic profile, stay updated with announcements, and organize your next laboratory session from one streamlined dashboard.</p>
+                        <div class="home-feature-chips">
+                            <span class="home-feature-chip"><i class="ri-id-card-line"></i> Profile at a glance</span>
+                            <span class="home-feature-chip"><i class="ri-calendar-check-line"></i> Guided reservation flow</span>
+                            <span class="home-feature-chip"><i class="ri-notification-3-line"></i> Real-time updates</span>
+                        </div>
 
                         <div class="hero-actions">
-                            <button class="btn btn-primary-gradient" data-section-jump="edit-profile"><i class="bi bi-pencil-square me-1"></i>Edit Profile</button>
-                            <button class="btn btn-outline-soft" data-section-jump="reservation"><i class="bi bi-calendar2-check me-1"></i>Reserve Lab</button>
-                            <button class="btn btn-outline-soft" data-section-jump="history"><i class="bi bi-clock-history me-1"></i>View History</button>
+                            <button class="btn btn-primary-gradient" data-section-jump="edit-profile"><i class="ri-edit-line me-1"></i>Edit Profile</button>
+                            <button class="btn btn-outline-soft" data-section-jump="reservation"><i class="ri-calendar-check-line me-1"></i>Reserve Lab</button>
+                            <button class="btn btn-outline-soft" data-section-jump="history"><i class="ri-time-line me-1"></i>View History</button>
                         </div>
 
                         <div class="stats-grid">
@@ -571,7 +1334,7 @@
                             </div>
                         </div>
                         <div class="glass-card p-3" style="background: rgba(255,255,255,0.04); border-radius: 16px; border: 1px solid rgba(255,255,255,0.08);">
-                            <div class="section-title mb-2"><i class="bi bi-info-circle"></i> Student Information</div>
+                            <div class="section-title mb-2"><i class="ri-information-line"></i> Student Information</div>
                             <div class="profile-meta" id="summaryEmail"></div>
                             <div class="profile-meta" id="summaryAddress"></div>
                         </div>
@@ -580,115 +1343,150 @@
 
                 <div class="content-grid">
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="bi bi-megaphone"></i> Announcement</div>
+                        <div class="section-title"><i class="ri-megaphone-line"></i> Announcement</div>
                         <div class="scroll-pane" id="announcementList">
                             <div class="announcement-empty">Loading announcements...</div>
                         </div>
                     </div>
 
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="bi bi-journal-text"></i> Rules and Regulation</div>
-                        <div class="scroll-pane">
-                            <ul class="rules-list ps-3 mb-0">
-                                <li>Maintain silence, proper decorum, and discipline inside the laboratory.</li>
-                                <li>Mobile phones, drinks, and food are not allowed while inside the lab.</li>
-                                <li>Follow all instructions from the instructor or lab administrator.</li>
-                                <li>Use computer-related games and other distracting activities are prohibited.</li>
-                                <li>Always log your session properly before leaving the laboratory.</li>
-                                <li>Keep your profile information updated so the student record stays accurate.</li>
-                            </ul>
+                        <div class="section-title"><i class="ri-file-text-line"></i> Rules and Regulation</div>
+                        <div class="scroll-pane" id="rulesList">
+                            <div class="announcement-empty">Loading rules...</div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section class="section-panel" data-panel="edit-profile">
-                <div class="glass-card form-shell">
-                    <div class="glass-card avatar-card">
-                        <div class="avatar-frame">
-                            <img src="assets/ccs-logo.png" alt="Profile Photo" id="profilePhotoPreview">
+                <div class="edit-profile-shell">
+                    <div class="edit-profile-topbar">
+                        <div>
+                            <div class="title"><i class="ri-user-settings-line me-2"></i>Profile Workspace</div>
+                            <div class="subtitle">Manage your personal details and keep your student information accurate.</div>
                         </div>
-                        <h3 class="h5 fw-bold mb-1" id="avatarName">Student Profile</h3>
-                        <div class="small-note" id="avatarInfo">Upload or capture an image to update your profile picture.</div>
-
-                        <div class="upload-actions">
-                            <label class="btn btn-primary-gradient mb-0" for="photoUpload"><i class="bi bi-upload me-1"></i>Upload Image</label>
-                            <button class="btn btn-outline-soft" type="button" id="takePhotoBtn"><i class="bi bi-camera me-1"></i>Take Photo</button>
-                            <input type="file" id="photoUpload" accept="image/*" class="d-none">
-                        </div>
-
-                        <p class="small-note mt-3 mb-0">On phones and tablets, the take photo button opens the camera when your browser supports image capture.</p>
+                        <span class="edit-profile-tag"><i class="ri-shield-check-line"></i>Secure Profile</span>
                     </div>
 
-                    <div class="glass-card form-card">
-                        <div class="section-title"><i class="bi bi-pencil-square"></i> Edit Profile</div>
-                        <div class="preview-row">
-                            <img src="assets/ccs-logo.png" alt="Preview" class="preview-thumb" id="miniPreview">
-                            <div>
-                                <div class="fw-semibold" id="previewName">Student Name</div>
-                                <div class="field-hint">Your changes are saved in the browser for this prototype.</div>
+                    <div class="glass-card form-shell">
+                        <div class="glass-card avatar-card">
+                            <div class="avatar-frame">
+                                <img src="assets/ccs-logo.png" alt="Profile Photo" id="profilePhotoPreview">
                             </div>
+                            <h3 class="h5 fw-bold mb-1" id="avatarName">Student Profile</h3>
+                            <div class="small-note" id="avatarInfo">Upload or capture an image to update your profile picture.</div>
+                            <div class="avatar-meta-pill"><i class="ri-shield-check-line"></i> Verified Student</div>
+
+                            <div class="profile-glance">
+                                <div class="glance-item">
+                                    <span class="label">ID Number</span>
+                                    <span class="value" id="glanceId">-</span>
+                                </div>
+                                <div class="glance-item">
+                                    <span class="label">Course</span>
+                                    <span class="value" id="glanceCourse">-</span>
+                                </div>
+                                <div class="glance-item">
+                                    <span class="label">Year</span>
+                                    <span class="value" id="glanceYear">-</span>
+                                </div>
+                            </div>
+
+                            <div class="upload-actions">
+                                <label class="btn btn-primary-gradient mb-0" for="photoUpload"><i class="ri-upload-2-line me-1"></i>Upload Image</label>
+                                <button class="btn btn-outline-soft" type="button" id="takePhotoBtn"><i class="ri-camera-line me-1"></i>Take Photo</button>
+                                <input type="file" id="photoUpload" accept="image/*" class="d-none">
+                            </div>
+                            <ul class="avatar-tip-list">
+                                <li>Use a clear front-facing photo for better identification.</li>
+                                <li>Changes are stored in your browser for this prototype.</li>
+                            </ul>
                         </div>
 
-                        <form id="profileForm" novalidate>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label" for="profileIdNumber">ID Number</label>
-                                    <input type="text" id="profileIdNumber" class="form-control" readonly>
+                        <div class="glass-card form-card">
+                            <div class="edit-header">
+                                <div>
+                                    <div class="section-title mb-1"><i class="ri-edit-line"></i> Edit Profile</div>
+                                    <p class="edit-header-note">Review and update your personal and academic details below.</p>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="profileEmail">Email</label>
-                                    <input type="email" id="profileEmail" class="form-control" placeholder="email@example.com">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="profileLastName">Last Name</label>
-                                    <input type="text" id="profileLastName" class="form-control" placeholder="Last Name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="profileFirstName">First Name</label>
-                                    <input type="text" id="profileFirstName" class="form-control" placeholder="First Name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="profileMiddleName">Middle Name</label>
-                                    <input type="text" id="profileMiddleName" class="form-control" placeholder="Middle Name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="profileCourse">Course</label>
-                                    <select id="profileCourse" class="form-select">
-                                        <option value="BSIT">BSIT</option>
-                                        <option value="BSCS">BSCS</option>
-                                        <option value="BSIS">BSIS</option>
-                                        <option value="ACT">ACT</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="profileYearLevel">Year Level</label>
-                                    <select id="profileYearLevel" class="form-select">
-                                        <option value="1">1st Year</option>
-                                        <option value="2">2nd Year</option>
-                                        <option value="3">3rd Year</option>
-                                        <option value="4">4th Year</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="profileAddress">Address</label>
-                                    <input type="text" id="profileAddress" class="form-control" placeholder="Home address">
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex flex-wrap gap-2 mt-1">
-                                        <button type="submit" class="btn btn-primary-gradient"><i class="bi bi-save me-1"></i>Save Profile</button>
-                                        <button type="button" class="btn btn-outline-soft" id="resetProfileBtn"><i class="bi bi-arrow-counterclockwise me-1"></i>Reset</button>
-                                    </div>
+                                <span class="edit-header-badge">Profile Management</span>
+                            </div>
+                            <div class="preview-row">
+                                <img src="assets/ccs-logo.png" alt="Preview" class="preview-thumb" id="miniPreview">
+                                <div>
+                                    <div class="fw-semibold" id="previewName">Student Name</div>
+                                    <div class="field-hint">Your changes are saved in the browser for this prototype.</div>
                                 </div>
                             </div>
-                        </form>
+
+                            <form id="profileForm" novalidate>
+                                <div class="profile-section">
+                                    <div class="profile-section-title">Identity</div>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="profileIdNumber">ID Number</label>
+                                            <input type="text" id="profileIdNumber" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="profileEmail">Email</label>
+                                            <input type="email" id="profileEmail" class="form-control" placeholder="email@example.com">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="profileLastName">Last Name</label>
+                                            <input type="text" id="profileLastName" class="form-control" placeholder="Last Name">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="profileFirstName">First Name</label>
+                                            <input type="text" id="profileFirstName" class="form-control" placeholder="First Name">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label" for="profileMiddleName">Middle Name</label>
+                                            <input type="text" id="profileMiddleName" class="form-control" placeholder="Middle Name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="profile-section">
+                                    <div class="profile-section-title">Academic and Contact</div>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="profileCourse">Course</label>
+                                            <select id="profileCourse" class="form-select">
+                                                <option value="BSIT">BSIT</option>
+                                                <option value="BSCS">BSCS</option>
+                                                <option value="BSIS">BSIS</option>
+                                                <option value="ACT">ACT</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label" for="profileYearLevel">Year Level</label>
+                                            <select id="profileYearLevel" class="form-select">
+                                                <option value="1">1st Year</option>
+                                                <option value="2">2nd Year</option>
+                                                <option value="3">3rd Year</option>
+                                                <option value="4">4th Year</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label" for="profileAddress">Address</label>
+                                            <input type="text" id="profileAddress" class="form-control" placeholder="Home address">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="profile-actions">
+                                    <button type="submit" class="btn btn-primary-gradient"><i class="ri-save-3-line me-1"></i>Save Profile</button>
+                                    <button type="button" class="btn btn-outline-soft" id="resetProfileBtn"><i class="ri-restart-line me-1"></i>Reset</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <section class="section-panel" data-panel="history">
                 <div class="glass-card history-card">
-                    <div class="section-title"><i class="bi bi-clock-history"></i> History Information</div>
+                    <div class="section-title"><i class="ri-time-line"></i> History Information</div>
                     <div class="table-responsive">
                         <table class="table table-dark-surface align-middle">
                             <thead>
@@ -715,7 +1513,7 @@
             <section class="section-panel" data-panel="rewards">
                 <div class="content-grid">
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="bi bi-trophy"></i>Reward Summary</div>
+                        <div class="section-title"><i class="ri-trophy-line"></i>Reward Summary</div>
                         <div class="stats-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
                             <div class="stat-box">
                                 <div class="stat-number" id="rewardTotalPoints">0</div>
@@ -730,7 +1528,7 @@
                     </div>
 
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="bi bi-clock-history"></i>Recent Reward Activity</div>
+                        <div class="section-title"><i class="ri-time-line"></i>Recent Reward Activity</div>
                         <div class="table-responsive">
                             <table class="table table-dark-surface align-middle">
                                 <thead>
@@ -751,7 +1549,7 @@
 
             <section class="section-panel" data-panel="notifications">
                 <div class="glass-card content-card">
-                    <div class="section-title"><i class="bi bi-bell"></i>Notification Center</div>
+                    <div class="section-title"><i class="ri-notification-3-line"></i>Notification Center</div>
                     <div class="empty-note mb-3">Recent alerts are collected from announcements, reservations, feedback, and reward updates.</div>
                     <div class="scroll-pane" id="notificationList" style="max-height: 420px;">
                         <div class="announcement-empty">Loading notifications...</div>
@@ -761,18 +1559,28 @@
 
             <section class="section-panel" data-panel="reservation">
                 <div class="glass-card reservation-card">
-                    <div class="section-title"><i class="bi bi-journal-bookmark"></i> Reservation</div>
-                    <div class="row g-4 align-items-center">
-                        <div class="col-lg-7">
+                    <div class="section-title"><i class="ri-bookmark-3-line"></i> Reservation</div>
+                    <div class="reservation-panel-grid">
+                        <div class="reservation-form-card">
+                            <div class="reservation-card-head">
+                                <div class="section-title mb-0"><i class="ri-edit-line"></i>Request a Sit-in Slot</div>
+                            </div>
+                            <div class="reservation-subtitle">Fill in your preferred lab schedule and purpose. Your details are prefilled from your account profile.</div>
+
+                            <div class="reservation-student-grid">
+                                <div class="reservation-student-item">
+                                    <span class="caption">ID Number</span>
+                                    <span class="value" id="reservationIdNumberDisplay">-</span>
+                                    <input type="hidden" id="reservationIdNumber">
+                                </div>
+                                <div class="reservation-student-item">
+                                    <span class="caption">Student Name</span>
+                                    <span class="value" id="reservationNameDisplay">-</span>
+                                    <input type="hidden" id="reservationName">
+                                </div>
+                            </div>
+
                             <form id="reservationForm" class="row g-3" novalidate>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="reservationIdNumber">ID Number</label>
-                                    <input type="text" id="reservationIdNumber" class="form-control" readonly>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="reservationName">Student Name</label>
-                                    <input type="text" id="reservationName" class="form-control" readonly>
-                                </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="reservationPurpose">Purpose / Language</label>
                                     <select id="reservationPurpose" class="form-select" required>
@@ -853,20 +1661,19 @@
                                     <label class="form-label" for="reservationSessions">Remaining Sessions</label>
                                     <input type="number" id="reservationSessions" class="form-control" value="30" readonly>
                                 </div>
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-primary-gradient"><i class="bi bi-check2-circle me-1"></i>Reserve</button>
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary-gradient"><i class="ri-checkbox-circle-line me-1"></i>Reserve</button>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-lg-5">
-                            <div class="glass-card p-4" style="background: rgba(255,255,255,0.04); border-radius: 16px; border: 1px solid rgba(255,255,255,0.08);">
-                                <div class="section-title mb-3"><i class="bi bi-lightbulb"></i> Reservation Notes</div>
+                        <div class="reservation-notes-card">
+                                <div class="section-title mb-2"><i class="ri-lightbulb-line"></i> Reservation Notes</div>
+                                <div class="reservation-subtitle">Quick reminders before submitting your reservation.</div>
                                 <ul class="rules-list ps-3 mb-0">
                                     <li>Select the programming language or use you will work on before reserving.</li>
                                     <li>Choose the laboratory, date, and time so the reservation record is complete.</li>
                                     <li>Reservation data is stored locally in this prototype.</li>
                                 </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -874,7 +1681,7 @@
 
             <section class="section-panel" data-panel="reservation-status">
                 <div class="glass-card history-card">
-                    <div class="section-title"><i class="bi bi-inbox"></i> Reservation Status</div>
+                    <div class="section-title"><i class="ri-inbox-2-line"></i> Reservation Status</div>
                     <div class="table-responsive">
                         <table class="table table-dark-surface align-middle">
                             <thead>
@@ -900,9 +1707,13 @@
 
             <section class="section-panel" data-panel="feedback">
                 <div class="glass-card content-card">
-                    <div class="section-title"><i class="bi bi-chat-left-text"></i> Feedback</div>
-                    <div class="row g-4">
-                        <div class="col-lg-6">
+                    <div class="section-title"><i class="ri-chat-3-line"></i> Feedback</div>
+                    <div class="feedback-panel-grid">
+                        <div class="feedback-compose-card">
+                            <div class="feedback-compose-head">
+                                <div class="section-title mb-0"><i class="ri-edit-line"></i>Share Feedback</div>
+                            </div>
+                            <div class="feedback-helper-note">Tell us what worked well or what can be improved in the lab experience.</div>
                             <form id="feedbackForm" class="row g-3" novalidate>
                                 <div class="col-12">
                                     <label class="form-label" for="feedbackSubject">Subject</label>
@@ -912,18 +1723,18 @@
                                     <label class="form-label" for="feedbackMessage">Message</label>
                                     <textarea id="feedbackMessage" class="form-control" rows="6" placeholder="Write your feedback here" required></textarea>
                                 </div>
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-primary-gradient"><i class="bi bi-send me-1"></i>Submit Feedback</button>
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary-gradient"><i class="ri-send-plane-2-line me-1"></i>Submit Feedback</button>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="glass-card p-4" style="background: rgba(255,255,255,0.04); border-radius: 16px; border: 1px solid rgba(255,255,255,0.08);">
-                                <div class="section-title mb-3"><i class="bi bi-clock-history"></i>My Feedback</div>
+                        <div class="feedback-history-card">
+                            <div class="feedback-history-head">
+                                <div class="section-title mb-0"><i class="ri-time-line"></i>My Feedback</div>
+                            </div>
                                 <div class="scroll-pane" id="feedbackList">
                                     <div class="feedback-empty">Loading feedback...</div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -938,13 +1749,13 @@
                     <h2 class="h5 fw-bold mb-1">Take Photo</h2>
                     <div class="small-note mb-0">Allow camera access, then capture your profile picture.</div>
                 </div>
-                <button type="button" class="btn btn-outline-soft" id="closeCameraBtn"><i class="bi bi-x-lg me-1"></i>Close</button>
+                <button type="button" class="btn btn-outline-soft" id="closeCameraBtn"><i class="ri-close-line me-1"></i>Close</button>
             </div>
             <video id="cameraVideo" class="camera-preview mb-3" autoplay playsinline></video>
             <canvas id="cameraCanvas" class="d-none"></canvas>
             <div class="d-flex flex-wrap gap-2 justify-content-end">
-                <button type="button" class="btn btn-outline-soft" id="switchCameraBtn"><i class="bi bi-arrow-repeat me-1"></i>Switch Camera</button>
-                <button type="button" class="btn btn-primary-gradient" id="captureBtn"><i class="bi bi-camera-fill me-1"></i>Capture</button>
+                <button type="button" class="btn btn-outline-soft" id="switchCameraBtn"><i class="ri-repeat-line me-1"></i>Switch Camera</button>
+                <button type="button" class="btn btn-primary-gradient" id="captureBtn"><i class="ri-camera-fill me-1"></i>Capture</button>
             </div>
         </div>
     </div>
@@ -954,6 +1765,9 @@
         const API_BASE = 'backend/api/index.php';
         const USER_KEY = 'ccs_user';
         const PROFILE_KEY = 'ccs_student_profile';
+        const ANNOUNCEMENT_SEEN_KEY = 'ccs_seen_announcement_at';
+        const RULES_SEEN_KEY = 'ccs_seen_rules_at';
+        let loginAlertsShown = false;
 
         function buildProfileStorageKey(idNumber) {
             return `${PROFILE_KEY}_${String(idNumber || 'guest').trim()}`;
@@ -1021,13 +1835,13 @@
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
             const icons = {
-                success: 'bi-check-circle-fill',
-                error: 'bi-x-circle-fill',
-                warning: 'bi-exclamation-triangle-fill'
+                success: 'ri-checkbox-circle-fill',
+                error: 'ri-close-circle-fill',
+                warning: 'ri-error-warning-fill'
             };
             const toast = document.createElement('div');
             toast.className = `toast-notif ${type}`;
-            toast.innerHTML = `<i class="bi ${icons[type] || icons.success} toast-icon"></i><span>${message}</span>`;
+            toast.innerHTML = `<i class="${icons[type] || icons.success} toast-icon"></i><span>${message}</span>`;
             container.appendChild(toast);
             setTimeout(() => {
                 toast.style.animation = 'toastOut 0.35s forwards';
@@ -1075,10 +1889,12 @@
 
             document.getElementById('reservationIdNumber').value = profile.id_number;
             document.getElementById('reservationName').value = fullName();
+            document.getElementById('reservationIdNumberDisplay').textContent = profile.id_number || '-';
+            document.getElementById('reservationNameDisplay').textContent = fullName() || '-';
             document.getElementById('reservationDate').value = new Date().toISOString().slice(0, 10);
 
-            document.getElementById('homeTitle').textContent = `Welcome back, ${profile.first_name}!`;
-            document.getElementById('homeSubtitle').textContent = `You are signed in as ${fullName()} from ${profile.course} Year ${profile.year_level}. Update your profile photo, edit your details, or reserve a laboratory slot from this dashboard.`;
+            document.getElementById('homeTitle').textContent = `Great to have you here, ${profile.first_name}.`;
+            document.getElementById('homeSubtitle').textContent = `You are currently logged in as ${fullName()} from ${profile.course} Year ${profile.year_level}. Use this dashboard to keep your profile updated, review announcements, and plan your next laboratory reservation.`;
             document.getElementById('summaryName').textContent = fullName();
             document.getElementById('summaryMeta').textContent = `ID Number: ${profile.id_number}`;
             document.getElementById('summaryCourse').textContent = `${profile.course} - Year ${profile.year_level}`;
@@ -1087,6 +1903,9 @@
             document.getElementById('avatarName').textContent = fullName();
             document.getElementById('avatarInfo').textContent = `${profile.course} - Year ${profile.year_level}`;
             document.getElementById('previewName').textContent = fullName();
+            document.getElementById('glanceId').textContent = profile.id_number || '-';
+            document.getElementById('glanceCourse').textContent = profile.course || '-';
+            document.getElementById('glanceYear').textContent = profile.year_level || '-';
             document.getElementById('statProfile').textContent = `${profile.remaining_sessions}`;
             document.getElementById('statPhoto').textContent = `${profile.reward_points}`;
             const remainingLabel = document.querySelector('[data-remaining-label]');
@@ -1104,6 +1923,12 @@
             document.querySelectorAll('[data-section]').forEach(link => {
                 link.classList.toggle('active', link.dataset.section === sectionName);
             });
+            const activeItem = document.querySelector(`[data-section="${sectionName}"]`);
+            const label = activeItem ? (activeItem.dataset.sectionLabel || activeItem.textContent.trim()) : 'Dashboard';
+            const labelNode = document.getElementById('navSectionLabel');
+            if (labelNode) {
+                labelNode.textContent = label;
+            }
         }
 
         function bindSectionLinks() {
@@ -1170,15 +1995,66 @@
 
             container.innerHTML = announcements.map(item => {
                 const createdAt = item.created_at ? new Date(item.created_at).toLocaleDateString() : 'Today';
-                const icon = item.audience === 'all' ? 'bi-people' : item.audience === 'admin' ? 'bi-shield-lock' : 'bi-bell';
+                const icon = item.audience === 'all' ? 'ri-group-line' : item.audience === 'admin' ? 'ri-shield-keyhole-line' : 'ri-notification-3-line';
                 return `
                     <div class="announcement-item">
-                        <div class="announcement-chip"><i class="bi ${icon}"></i> ${escapeHtml(item.posted_by || 'CCS Admin')} | ${escapeHtml(createdAt)}</div>
+                        <div class="announcement-chip"><i class="${icon}"></i> ${escapeHtml(item.posted_by || 'CCS Admin')} | ${escapeHtml(createdAt)}</div>
                         <div class="fw-semibold mb-1">${escapeHtml(item.title || 'Announcement')}</div>
                         <div>${escapeHtml(item.body || '')}</div>
                     </div>
                 `;
             }).join('');
+        }
+
+        function renderRules(rules) {
+            const container = document.getElementById('rulesList');
+            if (!container) return;
+
+            if (!rules.length) {
+                container.innerHTML = '<div class="announcement-empty">No rules posted yet.</div>';
+                return;
+            }
+
+            container.innerHTML = rules.map(item => {
+                const createdAt = item.created_at ? new Date(item.created_at).toLocaleDateString() : 'Today';
+                return `
+                    <div class="announcement-item">
+                        <div class="announcement-chip"><i class="ri-file-text-line"></i> ${escapeHtml(item.posted_by || 'CCS Admin')} | ${escapeHtml(createdAt)}</div>
+                        <div class="fw-semibold mb-1">${escapeHtml(item.title || 'Lab Rule')}</div>
+                        <div>${escapeHtml(item.body || '')}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showLoginAlerts(announcements, rules) {
+            if (loginAlertsShown) return;
+            loginAlertsShown = true;
+
+            const lastAnnSeen = Number(localStorage.getItem(ANNOUNCEMENT_SEEN_KEY) || 0);
+            const lastRuleSeen = Number(localStorage.getItem(RULES_SEEN_KEY) || 0);
+
+            const newAnnouncements = announcements.filter(item => {
+                const ts = item.created_at ? new Date(item.created_at).getTime() : 0;
+                return ts > lastAnnSeen;
+            });
+            const newRules = rules.filter(item => {
+                const ts = item.created_at ? new Date(item.created_at).getTime() : 0;
+                return ts > lastRuleSeen;
+            });
+
+            newAnnouncements.slice(0, 2).forEach(item => {
+                showToast(`New announcement: ${item.title || 'Announcement'}`, 'warning');
+            });
+            newRules.slice(0, 2).forEach(item => {
+                showToast(`New lab rule: ${item.title || 'Rule update'}`, 'warning');
+            });
+
+            const latestAnn = Math.max(lastAnnSeen, ...newAnnouncements.map(item => item.created_at ? new Date(item.created_at).getTime() : 0));
+            const latestRule = Math.max(lastRuleSeen, ...newRules.map(item => item.created_at ? new Date(item.created_at).getTime() : 0));
+
+            if (latestAnn > 0) localStorage.setItem(ANNOUNCEMENT_SEEN_KEY, String(latestAnn));
+            if (latestRule > 0) localStorage.setItem(RULES_SEEN_KEY, String(latestRule));
         }
 
         function renderFeedbacks(feedbacks) {
@@ -1193,12 +2069,15 @@
             container.innerHTML = feedbacks.map(item => {
                 const createdAt = item.created_at ? new Date(item.created_at).toLocaleString() : 'Today';
                 const statusLabel = item.status === 'reviewed' ? 'Reviewed' : 'New';
-                const statusClass = item.status === 'reviewed' ? 'text-bg-success' : 'text-bg-warning';
+                const statusClass = item.status === 'reviewed' ? 'reviewed' : 'new';
                 return `
                     <div class="feedback-item">
-                        <div class="feedback-chip"><i class="bi bi-chat-dots"></i> ${escapeHtml(item.subject || 'Feedback')} | ${escapeHtml(createdAt)}</div>
-                        <div class="mb-2">${escapeHtml(item.message || '')}</div>
-                        <span class="badge ${statusClass}">${statusLabel}</span>
+                        <div class="feedback-meta">
+                            <div class="feedback-chip"><i class="ri-chat-3-line"></i> ${escapeHtml(createdAt)}</div>
+                            <span class="feedback-status-pill ${statusClass}">${statusLabel}</span>
+                        </div>
+                        <div class="fw-semibold mb-1">${escapeHtml(item.subject || 'Feedback')}</div>
+                        <div class="feedback-message">${escapeHtml(item.message || '')}</div>
                     </div>
                 `;
             }).join('');
@@ -1232,10 +2111,11 @@
             }
 
             const icons = {
-                announcement: 'bi-megaphone',
-                reservation: 'bi-inbox',
-                feedback: 'bi-chat-left-text',
-                reward: 'bi-trophy'
+                announcement: 'ri-megaphone-line',
+                reservation: 'ri-inbox-2-line',
+                feedback: 'ri-chat-3-line',
+                reward: 'ri-trophy-line',
+                rule: 'ri-file-text-line'
             };
 
             const labels = {
@@ -1250,7 +2130,7 @@
 
             container.innerHTML = notifications.map(item => `
                 <div class="feedback-item">
-                    <div class="feedback-chip"><i class="bi ${icons[item.type] || 'bi-bell'}"></i> ${escapeHtml(item.title || 'Notification')} | ${escapeHtml(item.created_at ? new Date(item.created_at).toLocaleString() : 'Now')}</div>
+                    <div class="feedback-chip"><i class="${icons[item.type] || 'ri-notification-3-line'}"></i> ${escapeHtml(item.title || 'Notification')} | ${escapeHtml(item.created_at ? new Date(item.created_at).toLocaleString() : 'Now')}</div>
                     <div class="mb-2">${escapeHtml(item.body || '')}</div>
                     <span class="badge ${labels[item.status] || 'text-bg-info'}">${escapeHtml(String(item.status || 'info').toUpperCase())}</span>
                 </div>
@@ -1427,6 +2307,7 @@
                 const history = data.history || [];
                 const reservations = data.reservations || [];
                 const announcements = data.announcements || [];
+                const rules = data.rules || [];
                 const feedbacks = data.feedback || [];
                 const rewards = data.rewards || [];
                 const leaderboard = data.leaderboard || [];
@@ -1469,9 +2350,11 @@
 
                 renderReservationStatus(reservations);
                 renderAnnouncements(announcements);
+                renderRules(rules);
                 renderFeedbacks(feedbacks);
                 renderRewardHistory(rewards);
                 renderNotifications(notifications);
+                showLoginAlerts(announcements, rules);
 
                 document.getElementById('rewardTotalPoints').textContent = `${profile.reward_points}`;
                 const currentStudent = leaderboard.find(item => item.id_number === profile.id_number);
@@ -1535,6 +2418,8 @@
                 this.reset();
                 document.getElementById('reservationIdNumber').value = profile.id_number;
                 document.getElementById('reservationName').value = fullName();
+                document.getElementById('reservationIdNumberDisplay').textContent = profile.id_number || '-';
+                document.getElementById('reservationNameDisplay').textContent = fullName() || '-';
                 document.getElementById('reservationDate').value = new Date().toISOString().slice(0, 10);
                 await loadStudentDashboard();
             } else {

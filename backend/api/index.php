@@ -62,6 +62,12 @@ switch ($action) {
     case 'create_announcement':
         createAnnouncement($pdo);
         break;
+    case 'rules':
+        getRules($pdo);
+        break;
+    case 'create_rule':
+        createRule($pdo);
+        break;
     case 'feedbacks':
         getFeedbacks($pdo);
         break;
@@ -109,6 +115,58 @@ function fetchAnnouncements(PDO $pdo, string $audience = 'student', int $limit =
     $stmt->execute([':audience' => $audience]);
 
     return $stmt->fetchAll();
+}
+
+function fetchRules(PDO $pdo, int $limit = 10): array
+{
+    $limit = max(1, min($limit, 50));
+    $stmt = $pdo->query("SELECT id, title, body, status, posted_by, created_at, updated_at
+        FROM lab_rules
+        WHERE status = 'active'
+        ORDER BY created_at DESC
+        LIMIT $limit");
+    return $stmt->fetchAll();
+}
+
+function getRules(PDO $pdo): void
+{
+    $limit = max(1, min((int)($_GET['limit'] ?? 20), 50));
+    echo json_encode([
+        'success' => true,
+        'rules' => fetchRules($pdo, $limit),
+    ]);
+}
+
+function createRule(PDO $pdo): void
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+        return;
+    }
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    $title = trim((string)($data['title'] ?? ''));
+    $body = trim((string)($data['body'] ?? ''));
+    $postedBy = trim((string)($data['posted_by'] ?? 'CCS Admin')) ?: 'CCS Admin';
+
+    if ($title === '' || $body === '') {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Title and rule details are required']);
+        return;
+    }
+
+    $stmt = $pdo->prepare("INSERT INTO lab_rules (title, body, status, posted_by) VALUES (:title, :body, 'active', :posted_by)");
+    $stmt->execute([
+        ':title' => $title,
+        ':body' => $body,
+        ':posted_by' => $postedBy,
+    ]);
+
+    echo json_encode([
+        'success' => true,
+        'message' => 'Rule posted successfully',
+    ]);
 }
 
 function getAnnouncements(PDO $pdo): void
@@ -357,7 +415,7 @@ function getRewardLeaderboard(PDO $pdo, int $limit = 10): array
     return array_slice($rows, 0, $limit);
 }
 
-function buildStudentNotifications(array $announcements, array $reservations, array $feedbacks, array $rewards): array
+function buildStudentNotifications(array $announcements, array $reservations, array $feedbacks, array $rewards, array $rules): array
 {
     $notifications = [];
 
@@ -399,6 +457,16 @@ function buildStudentNotifications(array $announcements, array $reservations, ar
             'body' => (string)($reward['description'] ?? 'Reward activity'),
             'created_at' => $reward['created_at'] ?? null,
             'status' => 'success',
+        ];
+    }
+
+    foreach ($rules as $rule) {
+        $notifications[] = [
+            'type' => 'rule',
+            'title' => $rule['title'] ?? 'Lab Rule Update',
+            'body' => $rule['body'] ?? '',
+            'created_at' => $rule['created_at'] ?? null,
+            'status' => 'info',
         ];
     }
 
@@ -950,6 +1018,7 @@ function getStudentDashboard(PDO $pdo): void
     $reservationStmt->execute([':user_id' => (int)$user['id']]);
 
     $announcements = fetchAnnouncements($pdo, 'student', 10);
+    $rules = fetchRules($pdo, 10);
     $feedbackStmt = $pdo->prepare("SELECT id, subject, message, status, created_at FROM feedback_entries WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 10");
     $feedbackStmt->execute([':user_id' => (int)$user['id']]);
     $rewardStmt = $pdo->prepare("SELECT id, source_type, source_id, points, description, created_at FROM reward_events WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 10");
@@ -958,7 +1027,7 @@ function getStudentDashboard(PDO $pdo): void
     $feedbacks = $feedbackStmt->fetchAll();
     $rewards = $rewardStmt->fetchAll();
     $leaderboard = getRewardLeaderboard($pdo, 50);
-    $notifications = buildStudentNotifications($announcements, $reservations, $feedbacks, $rewards);
+    $notifications = buildStudentNotifications($announcements, $reservations, $feedbacks, $rewards, $rules);
 
     unset($user['role']);
 
@@ -969,6 +1038,7 @@ function getStudentDashboard(PDO $pdo): void
         'history' => $historyStmt->fetchAll(),
         'reservations' => $reservations,
         'announcements' => $announcements,
+        'rules' => $rules,
         'feedback' => $feedbacks,
         'rewards' => $rewards,
         'leaderboard' => $leaderboard,
