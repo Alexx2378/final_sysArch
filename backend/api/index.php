@@ -89,6 +89,12 @@ switch ($action) {
     case 'reset_sessions':
         resetStudentSessions($pdo);
         break;
+    case 'reset_all_sessions':
+        resetAllStudentSessions($pdo);
+        break;
+    case 'create_student':
+        createStudent($pdo);
+        break;
     default:
         http_response_code(404);
         echo json_encode(['success' => false, 'message' => 'Invalid action']);
@@ -357,6 +363,94 @@ function resetStudentSessions(PDO $pdo): void
         'message' => 'Sessions reset successfully',
         'remaining_sessions' => (int)($sessionsStmt->fetchColumn() ?: $remainingSessions),
     ]);
+}
+
+function resetAllStudentSessions(PDO $pdo): void
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+        return;
+    }
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    $remainingSessions = (int)($data['remaining_sessions'] ?? 30);
+    if ($remainingSessions < 0) {
+        $remainingSessions = 0;
+    }
+
+    $stmt = $pdo->prepare("UPDATE users SET remaining_sessions = :remaining_sessions WHERE role = 'student'");
+    $stmt->execute([':remaining_sessions' => $remainingSessions]);
+
+    echo json_encode([
+        'success' => true,
+        'message' => 'All student sessions reset successfully',
+        'updated' => $stmt->rowCount(),
+    ]);
+}
+
+function createStudent(PDO $pdo): void
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+        return;
+    }
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    $idNumber = trim((string)($data['id_number'] ?? ''));
+    $firstName = trim((string)($data['first_name'] ?? ''));
+    $lastName = trim((string)($data['last_name'] ?? ''));
+    $middleName = trim((string)($data['middle_name'] ?? ''));
+    $course = trim((string)($data['course'] ?? ''));
+    $yearLevel = (int)($data['year_level'] ?? 0);
+    $email = trim((string)($data['email'] ?? ''));
+    $password = (string)($data['password'] ?? '');
+    $address = trim((string)($data['address'] ?? ''));
+
+    if ($idNumber === '' || $firstName === '' || $lastName === '' || $course === '' || $yearLevel <= 0 || $email === '' || $password === '') {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Required fields are missing']);
+        return;
+    }
+
+    $allowedCourses = ['BSIT', 'BSCS', 'BSIS', 'ACT'];
+    if (!in_array($course, $allowedCourses, true)) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Invalid course']);
+        return;
+    }
+
+    if ($yearLevel < 1 || $yearLevel > 4) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Invalid year level']);
+        return;
+    }
+
+    $existsStmt = $pdo->prepare('SELECT id FROM users WHERE id_number = :id_number OR email = :email LIMIT 1');
+    $existsStmt->execute([':id_number' => $idNumber, ':email' => $email]);
+    if ($existsStmt->fetch()) {
+        http_response_code(409);
+        echo json_encode(['success' => false, 'message' => 'ID number or email already exists']);
+        return;
+    }
+
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+    $stmt = $pdo->prepare("INSERT INTO users (id_number, last_name, first_name, middle_name, course, year_level, email, password_hash, address, remaining_sessions, reward_points, role)
+        VALUES (:id_number, :last_name, :first_name, :middle_name, :course, :year_level, :email, :password_hash, :address, 30, 0, 'student')");
+    $stmt->execute([
+        ':id_number' => $idNumber,
+        ':last_name' => $lastName,
+        ':first_name' => $firstName,
+        ':middle_name' => $middleName,
+        ':course' => $course,
+        ':year_level' => $yearLevel,
+        ':email' => $email,
+        ':password_hash' => $hash,
+        ':address' => $address,
+    ]);
+
+    echo json_encode(['success' => true, 'message' => 'Student added successfully']);
 }
 
 function getRewardLeaderboard(PDO $pdo, int $limit = 10): array

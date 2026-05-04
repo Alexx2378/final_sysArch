@@ -384,34 +384,59 @@
         }
         .feedback-panel-grid {
             display: grid;
-            grid-template-columns: minmax(300px, 0.95fr) minmax(360px, 1.05fr);
-            gap: 18px;
+            grid-template-columns: minmax(320px, 1.05fr) minmax(320px, 0.95fr);
+            gap: 20px;
             align-items: start;
         }
         .feedback-compose-card,
         .feedback-history-card {
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.04);
-            padding: 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
         }
         .feedback-compose-head,
         .feedback-history-head {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        .feedback-helper-note {
-            font-size: 0.82rem;
-            color: rgba(255,255,255,0.62);
-            line-height: 1.5;
+            align-items: flex-start;
+            gap: 12px;
             margin-bottom: 14px;
         }
+        .feedback-headline {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.82);
+        }
+        .feedback-helper-note {
+            font-size: 0.86rem;
+            color: rgba(255,255,255,0.62);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
         #feedbackMessage {
-            min-height: 150px;
+            min-height: 160px;
             resize: vertical;
+        }
+        .feedback-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .btn-feedback {
+            border: 1px solid rgba(255,255,255,0.18);
+            background: linear-gradient(135deg, rgba(87, 198, 255, 0.18), rgba(33, 150, 243, 0.25));
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 999px;
+            padding: 10px 22px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            box-shadow: 0 10px 22px rgba(33, 150, 243, 0.18);
+        }
+        .btn-feedback:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 26px rgba(33, 150, 243, 0.3);
+            border-color: rgba(87, 198, 255, 0.45);
+            color: #ffffff;
         }
         .feedback-item,
         .feedback-empty {
@@ -420,9 +445,9 @@
             line-height: 1.6;
         }
         .feedback-item {
-            padding: 12px 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.1);
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.12);
             background: rgba(255,255,255,0.03);
         }
         .feedback-item + .feedback-item { margin-top: 12px; }
@@ -431,26 +456,26 @@
             justify-content: space-between;
             align-items: center;
             gap: 10px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         .feedback-chip {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             font-size: 0.78rem;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 999px;
             color: #d7ebff;
             background: rgba(87, 198, 255, 0.14);
             border: 1px solid rgba(87, 198, 255, 0.2);
         }
         .feedback-message {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .feedback-status-pill {
             display: inline-flex;
             align-items: center;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 999px;
             font-size: 0.75rem;
             font-weight: 700;
@@ -1106,9 +1131,22 @@
         .reservation-student-item .caption { color: #7f7697; }
         .reservation-student-item .value { color: var(--text-primary); }
         .feedback-helper-note { color: var(--text-muted); }
+        .feedback-headline { color: var(--text-muted); }
         .feedback-item {
             background: #ffffff;
             border: 1px solid #e5dcf5;
+        }
+        .btn-feedback {
+            background: linear-gradient(135deg, #2b124c, #5e3aa1);
+            border-color: transparent;
+            color: #ffffff;
+            box-shadow: 0 10px 22px rgba(43, 18, 76, 0.18);
+        }
+        .btn-feedback:hover {
+            background: linear-gradient(135deg, #1f0d37, #4c2b84);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 12px 26px rgba(43, 18, 76, 0.28);
         }
         .feedback-status-pill.new {
             background: #fff4d6;
@@ -1130,41 +1168,31 @@
         }
         .stat-number { color: var(--brand-primary); }
 
-        .btn-primary-gradient {
-            background: var(--brand-yellow);
-            border: 1px solid var(--brand-yellow);
-            color: #2b124c;
-            box-shadow: 0 8px 18px rgba(237, 180, 47, 0.3);
-        }
-        .btn-primary-gradient:hover {
-            background: var(--brand-yellow-hover);
-            border-color: var(--brand-yellow-hover);
-            color: #1f0d37;
-        }
+        .btn,
+        .btn-primary-gradient,
         .btn-outline-soft,
-        .btn-soft {
-            background: #fff9e8;
-            border: 1px solid #e3ca88;
-            color: #2b124c;
-        }
-        .btn-outline-soft:hover,
-        .btn-soft:hover {
-            background: #fdf1cf;
-            border-color: #e0bb5a;
-            color: #1f0d37;
-        }
-
+        .btn-soft,
         .btn-success,
-        .btn.btn-success {
-            background: var(--brand-yellow);
-            border-color: var(--brand-yellow);
-            color: #2b124c;
+        .btn.btn-success,
+        .btn-feedback {
+            background: linear-gradient(135deg, #2b124c, #5e3aa1);
+            border: 1px solid transparent;
+            color: #ffffff;
+            border-radius: 999px;
+            font-weight: 600;
+            box-shadow: 0 10px 22px rgba(43, 18, 76, 0.18);
         }
+        .btn:hover,
+        .btn-primary-gradient:hover,
+        .btn-outline-soft:hover,
+        .btn-soft:hover,
         .btn-success:hover,
-        .btn.btn-success:hover {
-            background: var(--brand-yellow-hover);
-            border-color: var(--brand-yellow-hover);
-            color: #1f0d37;
+        .btn.btn-success:hover,
+        .btn-feedback:hover {
+            background: linear-gradient(135deg, #1f0d37, #4c2b84);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 12px 26px rgba(43, 18, 76, 0.28);
         }
 
         .form-control,
@@ -1711,9 +1739,12 @@
                     <div class="feedback-panel-grid">
                         <div class="feedback-compose-card">
                             <div class="feedback-compose-head">
-                                <div class="section-title mb-0"><i class="ri-edit-line"></i>Share Feedback</div>
+                                <div>
+                                    <div class="section-title mb-1"><i class="ri-edit-line"></i>Share Feedback</div>
+                                    <div class="feedback-headline">Help us improve the lab experience.</div>
+                                </div>
                             </div>
-                            <div class="feedback-helper-note">Tell us what worked well or what can be improved in the lab experience.</div>
+                            <div class="feedback-helper-note">Share clear details so we can act on your feedback faster.</div>
                             <form id="feedbackForm" class="row g-3" novalidate>
                                 <div class="col-12">
                                     <label class="form-label" for="feedbackSubject">Subject</label>
@@ -1723,14 +1754,17 @@
                                     <label class="form-label" for="feedbackMessage">Message</label>
                                     <textarea id="feedbackMessage" class="form-control" rows="6" placeholder="Write your feedback here" required></textarea>
                                 </div>
-                                <div class="col-12 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary-gradient"><i class="ri-send-plane-2-line me-1"></i>Submit Feedback</button>
+                                <div class="col-12 feedback-actions">
+                                    <button type="submit" class="btn btn-feedback">Submit Feedback</button>
                                 </div>
                             </form>
                         </div>
                         <div class="feedback-history-card">
                             <div class="feedback-history-head">
-                                <div class="section-title mb-0"><i class="ri-time-line"></i>My Feedback</div>
+                                <div>
+                                    <div class="section-title mb-1"><i class="ri-time-line"></i>My Feedback</div>
+                                    <div class="feedback-headline">Track responses from the lab admin.</div>
+                                </div>
                             </div>
                                 <div class="scroll-pane" id="feedbackList">
                                     <div class="feedback-empty">Loading feedback...</div>

@@ -1649,8 +1649,18 @@
             return `"${String(value ?? '').replace(/"/g, '""')}"`;
         }
 
-        function downloadCsv(filename, headers, rows) {
-            const csv = [headers.map(toCsvValue).join(','), ...rows.map(row => row.map(toCsvValue).join(','))].join('\n');
+        function downloadCsv(filename, title, headers, rows) {
+            const reportDate = new Date().toLocaleDateString();
+            const titleRow = [toCsvValue(title)];
+            const dateRow = [toCsvValue(`Date: ${reportDate}`)];
+            const emptyRow = [''];
+            const csv = [
+                titleRow.join(','),
+                dateRow.join(','),
+                emptyRow.join(','),
+                headers.map(toCsvValue).join(','),
+                ...rows.map(row => row.map(toCsvValue).join(','))
+            ].join('\n');
             const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
@@ -1961,24 +1971,21 @@
         });
 
         document.getElementById('downloadStudentsReportBtn')?.addEventListener('click', function () {
-            downloadCsv('student-report.csv', ['ID Number', 'Name', 'Course', 'Year', 'Email', 'Address', 'Remaining Sessions', 'Reward Points'], buildStudentReportRows());
+            downloadCsv('student-report.csv', 'Student Report', ['ID Number', 'Name', 'Course', 'Year', 'Email', 'Address', 'Remaining Sessions', 'Reward Points'], buildStudentReportRows());
         });
 
         document.getElementById('downloadReservationsReportBtn')?.addEventListener('click', function () {
-            downloadCsv('reservation-report.csv', ['ID Number', 'Name', 'Lab', 'Purpose', 'Preferred Date', 'Preferred Time', 'Status', 'Created At'], buildReservationReportRows());
+            downloadCsv('reservation-report.csv', 'Reservation Report', ['ID Number', 'Name', 'Lab', 'Purpose', 'Preferred Date', 'Preferred Time', 'Status', 'Created At'], buildReservationReportRows());
         });
 
         document.getElementById('downloadHistoryReportBtn')?.addEventListener('click', function () {
-            downloadCsv('session-history-report.csv', ['ID Number', 'Name', 'Purpose', 'Lab', 'Time In', 'Time Out', 'Duration', 'Status'], buildHistoryReportRows());
+            downloadCsv('session-history-report.csv', 'Session History Report', ['ID Number', 'Name', 'Purpose', 'Lab', 'Time In', 'Time Out', 'Duration', 'Status'], buildHistoryReportRows());
         });
 
         document.getElementById('downloadLeaderboardReportBtn')?.addEventListener('click', function () {
-            downloadCsv('leaderboard-report.csv', ['Rank', 'ID Number', 'Name', 'Reward Points', 'Total Hours', 'Completed Sessions', 'Weighted Score', 'Earned Points Score', 'Sit-in Hours Score', 'Task Completed Score'], buildLeaderboardReportRows());
+            downloadCsv('leaderboard-report.csv', 'Leaderboard Report', ['Rank', 'ID Number', 'Name', 'Reward Points', 'Total Hours', 'Completed Sessions', 'Weighted Score', 'Earned Points Score', 'Sit-in Hours Score', 'Task Completed Score'], buildLeaderboardReportRows());
         });
 
-        document.getElementById('downloadLeaderboardReportBtn')?.addEventListener('click', function () {
-            downloadCsv('leaderboard-report.csv', ['Rank', 'ID Number', 'Name', 'Reward Points', 'Total Hours', 'Completed Sessions', 'Weighted Score', 'Earned Points Score', 'Sit-in Hours Score', 'Task Completed Score'], buildLeaderboardReportRows());
-        });
 
         async function loadAnnouncements() {
             try {
