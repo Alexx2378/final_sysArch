@@ -160,6 +160,31 @@
             color: #fff;
             font-weight: 600;
         }
+        .notification-link {
+            position: relative;
+            padding-right: 40px;
+        }
+        .notification-badge {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            border-radius: 999px;
+            background: #e53935;
+            color: #ffffff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(229, 57, 53, 0.35);
+        }
+        .notification-badge.active {
+            display: inline-flex;
+        }
         .navbar .dropdown-divider { border-top: 1px solid rgba(255,255,255,0.12); }
 
         .dashboard-shell {
@@ -178,10 +203,16 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .hero-grid {
+        .home-top-grid {
             display: grid;
-            grid-template-columns: 1.35fr 0.95fr;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 20px;
+        }
+        .home-bottom-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 18px;
+            margin-top: 18px;
         }
 
         .glass-card {
@@ -195,7 +226,7 @@
 
         .hero-card {
             padding: 26px;
-            min-height: 340px;
+            min-height: 320px;
             position: relative;
             overflow: hidden;
         }
@@ -264,6 +295,13 @@
             flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 18px;
+        }
+        .stats-card {
+            padding: 18px 20px;
+            margin-top: 18px;
+        }
+        .stats-card .section-title {
+            margin-bottom: 14px;
         }
         .btn-soft,
         .btn-primary-gradient,
@@ -579,8 +617,8 @@
 
         .form-shell {
             display: grid;
-            grid-template-columns: minmax(280px, 0.85fr) minmax(460px, 1.15fr);
-            gap: 20px;
+            grid-template-columns: minmax(260px, 0.8fr) minmax(520px, 1.2fr);
+            gap: 22px;
             align-items: start;
         }
         .edit-profile-shell {
@@ -727,6 +765,9 @@
 
         .form-card {
             padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
         .edit-header {
             display: flex;
@@ -802,9 +843,9 @@
         }
         .profile-section {
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 14px;
+            border-radius: 16px;
             background: rgba(255,255,255,0.03);
-            padding: 14px;
+            padding: 16px;
         }
         .profile-section + .profile-section {
             margin-top: 12px;
@@ -816,6 +857,9 @@
             letter-spacing: 0.08em;
             font-weight: 700;
             color: rgba(255,255,255,0.55);
+        }
+        .profile-section .row {
+            row-gap: 12px;
         }
         .profile-actions {
             display: flex;
@@ -915,7 +959,8 @@
         }
 
         @media (max-width: 992px) {
-            .hero-grid,
+            .home-top-grid,
+            .home-bottom-grid,
             .content-grid,
             .form-shell {
                 grid-template-columns: 1fr;
@@ -1109,9 +1154,6 @@
             background: #ffffff;
             border: 1px solid #e5dcf5;
         }
-        .profile-section-title {
-            color: #7f7697;
-        }
         .glance-item {
             background: #ffffff;
             border: 1px solid #e5dcf5;
@@ -1243,28 +1285,1006 @@
             color: var(--text-primary);
         }
 
+        /* ===== MODERN FEEDBACK PAGE ===== */
+        .feedback-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feedback-form-card,
+        .feedback-history-card {
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid #e6e1f3;
+            box-shadow: 0 10px 28px rgba(44, 31, 79, 0.08);
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .feedback-form-card:hover,
+        .feedback-history-card:hover {
+            box-shadow: 0 14px 36px rgba(44, 31, 79, 0.12);
+        }
+
+        /* Form Header */
+        .feedback-form-header,
+        .feedback-history-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0eaf8;
+        }
+
+        .feedback-form-icon,
+        .feedback-history-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #5e3aa1, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .feedback-form-title,
+        .feedback-history-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #1f1b2d;
+            margin: 0;
+            letter-spacing: -0.01em;
+        }
+
+        .feedback-form-subtitle,
+        .feedback-history-subtitle {
+            font-size: 0.88rem;
+            color: #6a637d;
+            margin: 6px 0 0;
+        }
+
+        /* Form Section */
+        .feedback-form-section {
+            margin-bottom: 26px;
+        }
+
+        .feedback-form-section:last-of-type {
+            margin-bottom: 32px;
+        }
+
+        .feedback-form-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1f1b2d;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .feedback-required {
+            color: #dc3545;
+            font-weight: 700;
+        }
+
+        /* Star Rating */
+        .feedback-rating-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 20px;
+            background: #faf8ff;
+            border-radius: 14px;
+            border: 1px solid #e5dcf5;
+        }
+
+        .feedback-star-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .feedback-star-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            border: 2px solid #d8cce5;
+            background: #ffffff;
+            color: #c0b3d5;
+            font-size: 1.6rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            padding: 0;
+        }
+
+        .feedback-star-btn:hover {
+            border-color: #edb42f;
+            background: #fffef0;
+            color: #edb42f;
+            transform: translateY(-2px);
+        }
+
+        .feedback-star-btn.active {
+            border-color: #edb42f;
+            background: linear-gradient(135deg, #fff9e8, #fffef0);
+            color: #edb42f;
+            font-weight: 700;
+        }
+
+        .feedback-rating-label {
+            font-size: 0.9rem;
+            color: #6a637d;
+            font-weight: 500;
+            min-width: 120px;
+            text-align: right;
+        }
+
+        .feedback-rating-label.active {
+            color: #5e3aa1;
+            font-weight: 600;
+        }
+
+        /* Form Inputs */
+        .feedback-input,
+        .feedback-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #d8d0e9;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #1f1b2d;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            transition: all 0.2s ease;
+        }
+
+        .feedback-input::placeholder,
+        .feedback-textarea::placeholder {
+            color: #a097b6;
+        }
+
+        .feedback-input:focus,
+        .feedback-textarea:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            background: #faf8ff;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.12);
+        }
+
+        .feedback-textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        /* Form Actions */
+        .feedback-form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            padding-top: 12px;
+        }
+
+        .feedback-submit-btn {
+            padding: 12px 28px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, #5e3aa1, #8b5cf6);
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 20px rgba(94, 58, 161, 0.18);
+        }
+
+        .feedback-submit-btn:hover {
+            background: linear-gradient(135deg, #4c2b84, #7c3aed);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(94, 58, 161, 0.28);
+        }
+
+        .feedback-submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Feedback List Container */
+        .feedback-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .feedback-list-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .feedback-list-container::-webkit-scrollbar-thumb {
+            background: #d8cce5;
+            border-radius: 999px;
+        }
+
+        .feedback-list-container::-webkit-scrollbar-thumb:hover {
+            background: #c0b3d5;
+        }
+
+        .feedback-list-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* Feedback Empty State */
+        .feedback-list-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 240px;
+            color: #6a637d;
+            text-align: center;
+        }
+
+        .feedback-list-empty i {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            opacity: 0.25;
+        }
+
+        .feedback-list-empty p {
+            font-size: 0.92rem;
+            margin: 0;
+        }
+
+        /* Feedback Item */
+        .feedback-history-item {
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #e5dcf5;
+            background: #ffffff;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .feedback-history-item:hover {
+            background: #faf8ff;
+            border-color: #d8cce5;
+            box-shadow: 0 4px 12px rgba(94, 58, 161, 0.08);
+        }
+
+        .feedback-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .feedback-item-subject {
+            font-size: 0.93rem;
+            font-weight: 600;
+            color: #1f1b2d;
+            flex: 1;
+        }
+
+        .feedback-item-date-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: #fff9e8;
+            color: #6d4f15;
+            border: 1px solid #ead8a8;
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+        }
+
+        .feedback-item-body {
+            font-size: 0.85rem;
+            color: #6a637d;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .feedback-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feedback-item-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .feedback-item-status.new {
+            background: #fff9e8;
+            color: #6d4f15;
+            border: 1px solid #ead8a8;
+        }
+
+        .feedback-item-status.reviewed {
+            background: #e8f7ec;
+            color: #1d5d34;
+            border: 1px solid #bde5c8;
+        }
+
+        .feedback-item-rating {
+            display: flex;
+            gap: 4px;
+            font-size: 0.9rem;
+        }
+
+        .feedback-item-rating-star {
+            color: #edb42f;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 992px) {
+            .feedback-container {
+                grid-template-columns: 1fr;
+            }
+
+            .feedback-form-card,
+            .feedback-history-card {
+                padding: 24px;
+            }
+
+            .feedback-rating-container {
+                flex-wrap: wrap;
+            }
+
+            .feedback-rating-label {
+                width: 100%;
+                text-align: left;
+                min-width: auto;
+                order: 3;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .feedback-container {
+                gap: 16px;
+            }
+
+            .feedback-form-card,
+            .feedback-history-card {
+                padding: 18px;
+            }
+
+            .feedback-form-header,
+            .feedback-history-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .feedback-form-icon,
+            .feedback-history-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 1.5rem;
+            }
+
+            .feedback-star-group {
+                gap: 8px;
+            }
+
+            .feedback-star-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1.3rem;
+            }
+
+            .feedback-item-header {
+                flex-direction: column;
+            }
+
+            .feedback-item-date-badge {
+                align-self: flex-start;
+            }
+        }
+
         @media (max-width: 992px) {
             .feedback-panel-grid {
                 grid-template-columns: 1fr;
             }
-            .reservation-panel-grid {
-                grid-template-columns: 1fr;
+        }
+
+
+        /* ===== MODERN NOTIFICATIONS PANEL (SOLID DESIGN) ===== */
+        .notifications-panel-card {
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid #e6e1f3;
+            box-shadow: 0 10px 28px rgba(44, 31, 79, 0.08);
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: 85vh;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .notifications-panel-card:hover {
+            box-shadow: 0 14px 36px rgba(44, 31, 79, 0.12);
+        }
+
+        /* Notification Header */
+        .notifications-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px;
+            border-bottom: 2px solid #f0eaf8;
+            background: #ffffff;
+        }
+
+        .notifications-header-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .notifications-header-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #5e3aa1, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .notifications-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #1f1b2d;
+            margin: 0;
+            letter-spacing: -0.01em;
+        }
+
+        .notifications-subtitle {
+            font-size: 0.88rem;
+            color: #6a637d;
+            margin: 6px 0 0;
+        }
+
+        .notifications-header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .notifications-action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1.5px solid #d8d0e9;
+            background: #ffffff;
+            color: #5e3aa1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
+        }
+
+        .notifications-action-btn:hover {
+            background: #faf8ff;
+            border-color: #bca8e3;
+            color: #8b5cf6;
+            transform: translateY(-1px);
+        }
+
+        /* Notification Tabs Container */
+        .notifications-tabs-container {
+            padding: 0 24px;
+            border-bottom: 1px solid #e6e1f3;
+            background: #ffffff;
+        }
+
+        .notifications-tabs {
+            display: flex;
+            gap: 0;
+            padding: 12px 0;
+        }
+
+        .notifications-tab {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            color: #6a637d;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+
+        .notifications-tab:hover {
+            color: #5e3aa1;
+            background: rgba(94, 58, 161, 0.04);
+        }
+
+        .notifications-tab.active {
+            color: #5e3aa1;
+            background: rgba(94, 58, 161, 0.08);
+            border-bottom-color: #5e3aa1;
+        }
+
+        .notifications-tab-label {
+            display: inline-block;
+        }
+
+        .notifications-tab-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 24px;
+            padding: 0 6px;
+            border-radius: 999px;
+            background: #e6e1f3;
+            color: #5e3aa1;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .notifications-tab.active .notifications-tab-count {
+            background: #5e3aa1;
+            color: #ffffff;
+        }
+
+        /* Notification List Wrapper */
+        .notifications-list-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 24px;
+            background: #ffffff;
+        }
+
+        .notifications-list-wrapper::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .notifications-list-wrapper::-webkit-scrollbar-thumb {
+            background: #d8cce5;
+            border-radius: 999px;
+        }
+
+        .notifications-list-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #c0b3d5;
+        }
+
+        .notifications-list-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* Empty State */
+        .notifications-empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 240px;
+            color: #6a637d;
+            text-align: center;
+        }
+
+        .notifications-empty-state i {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            opacity: 0.25;
+        }
+
+        .notifications-empty-state p {
+            font-size: 0.92rem;
+            margin: 0;
+        }
+
+        /* Notification Group */
+        .notifications-group {
+            margin-bottom: 24px;
+        }
+
+        .notifications-group-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6a637d;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notifications-group-count {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: rgba(94, 58, 161, 0.12);
+            color: #5e3aa1;
+        }
+
+        /* Notification Item */
+        .notifications-item {
+            display: flex;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1.5px solid #e6e1f3;
+            background: #ffffff;
+            transition: all 0.2s ease;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .notifications-item:hover {
+            background: #faf8ff;
+            border-color: #d8cce5;
+            box-shadow: 0 4px 12px rgba(94, 58, 161, 0.08);
+            transform: translateX(2px);
+        }
+
+        .notifications-item.unread {
+            background: rgba(94, 58, 161, 0.06);
+            border-color: rgba(94, 58, 161, 0.2);
+        }
+
+        .notifications-item.unread:hover {
+            background: rgba(94, 58, 161, 0.1);
+        }
+
+        /* Unread Indicator Dot */
+        .notifications-unread-indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5e3aa1, #edb42f);
+            flex-shrink: 0;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .notifications-item.unread .notifications-unread-indicator {
+            display: block;
+        }
+
+        /* Notification Avatar */
+        .notifications-item-avatar {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(94, 58, 161, 0.2), rgba(139, 92, 246, 0.15));
+            border: 2px solid #d8cce5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #5e3aa1;
+        }
+
+        .notifications-item-avatar.announcement {
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.2), rgba(6, 182, 212, 0.15));
+            color: #2196f3;
+            border-color: rgba(33, 150, 243, 0.3);
+        }
+
+        .notifications-item-avatar.reservation {
+            background: linear-gradient(135deg, rgba(22, 163, 74, 0.2), rgba(34, 197, 94, 0.15));
+            color: #16a34a;
+            border-color: rgba(22, 163, 74, 0.3);
+        }
+
+        .notifications-item-avatar.feedback {
+            background: linear-gradient(135deg, rgba(237, 180, 47, 0.2), rgba(250, 204, 21, 0.15));
+            color: #edb42f;
+            border-color: rgba(237, 180, 47, 0.3);
+        }
+
+        .notifications-item-avatar.reward {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(251, 146, 60, 0.15));
+            color: #f97316;
+            border-color: rgba(249, 115, 22, 0.3);
+        }
+
+        /* Notification Content */
+        .notifications-item-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .notifications-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .notifications-item-title {
+            font-size: 0.93rem;
+            font-weight: 600;
+            color: #1f1b2d;
+            margin: 0;
+            word-break: break-word;
+        }
+
+        .notifications-item-timestamp {
+            font-size: 0.78rem;
+            color: #6a637d;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .notifications-item-preview {
+            font-size: 0.85rem;
+            color: #6a637d;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .notifications-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Notification Status Badge */
+        .notifications-status-badge {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            gap: 4px;
+        }
+
+        .notifications-status-badge.pending {
+            background: #fff9e8;
+            color: #6d4f15;
+            border: 1px solid #ead8a8;
+        }
+
+        .notifications-status-badge.approved {
+            background: #e8f7ec;
+            color: #1d5d34;
+            border: 1px solid #bde5c8;
+        }
+
+        .notifications-status-badge.rejected {
+            background: #fce8e8;
+            color: #8b0000;
+            border: 1px solid #f5c6c6;
+        }
+
+        /* Notification Actions */
+        .notifications-item-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .notifications-action-link {
+            font-size: 0.78rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid #d8cce5;
+            background: rgba(94, 58, 161, 0.08);
+            color: #5e3aa1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .notifications-action-link:hover {
+            background: rgba(94, 58, 161, 0.15);
+            border-color: #bca8e3;
+        }
+
+        .notifications-action-link.success {
+            border-color: rgba(22, 163, 74, 0.3);
+            background: rgba(22, 163, 74, 0.08);
+            color: #16a34a;
+        }
+
+        .notifications-action-link.success:hover {
+            background: rgba(22, 163, 74, 0.15);
+            border-color: rgba(22, 163, 74, 0.5);
+        }
+
+        .notifications-action-link.danger {
+            border-color: rgba(220, 38, 38, 0.3);
+            background: rgba(220, 38, 38, 0.08);
+            color: #dc3545;
+        }
+
+        .notifications-action-link.danger:hover {
+            background: rgba(220, 38, 38, 0.15);
+            border-color: rgba(220, 38, 38, 0.5);
+        }
+
+        /* Notifications Footer */
+        .notifications-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #e6e1f3;
+            background: #faf8ff;
+            text-align: center;
+        }
+
+        .notifications-view-all-btn {
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(94, 58, 161, 0.3);
+            background: rgba(94, 58, 161, 0.08);
+            color: #5e3aa1;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notifications-view-all-btn:hover {
+            background: rgba(94, 58, 161, 0.15);
+            border-color: rgba(94, 58, 161, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .notifications-panel-card {
+                max-height: none;
             }
-            .reservation-student-grid {
-                grid-template-columns: 1fr;
-            }
-            .edit-header {
-                flex-direction: column;
-            }
-            .edit-profile-topbar {
+
+            .notifications-header {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 12px;
             }
-            .avatar-card {
-                position: static;
-                top: auto;
+
+            .notifications-header-content {
+                width: 100%;
+            }
+
+            .notifications-tabs {
+                gap: 2px;
+            }
+
+            .notifications-tab {
+                flex: 1;
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+
+            .notifications-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .notifications-item-header {
+                flex-direction: column;
             }
         }
+
+        @media (max-width: 576px) {
+            .notifications-panel-card {
+                border-radius: 12px;
+            }
+
+            .notifications-header,
+            .notifications-list-wrapper {
+                padding: 16px;
+            }
+
+            .notifications-header-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 1.5rem;
+            }
+
+            .notifications-title {
+                font-size: 1.15rem;
+            }
+
+            .notifications-item-avatar {
+                width: 38px;
+                height: 38px;
+                font-size: 1.1rem;
+            }
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .notification-panel-card {
+                max-height: none;
+            }
+
+            .notification-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .notification-header-left {
+                width: 100%;
+            }
+
+            .notification-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .notification-item-avatar {
+                width: 36px;
+                height: 36px;
+            }
+
+            .notification-item-header {
+                flex-direction: column;
+            }
+
+            .notification-tabs {
+                overflow-x: auto;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -1298,7 +2318,7 @@
                                 <li><a class="dropdown-item" href="#" data-section="edit-profile" data-section-label="Edit Profile"><i class="ri-edit-line"></i>Edit Profile</a></li>
                                 <li><a class="dropdown-item" href="#" data-section="history" data-section-label="History"><i class="ri-time-line"></i>History</a></li>
                                 <li><a class="dropdown-item" href="#" data-section="rewards" data-section-label="Rewards"><i class="ri-trophy-line"></i>Rewards</a></li>
-                                <li><a class="dropdown-item" href="#" data-section="notifications" data-section-label="Notifications"><i class="ri-notification-3-line"></i>Notifications</a></li>
+                                <li><a class="dropdown-item notification-link" href="#" data-section="notifications" data-section-label="Notifications"><i class="ri-notification-3-line"></i>Notifications<span class="notification-badge" id="notificationBadge" aria-hidden="true"></span></a></li>
                                 <li><a class="dropdown-item" href="#" data-section="reservation" data-section-label="Reservation"><i class="ri-bookmark-3-line"></i>Reservation</a></li>
                                 <li><a class="dropdown-item" href="#" data-section="reservation-status" data-section-label="Reservation Status"><i class="ri-inbox-2-line"></i>Reservation Status</a></li>
                                 <li><a class="dropdown-item" href="#" data-section="feedback" data-section-label="Feedback"><i class="ri-chat-3-line"></i>Feedback</a></li>
@@ -1315,7 +2335,7 @@
 
         <main class="dashboard-shell container-fluid">
             <section class="section-panel active" data-panel="home">
-                <div class="hero-grid">
+                <div class="home-top-grid">
                     <div class="glass-card hero-card">
                         <div class="hero-badge"><i class="ri-sparkling-line"></i> Student Dashboard</div>
                         <h1 class="hero-title" id="homeTitle">Welcome to your CCS workspace</h1>
@@ -1330,25 +2350,6 @@
                             <button class="btn btn-primary-gradient" data-section-jump="edit-profile"><i class="ri-edit-line me-1"></i>Edit Profile</button>
                             <button class="btn btn-outline-soft" data-section-jump="reservation"><i class="ri-calendar-check-line me-1"></i>Reserve Lab</button>
                             <button class="btn btn-outline-soft" data-section-jump="history"><i class="ri-time-line me-1"></i>View History</button>
-                        </div>
-
-                        <div class="stats-grid">
-                            <div class="stat-box">
-                                <div class="stat-number" id="statSessions">0</div>
-                                <div class="stat-label">Active Sessions</div>
-                            </div>
-                            <div class="stat-box">
-                                <div class="stat-number" id="statReservations">0</div>
-                                <div class="stat-label">Reservations</div>
-                            </div>
-                            <div class="stat-box">
-                                <div class="stat-number" id="statProfile">100%</div>
-                                <div class="stat-label">Remaining Sessions</div>
-                            </div>
-                            <div class="stat-box">
-                                <div class="stat-number" id="statPhoto">0</div>
-                                <div class="stat-label">Reward Points</div>
-                            </div>
                         </div>
                     </div>
 
@@ -1369,7 +2370,29 @@
                     </div>
                 </div>
 
-                <div class="content-grid">
+                <div class="glass-card stats-card">
+                    <div class="section-title"><i class="ri-bar-chart-grouped-line"></i> Session Snapshot</div>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-number" id="statSessions">0</div>
+                            <div class="stat-label">Active Sessions</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="statReservations">0</div>
+                            <div class="stat-label">Reservations</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="statProfile">100%</div>
+                            <div class="stat-label">Remaining Sessions</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="statPhoto">0</div>
+                            <div class="stat-label">Reward Points</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="home-bottom-grid">
                     <div class="glass-card content-card">
                         <div class="section-title"><i class="ri-megaphone-line"></i> Announcement</div>
                         <div class="scroll-pane" id="announcementList">
@@ -1576,11 +2599,54 @@
             </section>
 
             <section class="section-panel" data-panel="notifications">
-                <div class="glass-card content-card">
-                    <div class="section-title"><i class="ri-notification-3-line"></i>Notification Center</div>
-                    <div class="empty-note mb-3">Recent alerts are collected from announcements, reservations, feedback, and reward updates.</div>
-                    <div class="scroll-pane" id="notificationList" style="max-height: 420px;">
-                        <div class="announcement-empty">Loading notifications...</div>
+                <div class="notifications-panel-card">
+                    <!-- Notification Header -->
+                    <div class="notifications-header">
+                        <div class="notifications-header-content">
+                            <div class="notifications-header-icon"><i class="ri-notification-3-line"></i></div>
+                            <div>
+                                <h2 class="notifications-title">Notifications</h2>
+                                <p class="notifications-subtitle">Stay updated with recent alerts and updates</p>
+                            </div>
+                        </div>
+                        <div class="notifications-header-actions">
+                            <button class="notifications-action-btn" id="markAllNotificationsReadBtn" title="Mark all as read">
+                                <i class="ri-checkbox-circle-line"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Notification Tabs -->
+                    <div class="notifications-tabs-container">
+                        <div class="notifications-tabs">
+                            <button class="notifications-tab active" data-filter="all">
+                                <span class="notifications-tab-label">All</span>
+                                <span class="notifications-tab-count" id="notifCountAll">0</span>
+                            </button>
+                            <button class="notifications-tab" data-filter="unread">
+                                <span class="notifications-tab-label">Unread</span>
+                                <span class="notifications-tab-count" id="notifCountUnread">0</span>
+                            </button>
+                            <button class="notifications-tab" data-filter="archived">
+                                <span class="notifications-tab-label">Archived</span>
+                                <span class="notifications-tab-count" id="notifCountArchived">0</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Notification List -->
+                    <div class="notifications-list-wrapper" id="notificationsListWrapper">
+                        <div class="notifications-empty-state">
+                            <i class="ri-inbox-line"></i>
+                            <p>No notifications yet</p>
+                        </div>
+                    </div>
+
+                    <!-- View All Button -->
+                    <div class="notifications-footer" id="notificationsFooter" style="display: none;">
+                        <button class="notifications-view-all-btn">
+                            <i class="ri-arrow-right-line"></i> View All Notifications
+                        </button>
                     </div>
                 </div>
             </section>
@@ -1734,41 +2800,99 @@
             </section>
 
             <section class="section-panel" data-panel="feedback">
-                <div class="glass-card content-card">
-                    <div class="section-title"><i class="ri-chat-3-line"></i> Feedback</div>
-                    <div class="feedback-panel-grid">
-                        <div class="feedback-compose-card">
-                            <div class="feedback-compose-head">
-                                <div>
-                                    <div class="section-title mb-1"><i class="ri-edit-line"></i>Share Feedback</div>
-                                    <div class="feedback-headline">Help us improve the lab experience.</div>
-                                </div>
+                <div class="feedback-container">
+                    <!-- Feedback Form Card -->
+                    <div class="feedback-form-card">
+                        <div class="feedback-form-header">
+                            <div class="feedback-form-icon"><i class="ri-chat-3-line"></i></div>
+                            <div>
+                                <h2 class="feedback-form-title">Share Your Feedback</h2>
+                                <p class="feedback-form-subtitle">Help us improve the laboratory experience for all students</p>
                             </div>
-                            <div class="feedback-helper-note">Share clear details so we can act on your feedback faster.</div>
-                            <form id="feedbackForm" class="row g-3" novalidate>
-                                <div class="col-12">
-                                    <label class="form-label" for="feedbackSubject">Subject</label>
-                                    <input type="text" id="feedbackSubject" class="form-control" placeholder="e.g. Lab experience" required>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label" for="feedbackMessage">Message</label>
-                                    <textarea id="feedbackMessage" class="form-control" rows="6" placeholder="Write your feedback here" required></textarea>
-                                </div>
-                                <div class="col-12 feedback-actions">
-                                    <button type="submit" class="btn btn-feedback">Submit Feedback</button>
-                                </div>
-                            </form>
                         </div>
-                        <div class="feedback-history-card">
-                            <div class="feedback-history-head">
-                                <div>
-                                    <div class="section-title mb-1"><i class="ri-time-line"></i>My Feedback</div>
-                                    <div class="feedback-headline">Track responses from the lab admin.</div>
+
+                        <form id="feedbackForm" novalidate>
+                            <!-- Rating Section -->
+                            <div class="feedback-form-section">
+                                <label class="feedback-form-label">How would you rate your experience?</label>
+                                <div class="feedback-rating-container">
+                                    <div class="feedback-star-group">
+                                        <button type="button" class="feedback-star-btn" data-rating="1" title="Poor">
+                                            <i class="ri-star-line"></i>
+                                        </button>
+                                        <button type="button" class="feedback-star-btn" data-rating="2" title="Fair">
+                                            <i class="ri-star-line"></i>
+                                        </button>
+                                        <button type="button" class="feedback-star-btn" data-rating="3" title="Good">
+                                            <i class="ri-star-line"></i>
+                                        </button>
+                                        <button type="button" class="feedback-star-btn" data-rating="4" title="Very Good">
+                                            <i class="ri-star-line"></i>
+                                        </button>
+                                        <button type="button" class="feedback-star-btn" data-rating="5" title="Excellent">
+                                            <i class="ri-star-line"></i>
+                                        </button>
+                                    </div>
+                                    <span class="feedback-rating-label" id="feedbackRatingLabel">Select a rating</span>
+                                    <input type="hidden" id="feedbackRating" value="0">
                                 </div>
                             </div>
-                                <div class="scroll-pane" id="feedbackList">
-                                    <div class="feedback-empty">Loading feedback...</div>
-                                </div>
+
+                            <!-- Subject Section -->
+                            <div class="feedback-form-section">
+                                <label class="feedback-form-label" for="feedbackSubject">
+                                    <span>Feedback Subject</span>
+                                    <span class="feedback-required">*</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="feedbackSubject" 
+                                    class="feedback-input" 
+                                    placeholder="e.g., Lab equipment issue, Facility improvement" 
+                                    required
+                                >
+                            </div>
+
+                            <!-- Message Section -->
+                            <div class="feedback-form-section">
+                                <label class="feedback-form-label" for="feedbackMessage">
+                                    <span>Your Feedback</span>
+                                    <span class="feedback-required">*</span>
+                                </label>
+                                <textarea 
+                                    id="feedbackMessage" 
+                                    class="feedback-textarea" 
+                                    rows="6" 
+                                    placeholder="Share your detailed feedback here. Be specific so we can address your concerns better."
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="feedback-form-actions">
+                                <button type="submit" class="feedback-submit-btn">
+                                    <i class="ri-send-plane-2-line"></i>
+                                    Submit Feedback
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Feedback History Card -->
+                    <div class="feedback-history-card">
+                        <div class="feedback-history-header">
+                            <div class="feedback-history-icon"><i class="ri-time-line"></i></div>
+                            <div>
+                                <h2 class="feedback-history-title">Your Feedback History</h2>
+                                <p class="feedback-history-subtitle">Track all your submitted feedback and responses</p>
+                            </div>
+                        </div>
+
+                        <div class="feedback-list-container" id="feedbackList">
+                            <div class="feedback-list-empty">
+                                <i class="ri-inbox-line"></i>
+                                <p>No feedback submitted yet</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1801,10 +2925,16 @@
         const PROFILE_KEY = 'ccs_student_profile';
         const ANNOUNCEMENT_SEEN_KEY = 'ccs_seen_announcement_at';
         const RULES_SEEN_KEY = 'ccs_seen_rules_at';
+        const NOTIFICATIONS_SEEN_KEY = 'ccs_seen_notifications_at';
         let loginAlertsShown = false;
+        let notificationsCache = [];
 
         function buildProfileStorageKey(idNumber) {
             return `${PROFILE_KEY}_${String(idNumber || 'guest').trim()}`;
+        }
+
+        function buildNotificationSeenKey(idNumber) {
+            return `${NOTIFICATIONS_SEEN_KEY}_${String(idNumber || 'guest').trim()}`;
         }
 
         function buildFallbackAvatar(seed, name) {
@@ -1906,7 +3036,8 @@
             const mainPhoto = document.getElementById('profilePhotoPreview');
             const miniPhoto = document.getElementById('miniPreview');
             const summaryPhoto = document.getElementById('summaryPhoto');
-            [mainPhoto, miniPhoto, summaryPhoto].forEach(img => {
+            const sidebarPhoto = document.getElementById('sidebarPhoto');
+            [mainPhoto, miniPhoto, summaryPhoto, sidebarPhoto].forEach(img => {
                 if (img) img.src = source;
             });
         }
@@ -1934,6 +3065,14 @@
             document.getElementById('summaryCourse').textContent = `${profile.course} - Year ${profile.year_level}`;
             document.getElementById('summaryEmail').textContent = `Email: ${profile.email}`;
             document.getElementById('summaryAddress').textContent = `Address: ${profile.address || 'Not provided'}`;
+            const sidebarName = document.getElementById('sidebarName');
+            const sidebarMeta = document.getElementById('sidebarMeta');
+            const sidebarCourse = document.getElementById('sidebarCourse');
+            const sidebarYear = document.getElementById('sidebarYear');
+            if (sidebarName) sidebarName.textContent = fullName();
+            if (sidebarMeta) sidebarMeta.textContent = `ID Number: ${profile.id_number}`;
+            if (sidebarCourse) sidebarCourse.textContent = profile.course || 'Course';
+            if (sidebarYear) sidebarYear.textContent = `Year ${profile.year_level || '-'}`;
             document.getElementById('avatarName').textContent = fullName();
             document.getElementById('avatarInfo').textContent = `${profile.course} - Year ${profile.year_level}`;
             document.getElementById('previewName').textContent = fullName();
@@ -1963,6 +3102,41 @@
             if (labelNode) {
                 labelNode.textContent = label;
             }
+            if (sectionName === 'notifications') {
+                markNotificationsSeen();
+            }
+        }
+
+        function getNotificationTimestamp(item) {
+            const raw = item?.created_at;
+            if (!raw) return 0;
+            const parsed = Date.parse(raw);
+            return Number.isNaN(parsed) ? 0 : parsed;
+        }
+
+        function updateNotificationBadge(notifications) {
+            const badge = document.getElementById('notificationBadge');
+            if (!badge) return;
+            const seenAt = Number(localStorage.getItem(buildNotificationSeenKey(profile.id_number)) || 0);
+            const unreadCount = (notifications || []).filter(item => getNotificationTimestamp(item) > seenAt).length;
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount > 99 ? '99+' : String(unreadCount);
+                badge.classList.add('active');
+                badge.setAttribute('aria-hidden', 'false');
+            } else {
+                badge.textContent = '';
+                badge.classList.remove('active');
+                badge.setAttribute('aria-hidden', 'true');
+            }
+        }
+
+        function markNotificationsSeen() {
+            if (!notificationsCache.length) return;
+            const latest = Math.max(...notificationsCache.map(getNotificationTimestamp), 0);
+            if (latest > 0) {
+                localStorage.setItem(buildNotificationSeenKey(profile.id_number), String(latest));
+            }
+            updateNotificationBadge(notificationsCache);
         }
 
         function bindSectionLinks() {
@@ -2096,22 +3270,35 @@
             if (!container) return;
 
             if (!feedbacks.length) {
-                container.innerHTML = '<div class="feedback-empty">No feedback submitted yet.</div>';
+                container.innerHTML = `
+                    <div class="feedback-list-empty">
+                        <i class="ri-inbox-line"></i>
+                        <p>No feedback submitted yet</p>
+                    </div>
+                `;
                 return;
             }
 
             container.innerHTML = feedbacks.map(item => {
-                const createdAt = item.created_at ? new Date(item.created_at).toLocaleString() : 'Today';
+                const createdAt = item.created_at ? new Date(item.created_at) : new Date();
+                const dateStr = createdAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: createdAt.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined });
                 const statusLabel = item.status === 'reviewed' ? 'Reviewed' : 'New';
                 const statusClass = item.status === 'reviewed' ? 'reviewed' : 'new';
+                const rating = item.rating ? `<div class="feedback-item-rating">${'<span class="feedback-item-rating-star"><i class="ri-star-fill"></i></span>'.repeat(item.rating)}</div>` : '';
                 return `
-                    <div class="feedback-item">
-                        <div class="feedback-meta">
-                            <div class="feedback-chip"><i class="ri-chat-3-line"></i> ${escapeHtml(createdAt)}</div>
-                            <span class="feedback-status-pill ${statusClass}">${statusLabel}</span>
+                    <div class="feedback-history-item">
+                        <div class="feedback-item-header">
+                            <div class="feedback-item-subject">${escapeHtml(item.subject || 'Feedback')}</div>
+                            <span class="feedback-item-date-badge">${dateStr}</span>
                         </div>
-                        <div class="fw-semibold mb-1">${escapeHtml(item.subject || 'Feedback')}</div>
-                        <div class="feedback-message">${escapeHtml(item.message || '')}</div>
+                        <div class="feedback-item-body">${escapeHtml(item.message || '')}</div>
+                        <div class="feedback-item-footer">
+                            ${rating}
+                            <span class="feedback-item-status ${statusClass}">
+                                <i class="${statusClass === 'reviewed' ? 'ri-checkbox-circle-fill' : 'ri-notification-badge-fill'}"></i>
+                                ${statusLabel}
+                            </span>
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -2136,40 +3323,207 @@
         }
 
         function renderNotifications(notifications) {
-            const container = document.getElementById('notificationList');
+            const container = document.getElementById('notificationListContainer');
             if (!container) return;
 
-            if (!notifications.length) {
-                container.innerHTML = '<div class="announcement-empty">No notifications yet.</div>';
+            if (!notifications || !notifications.length) {
+                container.innerHTML = `
+                    <div class="notification-empty-state">
+                        <i class="ri-inbox-line"></i>
+                        <p>No notifications yet</p>
+                    </div>
+                `;
+                updateNotificationCounts([], 'all');
                 return;
             }
 
-            const icons = {
-                announcement: 'ri-megaphone-line',
-                reservation: 'ri-inbox-2-line',
-                feedback: 'ri-chat-3-line',
-                reward: 'ri-trophy-line',
-                rule: 'ri-file-text-line'
-            };
+            // Get current filter
+            const activeTab = document.querySelector('.notification-tab-btn.active');
+            const currentFilter = activeTab ? activeTab.getAttribute('data-filter') : 'all';
 
-            const labels = {
-                info: 'text-bg-info',
-                pending: 'text-bg-warning',
-                approved: 'text-bg-success',
-                rejected: 'text-bg-danger',
-                new: 'text-bg-secondary',
-                reviewed: 'text-bg-success',
-                success: 'text-bg-success'
-            };
+            // Get the seen timestamp for filtering unread
+            const seenAt = Number(localStorage.getItem(buildNotificationSeenKey(profile.id_number)) || 0);
 
-            container.innerHTML = notifications.map(item => `
-                <div class="feedback-item">
-                    <div class="feedback-chip"><i class="${icons[item.type] || 'ri-notification-3-line'}"></i> ${escapeHtml(item.title || 'Notification')} | ${escapeHtml(item.created_at ? new Date(item.created_at).toLocaleString() : 'Now')}</div>
-                    <div class="mb-2">${escapeHtml(item.body || '')}</div>
-                    <span class="badge ${labels[item.status] || 'text-bg-info'}">${escapeHtml(String(item.status || 'info').toUpperCase())}</span>
-                </div>
-            `).join('');
+            // Filter notifications based on tab
+            let filteredNotifications = notifications;
+            if (currentFilter === 'unread') {
+                filteredNotifications = notifications.filter(item => getNotificationTimestamp(item) > seenAt);
+            }
+
+            // Limit to 10 items
+            const displayLimit = 10;
+            const showViewAllButton = filteredNotifications.length > displayLimit;
+            filteredNotifications = filteredNotifications.slice(0, displayLimit);
+
+            // Group by time
+            const grouped = groupNotificationsByTime(filteredNotifications, seenAt);
+
+            if (!filteredNotifications.length) {
+                container.innerHTML = `
+                    <div class="notification-empty-state">
+                        <i class="ri-inbox-line"></i>
+                        <p>No ${currentFilter} notifications</p>
+                    </div>
+                `;
+                updateNotificationCounts(notifications, currentFilter);
+                document.getElementById('notificationFooter').style.display = 'none';
+                return;
+            }
+
+            // Build HTML
+            let html = '';
+            for (const [timeGroup, items] of Object.entries(grouped)) {
+                html += `
+                    <div class="notification-group">
+                        <div class="notification-group-label">
+                            ${timeGroup}
+                            <span class="notification-group-count">${items.length}</span>
+                        </div>
+                `;
+
+                for (const item of items) {
+                    const isUnread = getNotificationTimestamp(item) > seenAt;
+                    const timestamp = formatNotificationTime(getNotificationTimestamp(item));
+                    const avatarClass = item.type || 'info';
+                    const iconMap = {
+                        announcement: 'ri-megaphone-line',
+                        reservation: 'ri-inbox-2-line',
+                        feedback: 'ri-chat-3-line',
+                        reward: 'ri-trophy-line',
+                        rule: 'ri-file-text-line'
+                    };
+
+                    html += `
+                        <div class="notification-item ${isUnread ? 'unread' : ''}" data-notification-id="${item.id || ''}">
+                            <div class="notification-unread-dot"></div>
+                            <div class="notification-item-avatar ${avatarClass}">
+                                <i class="${iconMap[avatarClass] || 'ri-notification-3-line'}"></i>
+                            </div>
+                            <div class="notification-item-content">
+                                <div class="notification-item-header">
+                                    <h4 class="notification-item-title">${escapeHtml(item.title || 'Notification')}</h4>
+                                    <span class="notification-item-timestamp">${timestamp}</span>
+                                </div>
+                                <p class="notification-item-message">${escapeHtml(item.body || '')}</p>
+                                <div class="notification-item-actions">
+                                    ${item.status ? `<span class="notification-status-badge ${item.status.toLowerCase()}">${escapeHtml(item.status)}</span>` : ''}
+                                    ${buildNotificationActions(item)}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+
+            // Show/hide view all button
+            document.getElementById('notificationFooter').style.display = showViewAllButton ? 'block' : 'none';
+
+            // Update counts
+            updateNotificationCounts(notifications, currentFilter);
+
+            // Attach event listeners to items
+            document.querySelectorAll('.notification-item').forEach(item => {
+                item.addEventListener('click', markSingleNotificationAsRead);
+            });
         }
+
+        function groupNotificationsByTime(notifications, seenAt) {
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            const groups = {
+                'Today': [],
+                'Yesterday': [],
+                'Earlier': []
+            };
+
+            for (const item of notifications) {
+                const timestamp = getNotificationTimestamp(item);
+                const date = new Date(timestamp * 1000);
+                const itemDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+                if (itemDate.getTime() === today.getTime()) {
+                    groups['Today'].push(item);
+                } else if (itemDate.getTime() === yesterday.getTime()) {
+                    groups['Yesterday'].push(item);
+                } else {
+                    groups['Earlier'].push(item);
+                }
+            }
+
+            // Remove empty groups
+            const filtered = {};
+            for (const [key, value] of Object.entries(groups)) {
+                if (value.length > 0) {
+                    filtered[key] = value;
+                }
+            }
+
+            return filtered;
+        }
+
+        function formatNotificationTime(timestamp) {
+            const now = Math.floor(Date.now() / 1000);
+            const diff = now - timestamp;
+
+            if (diff < 60) {
+                return 'Just now';
+            } else if (diff < 3600) {
+                const mins = Math.floor(diff / 60);
+                return `${mins}m ago`;
+            } else if (diff < 86400) {
+                const hours = Math.floor(diff / 3600);
+                return `${hours}h ago`;
+            } else {
+                const date = new Date(timestamp * 1000);
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            }
+        }
+
+        function buildNotificationActions(item) {
+            let actions = '';
+            if (item.type === 'reservation' && item.status === 'pending') {
+                actions += `
+                    <a class="notification-action-link success" onclick="handleReservationApprove(event)">Accept</a>
+                    <a class="notification-action-link danger" onclick="handleReservationReject(event)">Decline</a>
+                `;
+            }
+            return actions;
+        }
+
+        function handleReservationApprove(event) {
+            event.stopPropagation();
+            showToast('Reservation approved!', 'success');
+        }
+
+        function handleReservationReject(event) {
+            event.stopPropagation();
+            showToast('Reservation declined.', 'error');
+        }
+
+        function markSingleNotificationAsRead(event) {
+            event.currentTarget.classList.remove('unread');
+            markNotificationsSeen();
+        }
+
+        function updateNotificationCounts(notifications, activeFilter) {
+            const seenAt = Number(localStorage.getItem(buildNotificationSeenKey(profile.id_number)) || 0);
+            
+            const countAll = notifications.length;
+            const countUnread = (notifications || []).filter(item => getNotificationTimestamp(item) > seenAt).length;
+            const countArchived = 0;
+
+            document.getElementById('countAll').textContent = countAll;
+            document.getElementById('countUnread').textContent = countUnread;
+            document.getElementById('countArchived').textContent = countArchived;
+        }
+
 
         function logout() {
             localStorage.removeItem(USER_KEY);
@@ -2190,6 +3544,135 @@
             e.preventDefault();
             logout();
         });
+
+        // Notification Tab Filters
+        document.querySelectorAll('.notifications-tab').forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Update active state
+                document.querySelectorAll('.notifications-tab').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Re-render notifications with new filter
+                renderNotificationsModern(notificationsCache);
+            });
+        });
+
+        // Mark All Notifications as Read Button
+        document.getElementById('markAllNotificationsReadBtn')?.addEventListener('click', function () {
+            markNotificationsSeen();
+            renderNotificationsModern(notificationsCache);
+            showToast('All notifications marked as read', 'success');
+        });
+
+        function renderNotificationsModern(notifications) {
+            const container = document.getElementById('notificationsListWrapper');
+            if (!container) return;
+            if (!notifications || !notifications.length) {
+                container.innerHTML = `
+                    <div class="notifications-empty-state">
+                        <i class="ri-inbox-line"></i>
+                        <p>No notifications yet</p>
+                    </div>
+                `;
+                updateNotificationCountsModern([], 'all');
+                return;
+            }
+
+            // Get current filter
+            const activeTab = document.querySelector('.notifications-tab.active');
+            const currentFilter = activeTab ? activeTab.getAttribute('data-filter') : 'all';
+
+            // Get the seen timestamp for filtering unread
+            const seenAt = Number(localStorage.getItem(buildNotificationSeenKey(profile.id_number)) || 0);
+
+            // Filter notifications based on tab
+            let filteredNotifications = notifications;
+            if (currentFilter === 'unread') {
+                filteredNotifications = notifications.filter(item => getNotificationTimestamp(item) > seenAt);
+            }
+
+            // Limit to 10 items
+            const displayLimit = 10;
+            const showViewAllButton = filteredNotifications.length > displayLimit;
+            filteredNotifications = filteredNotifications.slice(0, displayLimit);
+
+            // Group by time
+            const grouped = groupNotificationsByTimeModern(filteredNotifications, seenAt);
+
+            if (!filteredNotifications.length) {
+                container.innerHTML = '<div class="notifications-empty-state"><i class="ri-inbox-line"></i><p>No ' + currentFilter + ' notifications</p></div>';
+                updateNotificationCountsModern(notifications, currentFilter);
+                document.getElementById('notificationsFooter').style.display = 'none';
+                return;
+            }
+
+            let html = '';
+            for (const [timeGroup, items] of Object.entries(grouped)) {
+                html += '<div class="notifications-group"><div class="notifications-group-label">' + timeGroup + '<span class="notifications-group-count">' + items.length + '</span></div>';
+                for (const item of items) {
+                    const isUnread = getNotificationTimestamp(item) > seenAt;
+                    const timestamp = formatNotificationTimeModern(getNotificationTimestamp(item));
+                    const avatarClass = item.type || 'info';
+                    const iconMap = { announcement: 'ri-megaphone-line', reservation: 'ri-inbox-2-line', feedback: 'ri-chat-3-line', reward: 'ri-trophy-line', rule: 'ri-file-text-line' };
+                    html += '<div class="notifications-item ' + (isUnread ? 'unread' : '') + '"><div class="notifications-unread-indicator"></div><div class="notifications-item-avatar ' + avatarClass + '"><i class="' + (iconMap[avatarClass] || 'ri-notification-3-line') + '"></i></div><div class="notifications-item-content"><div class="notifications-item-header"><h4 class="notifications-item-title">' + escapeHtml(item.title || 'Notification') + '</h4><span class="notifications-item-timestamp">' + timestamp + '</span></div><p class="notifications-item-preview">' + escapeHtml(item.body || '') + '</p><div class="notifications-item-footer">' + (item.status ? '<span class="notifications-status-badge ' + item.status.toLowerCase() + '"><i class="ri-error-warning-fill"></i>' + escapeHtml(item.status) + '</span>' : '') + buildNotificationActionsModern(item) + '</div></div></div>';
+                }
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+            document.getElementById('notificationsFooter').style.display = showViewAllButton ? 'block' : 'none';
+            updateNotificationCountsModern(notifications, currentFilter);
+            document.querySelectorAll('.notifications-item').forEach(item => {
+                item.addEventListener('click', function() { this.classList.remove('unread'); markNotificationsSeen(); });
+            });
+        }
+
+        function groupNotificationsByTimeModern(notifications, seenAt) {
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            const groups = { 'Today': [], 'Yesterday': [], 'Earlier': [] };
+            for (const item of notifications) {
+                const timestamp = getNotificationTimestamp(item);
+                const date = new Date(timestamp * 1000);
+                const itemDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+                if (itemDate.getTime() === today.getTime()) { groups['Today'].push(item); }
+                else if (itemDate.getTime() === yesterday.getTime()) { groups['Yesterday'].push(item); }
+                else { groups['Earlier'].push(item); }
+            }
+            const filtered = {};
+            for (const [key, value] of Object.entries(groups)) {
+                if (value.length > 0) { filtered[key] = value; }
+            }
+            return filtered;
+        }
+
+        function formatNotificationTimeModern(timestamp) {
+            const now = Math.floor(Date.now() / 1000);
+            const diff = now - timestamp;
+            if (diff < 60) { return 'Just now'; }
+            if (diff < 3600) { return Math.floor(diff / 60) + 'm ago'; }
+            if (diff < 86400) { return Math.floor(diff / 3600) + 'h ago'; }
+            const date = new Date(timestamp * 1000);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        function buildNotificationActionsModern(item) {
+            if (item.type === 'reservation' && item.status === 'pending') {
+                return '<div class="notifications-item-actions"><a class="notifications-action-link success" onclick="event.stopPropagation();showToast(\'Reservation approved!\',\'success\')"><i class="ri-check-line"></i>Accept</a><a class="notifications-action-link danger" onclick="event.stopPropagation();showToast(\'Reservation declined.\',\'error\')"><i class="ri-close-line"></i>Decline</a></div>';
+            }
+            return '';
+        }
+
+        function updateNotificationCountsModern(notifications, activeFilter) {
+            const seenAt = Number(localStorage.getItem(buildNotificationSeenKey(profile.id_number)) || 0);
+            const countAll = notifications.length;
+            const countUnread = (notifications || []).filter(item => getNotificationTimestamp(item) > seenAt).length;
+            document.getElementById('notifCountAll').textContent = countAll;
+            document.getElementById('notifCountUnread').textContent = countUnread;
+            document.getElementById('notifCountArchived').textContent = '0';
+        }
 
         document.getElementById('profileForm').addEventListener('submit', function (e) {
             e.preventDefault();
@@ -2346,6 +3829,7 @@
                 const rewards = data.rewards || [];
                 const leaderboard = data.leaderboard || [];
                 const notifications = data.notifications || [];
+                notificationsCache = notifications;
 
                 document.getElementById('statSessions').textContent = activeSessions.length;
                 document.getElementById('statReservations').textContent = reservations.length;
@@ -2387,7 +3871,8 @@
                 renderRules(rules);
                 renderFeedbacks(feedbacks);
                 renderRewardHistory(rewards);
-                renderNotifications(notifications);
+                renderNotificationsModern(notifications);
+                updateNotificationBadge(notifications);
                 showLoginAlerts(announcements, rules);
 
                 document.getElementById('rewardTotalPoints').textContent = `${profile.reward_points}`;
@@ -2401,11 +3886,56 @@
             }
         }
 
+        // Star Rating Interaction
+        document.querySelectorAll('.feedback-star-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const rating = this.getAttribute('data-rating');
+                document.getElementById('feedbackRating').value = rating;
+                
+                // Update active state
+                document.querySelectorAll('.feedback-star-btn').forEach((b, idx) => {
+                    if (idx + 1 <= rating) {
+                        b.classList.add('active');
+                    } else {
+                        b.classList.remove('active');
+                    }
+                });
+
+                // Update rating label
+                const labels = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
+                const ratingLabel = document.getElementById('feedbackRatingLabel');
+                ratingLabel.textContent = labels[rating] || 'Select a rating';
+                ratingLabel.classList.add('active');
+            });
+
+            btn.addEventListener('mouseenter', function () {
+                const rating = this.getAttribute('data-rating');
+                document.querySelectorAll('.feedback-star-btn').forEach((b, idx) => {
+                    if (idx + 1 <= rating) {
+                        b.style.opacity = '0.8';
+                    } else {
+                        b.style.opacity = '0.4';
+                    }
+                });
+            });
+        });
+
+        const feedbackStarGroup = document.querySelector('.feedback-star-group');
+        if (feedbackStarGroup) {
+            feedbackStarGroup.addEventListener('mouseleave', function () {
+                document.querySelectorAll('.feedback-star-btn').forEach(b => {
+                    b.style.opacity = '1';
+                });
+            });
+        }
+
         document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const subject = document.getElementById('feedbackSubject').value.trim();
             const message = document.getElementById('feedbackMessage').value.trim();
+            const rating = parseInt(document.getElementById('feedbackRating').value) || 0;
 
             if (!subject || !message) {
                 showToast('Subject and message are required.', 'error');
@@ -2415,11 +3945,16 @@
             const data = await apiPost('submit_feedback', {
                 id_number: profile.id_number,
                 subject,
-                message
+                message,
+                rating: rating > 0 ? rating : null
             });
 
             if (data.success) {
                 showToast('Feedback submitted successfully.', 'success');
+                document.getElementById('feedbackRating').value = '0';
+                document.getElementById('feedbackRatingLabel').textContent = 'Select a rating';
+                document.getElementById('feedbackRatingLabel').classList.remove('active');
+                document.querySelectorAll('.feedback-star-btn').forEach(b => b.classList.remove('active'));
                 this.reset();
                 await loadStudentDashboard();
             } else {
