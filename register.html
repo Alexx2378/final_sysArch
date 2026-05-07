@@ -250,47 +250,22 @@
 
         .field-error { color: #f87171; font-size: 0.78rem; margin-top: 3px; min-height: 18px; }
 
-        /* ── Notification ── */
+        /* ── Toast ── */
         .toast-container-custom { position: fixed; top: 70px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
-        .notify-toast {
-            padding: 14px 18px;
-            border-radius: 14px;
-            color: var(--text-primary);
-            font-size: 0.92rem;
-            font-weight: 600;
-            min-width: 300px;
-            background: #ffffff;
-            border: 1px solid var(--surface-border);
-            border-left: 4px solid #5e3aa1;
-            box-shadow: 0 14px 30px rgba(44, 31, 79, 0.14);
-            animation: toastIn 0.4s cubic-bezier(.21,1.02,.73,1) both;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
+        .toast-notif {
+            padding: 14px 22px; border-radius: 12px; color: #fff;
+            font-size: 0.92rem; font-weight: 500; min-width: 300px;
+            backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            animation: toastIn 0.45s cubic-bezier(.21,1.02,.73,1) both;
+            display: flex; align-items: center; gap: 10px;
         }
-        .notify-toast .toast-icon {
-            font-size: 1.2rem;
-            margin-top: 1px;
-        }
-        .notify-toast.success .toast-icon { color: #16a34a; }
-        .notify-toast.error .toast-icon { color: #dc2626; }
-        .notify-toast .toast-body {
-            flex: 1;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        .notify-toast .toast-close {
-            border: none;
-            background: transparent;
-            color: #7b7196;
-            font-size: 1rem;
-            line-height: 1;
-            padding: 2px 4px;
-            cursor: pointer;
-        }
-        .notify-toast .toast-close:hover { color: #2b124c; }
-        @keyframes toastIn { from { opacity: 0; transform: translateX(20px) scale(0.98); } to { opacity: 1; transform: translateX(0) scale(1); } }
-        @keyframes toastOut { to { opacity: 0; transform: translateX(20px) scale(0.98); } }
+        .toast-notif.success { background: rgba(22,163,74,0.85); }
+        .toast-notif.error   { background: rgba(220,38,38,0.85); }
+        .toast-notif.warning { background: rgba(234,179,8,0.85); color: #1a1a1a; }
+        .toast-notif .toast-icon { font-size: 1.2rem; }
+        @keyframes toastIn { from { opacity: 0; transform: translateX(40px) scale(0.9); } to { opacity: 1; transform: translateX(0) scale(1); } }
+        @keyframes toastOut { to { opacity: 0; transform: translateX(40px) scale(0.9); } }
 
         @media (max-width: 768px) {
             .register-wrapper { flex-direction: column; gap: 24px; align-items: center; }
@@ -471,7 +446,18 @@
             font-size: 0.86rem;
         }
 
-        .notify-toast { box-shadow: 0 14px 30px rgba(44, 31, 79, 0.14); }
+        .toast-notif {
+            background: #ffffff;
+            border: 1px solid var(--surface-border);
+            color: var(--text-primary);
+            box-shadow: 0 10px 24px rgba(44, 31, 79, 0.12);
+        }
+        .toast-notif.success { border-left: 4px solid #2e7d32; }
+        .toast-notif.error { border-left: 4px solid #c62828; }
+        .toast-notif.warning {
+            border-left: 4px solid var(--brand-yellow);
+            color: var(--text-primary);
+        }
 
         @media (max-width: 992px) {
             body { overflow-y: auto; }
@@ -636,28 +622,15 @@
     <script>
         const API_BASE = 'backend/api/index.php';
 
-        /* ── Notification ── */
+        /* ── Toast ── */
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
-            const icons = { success: 'ri-checkbox-circle-fill', error: 'ri-close-circle-fill' };
+            const icons = { success: 'ri-checkbox-circle-fill', error: 'ri-close-circle-fill', warning: 'ri-error-warning-fill' };
             const toast = document.createElement('div');
-            toast.className = `notify-toast ${type}`;
-            toast.innerHTML = `
-                <i class="${icons[type] || icons.success} toast-icon"></i>
-                <div class="toast-body">${message}</div>
-                <button class="toast-close" type="button" aria-label="Close notification">&times;</button>
-            `;
+            toast.className = `toast-notif ${type}`;
+            toast.innerHTML = `<i class="${icons[type] || icons.success} toast-icon"></i><span>${message}</span>`;
             container.appendChild(toast);
-            const closeBtn = toast.querySelector('.toast-close');
-            closeBtn.addEventListener('click', () => {
-                toast.style.animation = 'toastOut 0.3s forwards';
-                setTimeout(() => toast.remove(), 300);
-            });
-            setTimeout(() => {
-                if (!toast.isConnected) return;
-                toast.style.animation = 'toastOut 0.3s forwards';
-                setTimeout(() => toast.remove(), 300);
-            }, 3200);
+            setTimeout(() => { toast.style.animation = 'toastOut 0.35s forwards'; setTimeout(() => toast.remove(), 350); }, 3500);
         }
 
         /* ── Toggle Password ── */
@@ -779,7 +752,7 @@
                 const data = await res.json();
 
                 if (data.success) {
-                    showToast('Account created successfully', 'success');
+                    showToast(data.message || 'Registration successful!', 'success');
                     setTimeout(() => { window.location.href = 'login.html'; }, 1500);
                 } else {
                     showToast(data.message || 'Registration failed', 'error');

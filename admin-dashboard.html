@@ -539,6 +539,745 @@
             border-left: 4px solid var(--brand-yellow);
             color: var(--text-primary);
         }
+
+        /* ── PC Availability (embedded panel) ── */
+        .pc-avail-embed {
+            --pc-violet-900: #3b1a6e;
+            --pc-violet-800: #4c1d95;
+            --pc-violet-primary: #5B1FA3;
+            --pc-violet-600: #6d28d9;
+            --pc-violet-soft: #ede9fe;
+            --pc-violet-muted: #e9e4f4;
+            --pc-violet-border: #d8cff5;
+            --pc-yellow-accent: #D4A017;
+            --pc-yellow-hover: #b8890f;
+            --pc-surface: #ffffff;
+            --pc-page-bg: #f7f5fc;
+            --pc-page-tint: #f0ecfb;
+            --pc-text: #1f1635;
+            --pc-text-muted: #5c566f;
+            --pc-shadow-sm: 0 2px 8px rgba(75, 45, 130, 0.08);
+            --pc-shadow-md: 0 8px 24px rgba(75, 45, 130, 0.1);
+            --pc-radius: 12px;
+            --pc-radius-lg: 16px;
+            --pc-available: #5b21b6;
+            --pc-available-border: #7c3aed;
+            --pc-unavailable: #e8e4ef;
+            --pc-unavailable-border: #cfc8de;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 0 8px;
+            font-family: var(--font-body);
+            color: var(--pc-text);
+            background: linear-gradient(180deg, var(--pc-page-bg) 0%, var(--pc-page-tint) 48%, #faf8ff 100%);
+            border-radius: var(--pc-radius-lg);
+            border: 1px solid var(--pc-violet-border);
+            box-shadow: var(--pc-shadow-sm);
+            overflow: hidden;
+        }
+
+        .pc-avail-embed .pc-avail-header {
+            background: linear-gradient(135deg, var(--pc-violet-primary) 0%, var(--pc-violet-800) 100%);
+            color: #fff;
+            padding: 1.1rem 1.5rem;
+            box-shadow: var(--pc-shadow-md);
+            border-bottom: 3px solid var(--pc-yellow-accent);
+        }
+        .pc-avail-embed .pc-avail-header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .pc-avail-embed .pc-avail-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+        .pc-avail-embed .pc-avail-title-sub {
+            font-size: 0.82rem;
+            font-weight: 500;
+            opacity: 0.88;
+            margin-top: 4px;
+            color: rgba(255, 255, 255, 0.92);
+        }
+        .pc-avail-embed .btn-pc-back-dash {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: var(--pc-radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--pc-violet-900);
+            background: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            box-shadow: var(--pc-shadow-sm);
+            text-decoration: none;
+            transition: color 0.15s, background 0.15s, border-color 0.15s, transform 0.12s;
+        }
+        .pc-avail-embed .btn-pc-back-dash:hover {
+            color: var(--pc-violet-primary);
+            background: #fffef5;
+            border-color: var(--pc-yellow-accent);
+            transform: translateY(-1px);
+        }
+
+        .pc-avail-embed .pc-avail-main {
+            padding: 1.75rem 1.25rem 1.5rem;
+        }
+
+        .pc-avail-embed .panel-card {
+            background: var(--pc-surface);
+            border: 1px solid var(--pc-violet-border);
+            border-radius: var(--pc-radius-lg);
+            box-shadow: var(--pc-shadow-sm);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        .pc-avail-embed .panel-card-header {
+            background: linear-gradient(135deg, var(--pc-violet-600) 0%, var(--pc-violet-primary) 100%);
+            color: #fff;
+            padding: 14px 20px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.05rem;
+            border-bottom: 2px solid var(--pc-yellow-accent);
+        }
+        .pc-avail-embed .panel-card-body {
+            padding: 1.35rem 1.35rem 1.5rem;
+            background: #ffffff;
+        }
+
+        .pc-avail-embed .pc-form-label {
+            font-weight: 600;
+            font-size: 0.86rem;
+            color: var(--pc-text-muted) !important;
+            margin-bottom: 6px;
+        }
+        .pc-avail-embed .pc-form-label .optional-tag {
+            font-weight: 500;
+            color: #8b8499;
+            font-size: 0.8rem;
+        }
+        .pc-avail-embed .pc-form-control,
+        .pc-avail-embed .pc-form-select {
+            border: 1px solid var(--pc-violet-border);
+            border-radius: var(--pc-radius);
+            padding: 10px 14px;
+            font-size: 0.95rem;
+            color: var(--pc-text);
+            background: #fff;
+            box-shadow: inset 0 1px 2px rgba(91, 33, 182, 0.04);
+        }
+        .pc-avail-embed .pc-form-control:focus,
+        .pc-avail-embed .pc-form-select:focus {
+            border-color: var(--pc-violet-600);
+            box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.18);
+            color: var(--pc-text);
+            background: #fff;
+        }
+        .pc-avail-embed .pc-form-select option {
+            background: #fff;
+            color: var(--pc-text);
+        }
+
+        .pc-avail-embed .counter-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: var(--pc-violet-soft);
+            border: 1px solid var(--pc-violet-border);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--pc-violet-800);
+        }
+        .pc-avail-embed .counter-pill-label {
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--pc-text-muted);
+            margin-right: 2px;
+        }
+        .pc-avail-embed .counter-pill-sep {
+            color: var(--pc-text-muted);
+            font-weight: 600;
+            margin: 0 1px;
+        }
+        .pc-avail-embed .counter-pill span.num {
+            color: var(--pc-violet-primary);
+            font-variant-numeric: tabular-nums;
+            font-size: 1.05rem;
+        }
+
+        .pc-avail-embed .pc-section-label {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.02rem;
+            color: var(--pc-text);
+            margin-bottom: 12px;
+        }
+        .pc-avail-embed .legend-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem 1.5rem;
+            margin-bottom: 14px;
+        }
+        .pc-avail-embed .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            color: var(--pc-text-muted);
+            font-weight: 500;
+        }
+        .pc-avail-embed .legend-swatch {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 2px solid;
+            flex-shrink: 0;
+        }
+        .pc-avail-embed .legend-swatch.available {
+            background: var(--pc-available);
+            border-color: var(--pc-available-border);
+        }
+        .pc-avail-embed .legend-swatch.unavailable {
+            background: var(--pc-unavailable);
+            border-color: var(--pc-unavailable-border);
+        }
+        .pc-avail-embed .grid-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .pc-avail-embed .btn-grid-action {
+            border-radius: var(--pc-radius);
+            font-weight: 600;
+            padding: 8px 16px;
+            font-size: 0.88rem;
+            border: 1px solid var(--pc-violet-border);
+            background: #fff;
+            color: var(--pc-violet-800);
+            transition: background 0.15s, border-color 0.15s, color 0.15s;
+        }
+        .pc-avail-embed .btn-grid-action:hover {
+            background: var(--pc-violet-soft);
+            border-color: var(--pc-violet-600);
+            color: var(--pc-violet-primary);
+        }
+        .pc-avail-embed .btn-grid-action.accent {
+            background: var(--pc-violet-soft);
+            border-color: var(--pc-yellow-accent);
+            color: var(--pc-violet-900);
+        }
+        .pc-avail-embed .btn-grid-action.accent:hover {
+            background: #fffbeb;
+            border-color: var(--pc-yellow-hover);
+        }
+
+        .pc-avail-embed .pc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+            gap: 10px;
+            max-width: 100%;
+            align-items: stretch;
+        }
+        @media (min-width: 768px) {
+            .pc-avail-embed .pc-grid {
+                grid-template-columns: repeat(10, minmax(0, 1fr));
+            }
+        }
+        .pc-avail-embed .pc-cell {
+            aspect-ratio: 1;
+            min-height: 52px;
+            border-radius: var(--pc-radius);
+            border: 2px solid var(--pc-unavailable-border);
+            background: var(--pc-unavailable);
+            color: var(--pc-text-muted);
+            font-weight: 700;
+            font-size: 0.82rem;
+            font-variant-numeric: tabular-nums;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s, background 0.12s, color 0.12s;
+            box-shadow: 0 1px 3px rgba(45, 27, 105, 0.06);
+            user-select: none;
+        }
+        .pc-avail-embed .pc-cell:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(91, 33, 182, 0.15);
+        }
+        .pc-avail-embed .pc-cell.is-available {
+            background: var(--pc-available);
+            border-color: var(--pc-available-border);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(91, 33, 182, 0.25);
+        }
+        .pc-avail-embed .pc-cell:focus-visible {
+            outline: 3px solid var(--pc-yellow-accent);
+            outline-offset: 2px;
+        }
+
+        .pc-avail-embed .btn-save-pc {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: var(--pc-radius);
+            font-weight: 700;
+            font-size: 1rem;
+            border: 2px solid rgba(212, 160, 23, 0.55);
+            color: #fff;
+            background: linear-gradient(135deg, var(--pc-violet-600) 0%, var(--pc-violet-primary) 100%);
+            box-shadow: 0 4px 16px rgba(91, 33, 182, 0.35);
+            transition: transform 0.12s, box-shadow 0.12s, filter 0.12s, border-color 0.15s;
+        }
+        .pc-avail-embed .btn-save-pc:hover {
+            color: #fff;
+            filter: brightness(1.05);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(91, 33, 182, 0.4);
+            border-color: var(--pc-yellow-accent);
+        }
+        .pc-avail-embed .btn-save-pc:active {
+            transform: translateY(0);
+        }
+
+        .pc-avail-embed .table-wrap-pc {
+            border: 1px solid var(--pc-violet-border);
+            border-radius: var(--pc-radius);
+            overflow: hidden;
+            box-shadow: var(--pc-shadow-sm);
+        }
+        .pc-avail-embed .table-schedules {
+            margin: 0;
+            font-size: 0.92rem;
+        }
+        .pc-avail-embed .table-schedules thead th {
+            background: linear-gradient(135deg, var(--pc-violet-600) 0%, var(--pc-violet-primary) 100%);
+            color: #fff !important;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 14px 16px;
+            border: none;
+            vertical-align: middle;
+        }
+        .pc-avail-embed .table-schedules th:first-child,
+        .pc-avail-embed .table-schedules td:first-child { min-width: 4.5rem; }
+        .pc-avail-embed .table-schedules th:nth-child(2),
+        .pc-avail-embed .table-schedules td:nth-child(2) { min-width: 7.5rem; white-space: nowrap; }
+        .pc-avail-embed .table-schedules th:nth-child(3),
+        .pc-avail-embed .table-schedules td:nth-child(3) { min-width: 8.5rem; }
+        .pc-avail-embed .table-schedules th:nth-child(4),
+        .pc-avail-embed .table-schedules td:nth-child(4) { min-width: 9rem; }
+        .pc-avail-embed .table-schedules th:last-child,
+        .pc-avail-embed .table-schedules td:last-child { min-width: 11rem; }
+
+        .pc-avail-embed .table-schedules tbody td {
+            padding: 14px 16px;
+            vertical-align: middle;
+            border-color: var(--pc-violet-muted);
+            color: var(--pc-text);
+            background: #fff;
+        }
+        .pc-avail-embed .table-schedules tbody tr:nth-child(even) td {
+            background: #faf8ff;
+        }
+        .pc-avail-embed .btn-table-pc {
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            padding: 6px 12px;
+            margin-right: 6px;
+            border: 1px solid var(--pc-violet-border);
+            background: #fff;
+            color: var(--pc-violet-800);
+        }
+        .pc-avail-embed .btn-table-pc:hover {
+            background: var(--pc-violet-soft);
+            border-color: var(--pc-violet-600);
+            color: var(--pc-violet-primary);
+        }
+        .pc-avail-embed .btn-table-pc.danger {
+            border-color: #e8d4d4;
+            color: #9b1c1c;
+        }
+        .pc-avail-embed .btn-table-pc.danger:hover {
+            background: #fef2f2;
+            border-color: #dc2626;
+        }
+        .pc-avail-embed .empty-schedules {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--pc-text-muted);
+            font-size: 0.95rem;
+            background: #faf8ff;
+        }
+
+        /* ── Software / App Import & Upload (embedded panel) ── */
+        .sw-upload-embed {
+            --sw-violet-900: #2b124c;
+            --sw-violet-800: #3a1668;
+            --sw-violet-primary: #5B1FA3;
+            --sw-violet-600: #6d28d9;
+            --sw-violet-soft: #ede9fe;
+            --sw-violet-border: #d8cff5;
+            --sw-yellow-accent: #edb42f;
+            --sw-yellow-hover: #d9a224;
+            --sw-surface: #ffffff;
+            --sw-page-bg: #f7f5fc;
+            --sw-page-tint: #f0ecfb;
+            --sw-text: #1f1635;
+            --sw-text-muted: #5c566f;
+            --sw-shadow-sm: 0 2px 8px rgba(75, 45, 130, 0.08);
+            --sw-shadow-md: 0 10px 26px rgba(44, 31, 79, 0.12);
+            --sw-radius: 12px;
+            --sw-radius-lg: 16px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0;
+            font-family: var(--font-body);
+            color: var(--sw-text);
+            background: linear-gradient(180deg, var(--sw-page-bg) 0%, var(--sw-page-tint) 48%, #faf8ff 100%);
+            border-radius: var(--sw-radius-lg);
+            border: 1px solid var(--sw-violet-border);
+            box-shadow: var(--sw-shadow-sm);
+            overflow: hidden;
+        }
+
+        .sw-upload-embed .sw-modal-shell {
+            padding: 18px 18px 22px;
+        }
+
+        .sw-upload-embed .sw-card {
+            background: var(--sw-surface);
+            border: 1px solid var(--sw-violet-border);
+            border-radius: var(--sw-radius-lg);
+            box-shadow: var(--sw-shadow-md);
+            overflow: hidden;
+        }
+
+        .sw-upload-embed .sw-card-header {
+            background: linear-gradient(135deg, var(--sw-violet-primary) 0%, var(--sw-violet-800) 100%);
+            color: #fff;
+            padding: 14px 18px;
+            border-bottom: 3px solid var(--sw-yellow-accent);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .sw-upload-embed .sw-card-title {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.15rem;
+            margin: 0;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        .sw-upload-embed .sw-close-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.12s, background 0.15s, border-color 0.15s;
+            flex-shrink: 0;
+        }
+
+        .sw-upload-embed .sw-close-btn:hover {
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(255,255,255,0.34);
+            transform: translateY(-1px);
+        }
+
+        .sw-upload-embed .sw-card-body {
+            padding: 18px;
+            background: #ffffff;
+        }
+
+        .sw-upload-embed .sw-helper {
+            margin: 0 0 14px;
+            color: var(--sw-text-muted);
+            font-size: 0.92rem;
+        }
+
+        .sw-upload-embed .sw-form-label {
+            font-weight: 700;
+            font-size: 0.86rem;
+            color: var(--sw-text-muted) !important;
+            margin-bottom: 6px;
+        }
+
+        .sw-upload-embed .sw-input,
+        .sw-upload-embed .sw-textarea,
+        .sw-upload-embed .sw-file {
+            border: 1px solid var(--sw-violet-border);
+            border-radius: var(--sw-radius);
+            padding: 10px 12px;
+            font-size: 0.95rem;
+            color: var(--sw-text);
+            background: #fff;
+        }
+
+        .sw-upload-embed .sw-input:focus,
+        .sw-upload-embed .sw-textarea:focus,
+        .sw-upload-embed .sw-file:focus {
+            border-color: #bca8e3;
+            box-shadow: 0 0 0 3px rgba(94, 58, 161, 0.12);
+            outline: none;
+        }
+
+        .sw-upload-embed .sw-allowed {
+            margin-top: 8px;
+            font-size: 0.82rem;
+            color: #7a7390;
+        }
+
+        .sw-upload-embed .sw-actions-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .sw-upload-embed .btn-upload {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            border: 1px solid #2e7d32;
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(46, 125, 50, 0.18);
+            transition: transform 0.12s, filter 0.12s;
+        }
+
+        .sw-upload-embed .btn-upload:hover {
+            color: #fff;
+            filter: brightness(1.03);
+            transform: translateY(-1px);
+        }
+
+        .sw-upload-embed .sw-divider {
+            height: 1px;
+            background: var(--sw-violet-border);
+            opacity: 0.8;
+            margin: 18px 0;
+        }
+
+        .sw-upload-embed .sw-table-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .sw-upload-embed .sw-show-entries {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--sw-text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .sw-upload-embed .sw-select {
+            border: 1px solid var(--sw-violet-border);
+            border-radius: 12px;
+            padding: 8px 10px;
+            background: #fff;
+            color: var(--sw-text);
+            font-weight: 700;
+            font-size: 0.9rem;
+            min-width: 90px;
+        }
+
+        .sw-upload-embed .sw-search {
+            position: relative;
+            min-width: min(420px, 100%);
+            flex: 1 1 320px;
+        }
+
+        .sw-upload-embed .sw-search input {
+            width: 100%;
+            border: 1px solid var(--sw-violet-border);
+            border-radius: 12px;
+            padding: 10px 12px 10px 38px;
+            background: #fff;
+            color: var(--sw-text);
+            font-weight: 600;
+        }
+
+        .sw-upload-embed .sw-search i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7a7390;
+        }
+
+        .sw-upload-embed .sw-table-wrap {
+            border: 1px solid var(--sw-violet-border);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--sw-shadow-sm);
+        }
+
+        .sw-upload-embed table {
+            margin: 0;
+            font-size: 0.92rem;
+        }
+
+        .sw-upload-embed thead th {
+            background: linear-gradient(135deg, var(--sw-violet-600) 0%, var(--sw-violet-primary) 100%);
+            color: #fff !important;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 14px 14px;
+            border: none;
+            white-space: nowrap;
+        }
+
+        .sw-upload-embed tbody td {
+            padding: 14px 14px;
+            vertical-align: middle;
+            border-color: #eee8fb;
+            color: var(--sw-text);
+            background: #fff;
+        }
+
+        .sw-upload-embed tbody tr:nth-child(even) td {
+            background: #faf8ff;
+        }
+
+        .sw-upload-embed .sw-empty {
+            text-align: center;
+            padding: 1.8rem 1rem;
+            color: var(--sw-text-muted);
+            background: #faf8ff;
+        }
+
+        .sw-upload-embed .sw-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: var(--sw-violet-soft);
+            border: 1px solid var(--sw-violet-border);
+            color: var(--sw-violet-900);
+            font-weight: 800;
+            font-size: 0.82rem;
+        }
+
+        .sw-upload-embed .sw-table-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .sw-upload-embed .btn-sw {
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.82rem;
+            padding: 7px 10px;
+            border: 1px solid var(--sw-violet-border);
+            background: #fff;
+            color: var(--sw-violet-900);
+        }
+
+        .sw-upload-embed .btn-sw:hover {
+            background: var(--sw-violet-soft);
+            border-color: #bca8e3;
+            color: var(--sw-violet-primary);
+        }
+
+        .sw-upload-embed .btn-sw.danger {
+            border-color: #f1d6d6;
+            color: #9b1c1c;
+            background: #fff;
+        }
+
+        .sw-upload-embed .btn-sw.danger:hover {
+            background: #fef2f2;
+            border-color: #dc2626;
+            color: #7f1d1d;
+        }
+
+        .sw-upload-embed .sw-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-top: 12px;
+        }
+
+        .sw-upload-embed .sw-page-info {
+            color: var(--sw-text-muted);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .sw-upload-embed .sw-page-controls {
+            display: inline-flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .sw-upload-embed .btn-page {
+            border-radius: 12px;
+            padding: 8px 14px;
+            font-weight: 900;
+            font-size: 0.86rem;
+            border: 1px solid var(--sw-violet-border);
+            background: #fff;
+            color: var(--sw-violet-900);
+        }
+
+        .sw-upload-embed .btn-page:hover {
+            background: var(--sw-violet-soft);
+            border-color: #bca8e3;
+            color: var(--sw-violet-primary);
+        }
+
+        .sw-upload-embed .btn-page:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -572,6 +1311,8 @@
                                 <li><a class="dropdown-item" href="#" data-section="records"><i class="ri-file-text-line"></i>Current Sit-in</a></li>
                                 <li><a class="dropdown-item" href="#" data-section="reservations"><i class="ri-inbox-2-line"></i>Reservations</a></li>
                                 <li><a class="dropdown-item" href="#" data-section="history"><i class="ri-time-line"></i>Session History</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="pc-availability"><i class="ri-computer-line"></i>PC Availability</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="software-upload"><i class="ri-upload-cloud-2-line"></i>Software / App Upload</a></li>
                             </ul>
                         </li>
 
@@ -1139,6 +1880,199 @@
                                 <tr><td colspan="5" class="text-center py-4 text-white-50">Loading reward history...</td></tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-panel" data-panel="pc-availability">
+                <div class="pc-avail-embed">
+                    <header class="pc-avail-header">
+                        <div class="pc-avail-header-inner">
+                            <div>
+                                <h1 class="pc-avail-title">PC Availability Manager</h1>
+                                <div class="pc-avail-title-sub">Configure lab PC availability by schedule</div>
+                            </div>
+                            <a class="btn-pc-back-dash" href="#" data-section="dashboard"><i class="ri-arrow-left-line"></i>Back to Dashboard</a>
+                        </div>
+                    </header>
+                    <div class="pc-avail-main">
+                        <div class="panel-card">
+                            <div class="panel-card-header">Add / Update Availability Schedule</div>
+                            <div class="panel-card-body">
+                                <form id="availabilityForm" class="row g-3 align-items-end">
+                                    <div class="col-md-4 col-lg-3">
+                                        <label class="pc-form-label form-label" for="scheduleLab">Lab</label>
+                                        <select id="scheduleLab" class="pc-form-select form-select" required>
+                                            <option value="">Select lab</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 col-lg-3">
+                                        <label class="pc-form-label form-label" for="scheduleDate">Date</label>
+                                        <input type="date" id="scheduleDate" class="pc-form-control form-control" required>
+                                    </div>
+                                    <div class="col-md-4 col-lg-3">
+                                        <label class="pc-form-label form-label" for="timeStart">Time Start <span class="optional-tag">(optional)</span></label>
+                                        <input type="time" id="timeStart" class="pc-form-control form-control">
+                                    </div>
+                                    <div class="col-md-4 col-lg-3">
+                                        <label class="pc-form-label form-label" for="timeEnd">Time End</label>
+                                        <input type="time" id="timeEnd" class="pc-form-control form-control" required>
+                                    </div>
+                                    <div class="col-12 col-lg-auto ms-lg-auto">
+                                        <div class="counter-pill" aria-live="polite" title="Available PCs selected out of 50">
+                                            <span class="counter-pill-label">Selected PCs</span>
+                                            <span class="num" id="pcCounter">0</span><span class="counter-pill-sep">/</span><span class="num">50</span>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <hr class="my-4 opacity-25" style="border-color: var(--pc-violet-border);">
+
+                                <div class="pc-section-label">Select Available PCs</div>
+                                <div class="legend-row">
+                                    <span class="legend-item">
+                                        <span class="legend-swatch available" aria-hidden="true"></span>
+                                        Available (click to toggle)
+                                    </span>
+                                    <span class="legend-item">
+                                        <span class="legend-swatch unavailable" aria-hidden="true"></span>
+                                        Not Available
+                                    </span>
+                                </div>
+                                <div class="grid-toolbar">
+                                    <button type="button" class="btn-grid-action accent" id="selectAllPcs"><i class="ri-checkbox-multiple-line me-1"></i>Select All</button>
+                                    <button type="button" class="btn-grid-action" id="clearAllPcs"><i class="ri-close-circle-line me-1"></i>Clear All</button>
+                                </div>
+                                <div class="pc-grid" id="pcGrid" role="group" aria-label="PC selection 1 to 50"></div>
+
+                                <div class="mt-4 d-flex justify-content-end">
+                                    <button type="submit" form="availabilityForm" class="btn-save-pc" id="saveAvailabilityBtn">
+                                        <i class="ri-save-3-line"></i>
+                                        Save Schedule
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-card mb-0">
+                            <div class="panel-card-header">Configured Schedules</div>
+                            <div class="panel-card-body p-0">
+                                <div class="table-wrap-pc border-0 rounded-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-schedules table-hover mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Lab</th>
+                                                    <th>Date</th>
+                                                    <th>Time Window</th>
+                                                    <th>Available PCs</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="schedulesBody">
+                                                <tr id="schedulesEmptyRow">
+                                                    <td colspan="5" class="empty-schedules">No schedules configured yet. Save a schedule above to list it here.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-panel" data-panel="software-upload">
+                <div class="sw-upload-embed">
+                    <div class="sw-modal-shell">
+                        <div class="sw-card">
+                            <div class="sw-card-header">
+                                <h2 class="sw-card-title">Software / App Import &amp; Upload</h2>
+                                <a class="sw-close-btn" href="#" data-section="dashboard" aria-label="Close">
+                                    <i class="ri-close-line"></i>
+                                </a>
+                            </div>
+                            <div class="sw-card-body">
+                                <p class="sw-helper">
+                                    Use this to keep installer files, setup packages, and related documents in one place for lab operations.
+                                </p>
+
+                                <form id="swUploadForm" class="row g-3" novalidate>
+                                    <div class="col-12 col-md-6">
+                                        <label class="sw-form-label form-label" for="swTitle">Title</label>
+                                        <input id="swTitle" class="sw-input form-control" type="text" placeholder="e.g., VS Code Installer" required>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label class="sw-form-label form-label" for="swFile">File</label>
+                                        <input id="swFile" class="sw-file form-control" type="file" required>
+                                        <div class="sw-allowed">
+                                            Allowed file types: <strong>exe</strong>, <strong>msi</strong>, <strong>zip</strong>, <strong>rar</strong>, <strong>pdf</strong>, <strong>txt</strong>, <strong>doc</strong>, <strong>docx</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="sw-form-label form-label" for="swDesc">Description (optional)</label>
+                                        <textarea id="swDesc" class="sw-textarea form-control" rows="3" placeholder="Optional notes: version, usage, lab instructions..."></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="sw-actions-row">
+                                            <button id="swUploadBtn" type="submit" class="btn-upload">
+                                                <i class="ri-upload-2-line"></i>
+                                                Upload
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="sw-divider"></div>
+
+                                <div class="sw-table-toolbar">
+                                    <div class="sw-show-entries">
+                                        Show
+                                        <select id="swPageSize" class="sw-select" aria-label="Show entries">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                        entries
+                                    </div>
+                                    <div class="sw-search">
+                                        <i class="ri-search-line" aria-hidden="true"></i>
+                                        <input id="swSearch" type="text" placeholder="Search uploaded files..." aria-label="Search uploaded files">
+                                    </div>
+                                </div>
+
+                                <div class="sw-table-wrap">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover align-middle mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Title</th>
+                                                    <th>File</th>
+                                                    <th>Size</th>
+                                                    <th>Uploaded By</th>
+                                                    <th>Date</th>
+                                                    <th class="text-end">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="swTableBody">
+                                                <tr>
+                                                    <td colspan="6" class="sw-empty">No uploaded software or app files yet.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="sw-pagination">
+                                    <div class="sw-page-info" id="swPageInfo">Showing 0 to 0 of 0 entries</div>
+                                    <div class="sw-page-controls">
+                                        <button type="button" class="btn-page" id="swPrevBtn">Previous</button>
+                                        <button type="button" class="btn-page" id="swNextBtn">Next</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -2259,7 +3193,552 @@
         document.getElementById('refreshRulesBtn').addEventListener('click', loadRules);
         document.getElementById('refreshFeedbacksBtn')?.addEventListener('click', loadFeedbacks);
 
-        setActiveSection('dashboard');
+        (function initPcAvailabilityPanel() {
+            const TOTAL_PCS = 50;
+            const STORAGE_KEY = 'ccs_pc_availability_schedules';
+            const labSelect = document.getElementById('scheduleLab');
+            const dateInput = document.getElementById('scheduleDate');
+            const timeStartInput = document.getElementById('timeStart');
+            const timeEndInput = document.getElementById('timeEnd');
+            const pcGrid = document.getElementById('pcGrid');
+            const pcCounter = document.getElementById('pcCounter');
+            const form = document.getElementById('availabilityForm');
+            const schedulesBody = document.getElementById('schedulesBody');
+            if (!labSelect || !pcGrid || !form || !schedulesBody || !dateInput || !timeEndInput || !timeStartInput || !pcCounter) return;
+
+            let selected = new Set();
+            let editingId = null;
+
+            for (let i = 1; i <= 50; i++) {
+                const opt = document.createElement('option');
+                opt.value = 'S' + i;
+                opt.textContent = 'S' + i;
+                labSelect.appendChild(opt);
+            }
+
+            function formatDateDisplay(iso) {
+                if (!iso) return '—';
+                const d = new Date(iso + 'T12:00:00');
+                return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+            }
+
+            function timeWindowLabel() {
+                const s = timeStartInput.value;
+                const e = timeEndInput.value;
+                if (s && e) return s + ' – ' + e;
+                if (e) return 'Until ' + e;
+                return '—';
+            }
+
+            function updateCounter() {
+                pcCounter.textContent = String(selected.size);
+            }
+
+            function renderGrid() {
+                pcGrid.innerHTML = '';
+                for (let n = 1; n <= TOTAL_PCS; n++) {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'pc-cell' + (selected.has(n) ? ' is-available' : '');
+                    btn.textContent = String(n);
+                    btn.setAttribute('aria-pressed', selected.has(n) ? 'true' : 'false');
+                    btn.addEventListener('click', function () {
+                        if (selected.has(n)) selected.delete(n);
+                        else selected.add(n);
+                        btn.classList.toggle('is-available', selected.has(n));
+                        btn.setAttribute('aria-pressed', selected.has(n) ? 'true' : 'false');
+                        updateCounter();
+                    });
+                    pcGrid.appendChild(btn);
+                }
+            }
+
+            function syncGridClasses() {
+                const cells = pcGrid.querySelectorAll('.pc-cell');
+                cells.forEach(function (cell, idx) {
+                    const n = idx + 1;
+                    const on = selected.has(n);
+                    cell.classList.toggle('is-available', on);
+                    cell.setAttribute('aria-pressed', on ? 'true' : 'false');
+                });
+                updateCounter();
+            }
+
+            document.getElementById('selectAllPcs').addEventListener('click', function () {
+                selected = new Set();
+                for (let i = 1; i <= TOTAL_PCS; i++) selected.add(i);
+                syncGridClasses();
+            });
+
+            document.getElementById('clearAllPcs').addEventListener('click', function () {
+                selected.clear();
+                syncGridClasses();
+            });
+
+            function loadSchedules() {
+                try {
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    return raw ? JSON.parse(raw) : [];
+                } catch (err) {
+                    return [];
+                }
+            }
+
+            function saveSchedules(list) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+            }
+
+            function availabilitySummary(count) {
+                return count + ' PC' + (count === 1 ? '' : 's');
+            }
+
+            function pcsRangeLabel(pcs) {
+                const list = Array.isArray(pcs) ? pcs.slice() : [];
+                if (!list.length) return '—';
+                list.sort(function (a, b) { return a - b; });
+                const min = list[0];
+                const max = list[list.length - 1];
+                if (min === max) return String(min);
+                return `${min}\u2013${max}`;
+            }
+
+            function renderTable(rows) {
+                schedulesBody.innerHTML = '';
+                if (!rows.length) {
+                    const tr = document.createElement('tr');
+                    tr.id = 'schedulesEmptyRow';
+                    tr.innerHTML = '<td colspan="5" class="empty-schedules">No schedules configured yet. Save a schedule above to list it here.</td>';
+                    schedulesBody.appendChild(tr);
+                    return;
+                }
+                rows.forEach(function (row) {
+                    const tr = document.createElement('tr');
+                    const range = pcsRangeLabel(row.pcs);
+                    tr.innerHTML =
+                        '<td><strong>' + escapeHtml(row.lab) + '</strong></td>' +
+                        '<td>' + escapeHtml(formatDateDisplay(row.date)) + '</td>' +
+                        '<td>' + escapeHtml(row.timeWindow) + '</td>' +
+                        '<td>' + escapeHtml(range) + ' <span class="text-muted">(' + escapeHtml(availabilitySummary(row.pcCount)) + ')</span></td>' +
+                        '<td>' +
+                        '<button type="button" class="btn-table-pc btn-edit" data-id="' + escapeHtml(row.id) + '"><i class="ri-edit-line me-1"></i>Edit</button>' +
+                        '<button type="button" class="btn-table-pc danger btn-delete" data-id="' + escapeHtml(row.id) + '"><i class="ri-delete-bin-line me-1"></i>Delete</button>' +
+                        '</td>';
+                    schedulesBody.appendChild(tr);
+                });
+            }
+
+            function escapeHtml(s) {
+                if (!s) return '';
+                return String(s)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;');
+            }
+
+            function refreshTable() {
+                renderTable(loadSchedules());
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const lab = labSelect.value;
+                const date = dateInput.value;
+                const timeEnd = timeEndInput.value;
+                if (!lab || !date || !timeEnd) return;
+                if (selected.size === 0) {
+                    alert('Select at least one available PC.');
+                    return;
+                }
+                const list = loadSchedules();
+                const timeWindow = timeWindowLabel();
+                const pcList = Array.from(selected).sort(function (a, b) { return a - b; });
+                const entry = {
+                    id: editingId || ('sch_' + Date.now()),
+                    lab: lab,
+                    date: date,
+                    timeStart: timeStartInput.value || '',
+                    timeEnd: timeEnd,
+                    timeWindow: timeWindow,
+                    pcs: pcList,
+                    pcCount: pcList.length
+                };
+                if (editingId) {
+                    const ix = list.findIndex(function (r) { return r.id === editingId; });
+                    if (ix !== -1) list[ix] = entry;
+                    editingId = null;
+                } else {
+                    list.push(entry);
+                }
+                saveSchedules(list);
+                refreshTable();
+                form.reset();
+                dateInput.value = new Date().toISOString().slice(0, 10);
+                selected.clear();
+                syncGridClasses();
+            });
+
+            schedulesBody.addEventListener('click', function (e) {
+                const del = e.target.closest('.btn-delete');
+                const ed = e.target.closest('.btn-edit');
+                if (del) {
+                    const id = del.getAttribute('data-id');
+                    const list = loadSchedules().filter(function (r) { return r.id !== id; });
+                    saveSchedules(list);
+                    refreshTable();
+                    return;
+                }
+                if (ed) {
+                    const id = ed.getAttribute('data-id');
+                    const row = loadSchedules().find(function (r) { return r.id === id; });
+                    if (!row) return;
+                    editingId = row.id;
+                    labSelect.value = row.lab;
+                    dateInput.value = row.date;
+                    timeStartInput.value = row.timeStart || '';
+                    timeEndInput.value = row.timeEnd || '';
+                    selected = new Set(row.pcs || []);
+                    syncGridClasses();
+                    labSelect.focus();
+                }
+            });
+
+            const today = new Date().toISOString().slice(0, 10);
+            dateInput.value = today;
+
+            renderGrid();
+            updateCounter();
+            refreshTable();
+        })();
+
+        (function initSoftwareUploadPanel() {
+            const form = document.getElementById('swUploadForm');
+            const titleInput = document.getElementById('swTitle');
+            const descInput = document.getElementById('swDesc');
+            const fileInput = document.getElementById('swFile');
+            const tableBody = document.getElementById('swTableBody');
+            const searchInput = document.getElementById('swSearch');
+            const pageSizeSelect = document.getElementById('swPageSize');
+            const prevBtn = document.getElementById('swPrevBtn');
+            const nextBtn = document.getElementById('swNextBtn');
+            const pageInfo = document.getElementById('swPageInfo');
+            const uploadBtn = document.getElementById('swUploadBtn');
+
+            if (!form || !titleInput || !descInput || !fileInput || !tableBody || !searchInput || !pageSizeSelect || !prevBtn || !nextBtn || !pageInfo || !uploadBtn) return;
+
+            const DB_NAME = 'ccs_admin_uploads';
+            const STORE = 'files';
+            const ALLOWED_EXT = new Set(['exe', 'msi', 'zip', 'rar', 'pdf', 'txt', 'doc', 'docx']);
+
+            let allRows = [];
+            let page = 1;
+
+            function escapeHtml(s) {
+                if (!s) return '';
+                return String(s)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/\"/g, '&quot;');
+            }
+
+            function formatBytes(bytes) {
+                const n = Number(bytes || 0);
+                if (!n) return '0 B';
+                const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+                let i = 0;
+                let v = n;
+                while (v >= 1024 && i < units.length - 1) { v /= 1024; i++; }
+                return `${v.toFixed(v >= 10 || i === 0 ? 0 : 1)} ${units[i]}`;
+            }
+
+            function formatDateDisplay(iso) {
+                if (!iso) return '—';
+                const d = new Date(iso);
+                if (Number.isNaN(d.getTime())) return '—';
+                return d.toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+            }
+
+            function getUploaderName() {
+                try {
+                    const raw = localStorage.getItem(USER_KEY);
+                    const u = raw ? JSON.parse(raw) : null;
+                    if (!u) return 'CCS Admin';
+                    const name = [u.first_name, u.middle_name, u.last_name].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+                    return name || u.id_number || 'CCS Admin';
+                } catch (e) {
+                    return 'CCS Admin';
+                }
+            }
+
+            function openDb() {
+                return new Promise((resolve, reject) => {
+                    const req = indexedDB.open(DB_NAME, 1);
+                    req.onupgradeneeded = () => {
+                        const db = req.result;
+                        if (!db.objectStoreNames.contains(STORE)) {
+                            const os = db.createObjectStore(STORE, { keyPath: 'id' });
+                            os.createIndex('date', 'uploadedAt');
+                            os.createIndex('title', 'title');
+                            os.createIndex('filename', 'filename');
+                        }
+                    };
+                    req.onsuccess = () => resolve(req.result);
+                    req.onerror = () => reject(req.error);
+                });
+            }
+
+            async function getAllFiles() {
+                const db = await openDb();
+                return await new Promise((resolve, reject) => {
+                    const tx = db.transaction(STORE, 'readonly');
+                    const os = tx.objectStore(STORE);
+                    const req = os.getAll();
+                    req.onsuccess = () => resolve(req.result || []);
+                    req.onerror = () => reject(req.error);
+                    tx.oncomplete = () => db.close();
+                });
+            }
+
+            async function addFile(entry) {
+                const db = await openDb();
+                return await new Promise((resolve, reject) => {
+                    const tx = db.transaction(STORE, 'readwrite');
+                    const os = tx.objectStore(STORE);
+                    const req = os.put(entry);
+                    req.onsuccess = () => resolve(true);
+                    req.onerror = () => reject(req.error);
+                    tx.oncomplete = () => db.close();
+                });
+            }
+
+            async function deleteFile(id) {
+                const db = await openDb();
+                return await new Promise((resolve, reject) => {
+                    const tx = db.transaction(STORE, 'readwrite');
+                    const os = tx.objectStore(STORE);
+                    const req = os.delete(id);
+                    req.onsuccess = () => resolve(true);
+                    req.onerror = () => reject(req.error);
+                    tx.oncomplete = () => db.close();
+                });
+            }
+
+            async function getFile(id) {
+                const db = await openDb();
+                return await new Promise((resolve, reject) => {
+                    const tx = db.transaction(STORE, 'readonly');
+                    const os = tx.objectStore(STORE);
+                    const req = os.get(id);
+                    req.onsuccess = () => resolve(req.result || null);
+                    req.onerror = () => reject(req.error);
+                    tx.oncomplete = () => db.close();
+                });
+            }
+
+            function filteredRows() {
+                const q = (searchInput.value || '').trim().toLowerCase();
+                if (!q) return allRows.slice();
+                return allRows.filter(r => {
+                    const hay = [
+                        r.title,
+                        r.description,
+                        r.filename,
+                        r.uploadedBy
+                    ].filter(Boolean).join(' ').toLowerCase();
+                    return hay.includes(q);
+                });
+            }
+
+            function pageSize() {
+                const n = parseInt(pageSizeSelect.value, 10);
+                return Number.isFinite(n) && n > 0 ? n : 10;
+            }
+
+            function setPageInfo(total, startIdx, endIdx) {
+                if (!total) {
+                    pageInfo.textContent = 'Showing 0 to 0 of 0 entries';
+                    return;
+                }
+                pageInfo.textContent = `Showing ${startIdx} to ${endIdx} of ${total} entries`;
+            }
+
+            function render() {
+                const rows = filteredRows()
+                    .sort((a, b) => (b.uploadedAt || '').localeCompare(a.uploadedAt || ''));
+                const total = rows.length;
+                const size = pageSize();
+                const totalPages = Math.max(1, Math.ceil(total / size));
+                if (page > totalPages) page = totalPages;
+                if (page < 1) page = 1;
+                const start = (page - 1) * size;
+                const pageRows = rows.slice(start, start + size);
+
+                prevBtn.disabled = page <= 1;
+                nextBtn.disabled = page >= totalPages;
+
+                if (!pageRows.length) {
+                    tableBody.innerHTML = '<tr><td colspan="6" class="sw-empty">No uploaded software or app files yet.</td></tr>';
+                    setPageInfo(0, 0, 0);
+                    return;
+                }
+
+                const startIdx = start + 1;
+                const endIdx = start + pageRows.length;
+                setPageInfo(total, startIdx, endIdx);
+
+                tableBody.innerHTML = pageRows.map(r => {
+                    const fileLabel = `${escapeHtml(r.filename || 'file')}`;
+                    const ext = (r.filename || '').split('.').pop().toLowerCase();
+                    const meta = ext ? `<span class="sw-badge"><i class="ri-file-3-line"></i>${escapeHtml(ext)}</span>` : '';
+                    return `
+                        <tr>
+                            <td><strong>${escapeHtml(r.title)}</strong>${r.description ? `<div class="text-muted small mt-1">${escapeHtml(r.description)}</div>` : ''}</td>
+                            <td>${fileLabel}<div class="mt-1">${meta}</div></td>
+                            <td>${escapeHtml(formatBytes(r.size))}</td>
+                            <td>${escapeHtml(r.uploadedBy || 'CCS Admin')}</td>
+                            <td>${escapeHtml(formatDateDisplay(r.uploadedAt))}</td>
+                            <td class="text-end">
+                                <div class="sw-table-actions">
+                                    <button type="button" class="btn-sw" data-sw-download="${escapeHtml(r.id)}"><i class="ri-download-2-line me-1"></i>Download</button>
+                                    <button type="button" class="btn-sw danger" data-sw-delete="${escapeHtml(r.id)}"><i class="ri-delete-bin-6-line me-1"></i>Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            async function refresh() {
+                try {
+                    allRows = await getAllFiles();
+                    render();
+                } catch (err) {
+                    showToast('Unable to load uploaded files.', 'error');
+                }
+            }
+
+            function validateFile(file) {
+                if (!file) return 'Please choose a file to upload.';
+                const name = file.name || '';
+                const ext = name.includes('.') ? name.split('.').pop().toLowerCase() : '';
+                if (!ext || !ALLOWED_EXT.has(ext)) {
+                    return 'Unsupported file type. Allowed: exe, msi, zip, rar, pdf, txt, doc, docx';
+                }
+                return '';
+            }
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const title = (titleInput.value || '').trim();
+                const desc = (descInput.value || '').trim();
+                const file = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+
+                if (!title) {
+                    showToast('Title is required.', 'error');
+                    titleInput.focus();
+                    return;
+                }
+
+                const fileError = validateFile(file);
+                if (fileError) {
+                    showToast(fileError, 'error');
+                    fileInput.focus();
+                    return;
+                }
+
+                uploadBtn.disabled = true;
+                try {
+                    const entry = {
+                        id: 'sw_' + Date.now() + '_' + Math.random().toString(16).slice(2),
+                        title,
+                        description: desc,
+                        filename: file.name,
+                        mime: file.type || '',
+                        size: file.size || 0,
+                        uploadedBy: getUploaderName(),
+                        uploadedAt: new Date().toISOString(),
+                        blob: file
+                    };
+                    await addFile(entry);
+                    showToast('File uploaded successfully.', 'success');
+                    form.reset();
+                    page = 1;
+                    await refresh();
+                } catch (err) {
+                    showToast('Upload failed. Please try again.', 'error');
+                } finally {
+                    uploadBtn.disabled = false;
+                }
+            });
+
+            searchInput.addEventListener('input', function () {
+                page = 1;
+                render();
+            });
+
+            pageSizeSelect.addEventListener('change', function () {
+                page = 1;
+                render();
+            });
+
+            prevBtn.addEventListener('click', function () {
+                page = Math.max(1, page - 1);
+                render();
+            });
+
+            nextBtn.addEventListener('click', function () {
+                page = page + 1;
+                render();
+            });
+
+            tableBody.addEventListener('click', async function (e) {
+                const del = e.target.closest('[data-sw-delete]');
+                const dl = e.target.closest('[data-sw-download]');
+                if (del) {
+                    const id = del.getAttribute('data-sw-delete');
+                    if (!id) return;
+                    try {
+                        await deleteFile(id);
+                        showToast('File deleted.', 'success');
+                        await refresh();
+                    } catch (err) {
+                        showToast('Delete failed.', 'error');
+                    }
+                    return;
+                }
+                if (dl) {
+                    const id = dl.getAttribute('data-sw-download');
+                    if (!id) return;
+                    try {
+                        const row = await getFile(id);
+                        if (!row || !row.blob) {
+                            showToast('File not found.', 'error');
+                            return;
+                        }
+                        const url = URL.createObjectURL(row.blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = row.filename || 'download';
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        setTimeout(() => URL.revokeObjectURL(url), 1500);
+                    } catch (err) {
+                        showToast('Download failed.', 'error');
+                    }
+                }
+            });
+
+            refresh();
+        })();
+
+        const hashSection = (location.hash || '').replace(/^#/, '');
+        if (hashSection && document.querySelector('[data-panel="' + hashSection + '"]')) {
+            setActiveSection(hashSection);
+        } else {
+            setActiveSection('dashboard');
+        }
         loadStudents();
         loadDashboard();
         loadReservations();
