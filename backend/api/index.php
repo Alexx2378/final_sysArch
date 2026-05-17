@@ -900,6 +900,7 @@ function getAdminDashboard(PDO $pdo): void
     $currentlySitin = (int)$pdo->query("SELECT COUNT(*) FROM sitin_sessions WHERE status = 'active'")->fetchColumn();
     $totalSitin = (int)$pdo->query("SELECT COUNT(*) FROM sitin_sessions")->fetchColumn();
     $totalRewardPoints = (int)$pdo->query("SELECT COALESCE(SUM(reward_points), 0) FROM users WHERE role = 'student'")->fetchColumn();
+    $pendingReservations = (int)$pdo->query("SELECT COUNT(*) FROM reservations WHERE status = 'pending'")->fetchColumn();
 
     $languageLabels = [
         'C Programming',
@@ -941,6 +942,7 @@ function getAdminDashboard(PDO $pdo): void
             'currently_sitin' => $currentlySitin,
             'total_sitin' => $totalSitin,
             'total_reward_points' => $totalRewardPoints,
+            'pending_reservations' => $pendingReservations,
         ],
         'language_usage' => $languageCounts,
         'leaderboard' => getRewardLeaderboard($pdo, 10),
@@ -1169,6 +1171,19 @@ function getStudentDashboard(PDO $pdo): void
     $leaderboard = getRewardLeaderboard($pdo, 50);
     $notifications = buildStudentNotifications($announcements, $reservations, $feedbacks, $rewards, $rules);
 
+    // Fetch lab software for student view
+    $labSoftwareStmt = $pdo->query("SELECT id, lab_room, software_name FROM lab_software ORDER BY lab_room ASC, software_name ASC");
+    $labSoftware = $labSoftwareStmt->fetchAll();
+
+    // Calculate auto points vs manual points
+    $autoPointsStmt = $pdo->prepare("SELECT COALESCE(SUM(points), 0) FROM reward_events WHERE user_id = :user_id AND source_type = 'sitin'");
+    $autoPointsStmt->execute([':user_id' => (int)$user['id']]);
+    $autoPoints = (int)$autoPointsStmt->fetchColumn();
+
+    $manualPointsStmt = $pdo->prepare("SELECT COALESCE(SUM(points), 0) FROM reward_events WHERE user_id = :user_id AND source_type = 'manual'");
+    $manualPointsStmt->execute([':user_id' => (int)$user['id']]);
+    $manualPoints = (int)$manualPointsStmt->fetchColumn();
+
     unset($user['role']);
 
     echo json_encode([
@@ -1183,6 +1198,12 @@ function getStudentDashboard(PDO $pdo): void
         'rewards' => $rewards,
         'leaderboard' => $leaderboard,
         'notifications' => $notifications,
+        'lab_software' => $labSoftware,
+        'points_breakdown' => [
+            'auto' => $autoPoints,
+            'manual' => $manualPoints,
+            'total' => (int)$user['reward_points'],
+        ],
     ]);
 }
 
