@@ -1,0 +1,94 @@
+/* Professional Light/Dark Theme Variables */
+:root {
+    --surface-bg: #f7f6fb;
+    --surface-card: #ffffff;
+    --surface-border: #e6e1f3;
+    --text-primary: #1f1b2d;
+    --text-muted: #6a637d;
+    --brand-primary: #2b124c;
+    --brand-primary-hover: #1f0d37;
+    --brand-soft: #efe9fb;
+    --brand-yellow: #edb42f;
+    --brand-yellow-hover: #d9a224;
+}
+
+:root[data-theme="dark"] {
+    --surface-bg: #1a1128;
+    --surface-card: #231536;
+    --surface-border: #3b2a59;
+    --text-primary: #f7f6fb;
+    --text-muted: #a69bb8;
+    --brand-primary: #2b124c;
+    --brand-primary-hover: #3b1a63;
+    --brand-soft: #381861;
+    --brand-yellow: #edb42f;
+    --brand-yellow-hover: #d9a224;
+}
+
+body {
+    background-color: var(--surface-bg) !important;
+    color: var(--text-primary) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Base element theming */
+.card, .hero-card, .toast-notif, .dropdown-menu {
+    background-color: var(--surface-card) !important;
+    border-color: var(--surface-border) !important;
+    color: var(--text-primary) !important;
+}
+
+.modal-content {
+    background-color: var(--surface-card) !important;
+    border-color: var(--surface-border) !important;
+    color: var(--text-primary) !important;
+}
+
+.form-control, .form-select {
+    background-color: var(--surface-bg) !important;
+    border-color: var(--surface-border) !important;
+    color: var(--text-primary) !important;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--surface-bg) !important;
+    border-color: var(--brand-primary) !important;
+    color: var(--text-primary) !important;
+    box-shadow: 0 0 0 0.25rem rgba(43, 18, 76, 0.25) !important;
+}
+
+:root[data-theme="dark"] .form-control::placeholder {
+    color: var(--text-muted);
+}
+
+.table {
+    color: var(--text-primary) !important;
+    border-color: var(--surface-border) !important;
+}
+.table td, .table th {
+    background-color: transparent !important;
+    border-color: var(--surface-border) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary) !important;
+}
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* Theme Toggle Button */
+.btn-theme-toggle {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 0 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+.btn-theme-toggle:hover {
+    color: var(--brand-yellow);
+}

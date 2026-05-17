@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="assets/theme.css">
+    <script src="assets/theme.js"></script>
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
@@ -309,236 +311,7 @@
             .leaderboard-layout { grid-template-columns: 1fr; }
         }
 
-        /* Professional Light Theme Override */
-        :root {
-            --surface-bg: #f7f6fb;
-            --surface-card: #ffffff;
-            --surface-border: #e6e1f3;
-            --text-primary: #1f1b2d;
-            --text-muted: #6a637d;
-            --brand-primary: #2b124c;
-            --brand-primary-hover: #1f0d37;
-            --brand-soft: #efe9fb;
-            --brand-yellow: #edb42f;
-            --brand-yellow-hover: #d9a224;
-            --panel: #ffffff;
-            --border: #e6e1f3;
-            --text: #1f1b2d;
-            --muted: #6a637d;
-            --accent: #5e3aa1;
-            --accent-2: #7a54bc;
-            --shadow: 0 10px 24px rgba(44, 31, 79, 0.08);
-        }
-
-        body {
-            background: radial-gradient(circle at top right, #f6f1ff 0%, rgba(246, 241, 255, 0) 45%), #f7f6fb;
-            color: var(--text-primary);
-        }
-        .orb-container { display: none; }
-        .navbar {
-            background: var(--brand-primary);
-            border-bottom: 1px solid #3b1a63;
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            box-shadow: 0 10px 24px rgba(43, 18, 76, 0.28);
-        }
-        .navbar-brand,
-        .nav-link,
-        .nav-link:hover,
-        .nav-link.active { color: #ffffff !important; }
-
-        .admin-nav .navbar-nav {
-            gap: 8px;
-            align-items: center;
-        }
-        .admin-nav .nav-link {
-            padding: 0.45rem 0.72rem;
-            border-radius: 10px;
-            font-size: 0.84rem;
-            font-weight: 600;
-            letter-spacing: 0.01em;
-            transition: background-color 0.2s ease, color 0.2s ease;
-        }
-        .admin-nav .nav-link.active,
-        .admin-nav .nav-link:hover {
-            background: rgba(237, 180, 47, 0.2);
-            color: #ffffff !important;
-        }
-        .admin-nav .dropdown-menu {
-            border-radius: 14px;
-            border: 1px solid var(--surface-border);
-            box-shadow: 0 12px 26px rgba(43, 18, 76, 0.16);
-            min-width: 220px;
-            padding: 8px;
-        }
-        .admin-nav .dropdown-item {
-            border-radius: 9px;
-            padding: 0.48rem 0.62rem;
-            color: var(--text-primary);
-            font-size: 0.86rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .admin-nav .dropdown-item.active,
-        .admin-nav .dropdown-item:hover {
-            background: #fff4d6;
-            color: #2b124c;
-        }
-        .admin-nav .nav-logout {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.24);
-        }
-
-        .chart-shell {
-            padding: 14px;
-            border: 1px solid var(--surface-border);
-            border-radius: 14px;
-            background: linear-gradient(180deg, #ffffff 0%, #fcf9ff 100%);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85);
-        }
-        .chart-canvas-wrap {
-            position: relative;
-            width: 100%;
-            height: 280px;
-        }
-        .chart-canvas-wrap.compact {
-            height: 240px;
-        }
-        .chart-caption {
-            margin-top: 10px;
-            color: var(--text-muted);
-            font-size: 0.82rem;
-            line-height: 1.45;
-        }
-        .section-title .title-note {
-            margin-left: 8px;
-            color: var(--text-muted);
-            font-size: 0.78rem;
-            font-weight: 500;
-        }
-
-        .glass-card,
-        .content-card,
-        .hero-card {
-            background: #ffffff;
-            border: 1px solid var(--surface-border);
-            box-shadow: var(--shadow);
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-        }
-
-        .hero-title,
-        .section-title,
-        .announcement-feed-item .announcement-title,
-        .feedback-feed-item .feedback-subject {
-            color: var(--text-primary);
-        }
-        .hero-subtitle,
-        .empty-note,
-        .form-label,
-        .stat-label,
-        .section-title i,
-        .announcement-feed-item .announcement-head,
-        .feedback-feed-item .feedback-head {
-            color: var(--text-muted) !important;
-        }
-        .stat-box {
-            background: #faf8ff;
-            border: 1px solid #e5dcf5;
-        }
-        .stat-number { color: var(--brand-primary); }
-
-        .btn-primary-gradient {
-            background: var(--brand-yellow);
-            border: 1px solid var(--brand-yellow);
-            color: #2b124c;
-            box-shadow: 0 8px 18px rgba(237, 180, 47, 0.3);
-        }
-        .btn-primary-gradient:hover {
-            background: var(--brand-yellow-hover);
-            border-color: var(--brand-yellow-hover);
-            color: #1f0d37;
-        }
-        .btn-outline-soft {
-            background: #fff9e8;
-            border: 1px solid #e3ca88;
-            color: #2b124c;
-        }
-        .btn-outline-soft:hover {
-            background: #fdf1cf;
-            border-color: #e0bb5a;
-            color: #1f0d37;
-        }
-
-        .btn-success,
-        .btn.btn-success {
-            background: var(--brand-yellow);
-            border-color: var(--brand-yellow);
-            color: #2b124c;
-        }
-        .btn-success:hover,
-        .btn.btn-success:hover {
-            background: var(--brand-yellow-hover);
-            border-color: var(--brand-yellow-hover);
-            color: #1f0d37;
-        }
-
-        .form-control,
-        .form-select {
-            background: #ffffff;
-            border: 1px solid #d8d0e9;
-            color: var(--text-primary);
-        }
-        .form-control::placeholder { color: #a097b6; }
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #bca8e3;
-            box-shadow: 0 0 0 3px rgba(94, 58, 161, 0.12);
-            color: var(--text-primary);
-            background: #ffffff;
-        }
-        .form-select option { background: #ffffff; color: var(--text-primary); }
-
-        .announcement-feed-item,
-        .feedback-feed-item {
-            background: #ffffff;
-            border: 1px solid var(--surface-border);
-        }
-        .announcement-feed-item .announcement-body,
-        .feedback-feed-item .feedback-body {
-            color: var(--text-primary);
-        }
-
-        .table-dark-surface,
-        .table-dark-surface thead th {
-            --bs-table-bg: #ffffff;
-            --bs-table-color: #1f1b2d;
-            --bs-table-border-color: #e6e1f3;
-            color: #1f1b2d;
-        }
-        .table-dark-surface td,
-        .table-dark-surface th,
-        .text-white,
-        .text-light,
-        .text-white-50,
-        .text-muted {
-            color: #1f1b2d !important;
-        }
-
-        .toast-notif {
-            background: #ffffff;
-            border: 1px solid var(--surface-border);
-            color: var(--text-primary);
-            box-shadow: 0 10px 24px rgba(44, 31, 79, 0.12);
-        }
-        .toast-notif.success { border-left: 4px solid #2e7d32; }
-        .toast-notif.error { border-left: 4px solid #c62828; }
-        .toast-notif.warning {
-            border-left: 4px solid var(--brand-yellow);
-            color: var(--text-primary);
-        }
+        /* Professional Light Theme Override Removed - using theme.css instead */
 
         /* ── PC Availability (embedded panel) ── */
         .pc-avail-embed {
@@ -1332,7 +1105,11 @@
                                 <li><a class="dropdown-item" href="#" data-section="feedback"><i class="ri-chat-3-line"></i>Feedback</a></li>
                             </ul>
                         </li>
-
+                        <li class="nav-item me-2 d-flex align-items-center">
+                            <button id="themeToggle" class="btn btn-sm btn-outline-soft nav-link d-flex align-items-center" style="background:transparent; border-color: rgba(255,255,255,0.2);" aria-label="Toggle Theme">
+                                <i class="ri-moon-fill" id="themeIcon"></i>
+                            </button>
+                        </li>
                         <li class="nav-item"><a class="nav-link nav-logout" href="#" id="logoutLink"><i class="ri-logout-box-r-line me-1"></i>Logout</a></li>
                     </ul>
                 </div>
@@ -1889,93 +1666,50 @@
                     <header class="pc-avail-header">
                         <div class="pc-avail-header-inner">
                             <div>
-                                <h1 class="pc-avail-title">PC Availability Manager</h1>
-                                <div class="pc-avail-title-sub">Configure lab PC availability by schedule</div>
+                                <h1 class="pc-avail-title">Real-Time PC Occupancy Manager</h1>
+                                <div class="pc-avail-title-sub">View live availability of PCs per lab based on active sessions.</div>
                             </div>
                             <a class="btn-pc-back-dash" href="#" data-section="dashboard"><i class="ri-arrow-left-line"></i>Back to Dashboard</a>
                         </div>
                     </header>
                     <div class="pc-avail-main">
                         <div class="panel-card">
-                            <div class="panel-card-header">Add / Update Availability Schedule</div>
+                            <div class="panel-card-header">Select Lab to View</div>
                             <div class="panel-card-body">
-                                <form id="availabilityForm" class="row g-3 align-items-end">
-                                    <div class="col-md-4 col-lg-3">
-                                        <label class="pc-form-label form-label" for="scheduleLab">Lab</label>
-                                        <select id="scheduleLab" class="pc-form-select form-select" required>
-                                            <option value="">Select lab</option>
+                                <div class="row g-3 align-items-end">
+                                    <div class="col-md-4">
+                                        <label class="pc-form-label form-label" for="liveScheduleLab">Lab Room</label>
+                                        <select id="liveScheduleLab" class="pc-form-select form-select">
+                                            <option value="">Select a lab</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-4 col-lg-3">
-                                        <label class="pc-form-label form-label" for="scheduleDate">Date</label>
-                                        <input type="date" id="scheduleDate" class="pc-form-control form-control" required>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-primary-gradient mt-4" id="refreshLiveGridBtn"><i class="ri-refresh-line me-1"></i>Refresh View</button>
                                     </div>
-                                    <div class="col-md-4 col-lg-3">
-                                        <label class="pc-form-label form-label" for="timeStart">Time Start <span class="optional-tag">(optional)</span></label>
-                                        <input type="time" id="timeStart" class="pc-form-control form-control">
-                                    </div>
-                                    <div class="col-md-4 col-lg-3">
-                                        <label class="pc-form-label form-label" for="timeEnd">Time End</label>
-                                        <input type="time" id="timeEnd" class="pc-form-control form-control" required>
-                                    </div>
-                                    <div class="col-12 col-lg-auto ms-lg-auto">
-                                        <div class="counter-pill" aria-live="polite" title="Available PCs selected out of 50">
-                                            <span class="counter-pill-label">Selected PCs</span>
-                                            <span class="num" id="pcCounter">0</span><span class="counter-pill-sep">/</span><span class="num">50</span>
+                                    <div class="col-12 col-md-4 ms-auto text-md-end">
+                                        <div class="counter-pill" aria-live="polite">
+                                            <span class="counter-pill-label">Available</span>
+                                            <span class="num" id="liveAvailableCounter">0</span><span class="counter-pill-sep">/</span><span class="num">30</span>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
 
                                 <hr class="my-4 opacity-25" style="border-color: var(--pc-violet-border);">
 
-                                <div class="pc-section-label">Select Available PCs</div>
+                                <div class="pc-section-label">Live PC Grid (30 Terminals)</div>
                                 <div class="legend-row">
                                     <span class="legend-item">
-                                        <span class="legend-swatch available" aria-hidden="true"></span>
-                                        Available (click to toggle)
+                                        <span class="legend-swatch available" aria-hidden="true" style="background:#e2e8f0; border-color:#cbd5e1;"></span>
+                                        Available
                                     </span>
                                     <span class="legend-item">
-                                        <span class="legend-swatch unavailable" aria-hidden="true"></span>
-                                        Not Available
+                                        <span class="legend-swatch unavailable" aria-hidden="true" style="background:#ef4444; border-color:#dc2626;"></span>
+                                        Occupied
                                     </span>
                                 </div>
-                                <div class="grid-toolbar">
-                                    <button type="button" class="btn-grid-action accent" id="selectAllPcs"><i class="ri-checkbox-multiple-line me-1"></i>Select All</button>
-                                    <button type="button" class="btn-grid-action" id="clearAllPcs"><i class="ri-close-circle-line me-1"></i>Clear All</button>
-                                </div>
-                                <div class="pc-grid" id="pcGrid" role="group" aria-label="PC selection 1 to 50"></div>
-
-                                <div class="mt-4 d-flex justify-content-end">
-                                    <button type="submit" form="availabilityForm" class="btn-save-pc" id="saveAvailabilityBtn">
-                                        <i class="ri-save-3-line"></i>
-                                        Save Schedule
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel-card mb-0">
-                            <div class="panel-card-header">Configured Schedules</div>
-                            <div class="panel-card-body p-0">
-                                <div class="table-wrap-pc border-0 rounded-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-schedules table-hover mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Lab</th>
-                                                    <th>Date</th>
-                                                    <th>Time Window</th>
-                                                    <th>Available PCs</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="schedulesBody">
-                                                <tr id="schedulesEmptyRow">
-                                                    <td colspan="5" class="empty-schedules">No schedules configured yet. Save a schedule above to list it here.</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                
+                                <div class="pc-grid" id="livePcGrid" role="group">
+                                    <div class="empty-schedules py-5" style="grid-column: 1/-1;">Select a lab room to display real-time PC availability.</div>
                                 </div>
                             </div>
                         </div>
@@ -1988,37 +1722,36 @@
                     <div class="sw-modal-shell">
                         <div class="sw-card">
                             <div class="sw-card-header">
-                                <h2 class="sw-card-title">Software / App Import &amp; Upload</h2>
+                                <h2 class="sw-card-title">Manage Lab Software</h2>
                                 <a class="sw-close-btn" href="#" data-section="dashboard" aria-label="Close">
                                     <i class="ri-close-line"></i>
                                 </a>
                             </div>
                             <div class="sw-card-body">
                                 <p class="sw-helper">
-                                    Use this to keep installer files, setup packages, and related documents in one place for lab operations.
+                                    Register installed software for specific laboratories. Students will see this information when selecting a lab.
                                 </p>
 
                                 <form id="swUploadForm" class="row g-3" novalidate>
                                     <div class="col-12 col-md-6">
-                                        <label class="sw-form-label form-label" for="swTitle">Title</label>
-                                        <input id="swTitle" class="sw-input form-control" type="text" placeholder="e.g., VS Code Installer" required>
+                                        <label class="sw-form-label form-label" for="swTitle">Software Name</label>
+                                        <input id="swTitle" class="sw-input form-control" type="text" placeholder="e.g., VS Code" required>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <label class="sw-form-label form-label" for="swFile">File</label>
-                                        <input id="swFile" class="sw-file form-control" type="file" required>
-                                        <div class="sw-allowed">
-                                            Allowed file types: <strong>exe</strong>, <strong>msi</strong>, <strong>zip</strong>, <strong>rar</strong>, <strong>pdf</strong>, <strong>txt</strong>, <strong>doc</strong>, <strong>docx</strong>
-                                        </div>
+                                        <label class="sw-form-label form-label" for="swLab">Laboratory</label>
+                                        <select id="swLab" class="sw-input form-select" required>
+                                            <option value="">Select a lab</option>
+                                        </select>
                                     </div>
                                     <div class="col-12">
                                         <label class="sw-form-label form-label" for="swDesc">Description (optional)</label>
-                                        <textarea id="swDesc" class="sw-textarea form-control" rows="3" placeholder="Optional notes: version, usage, lab instructions..."></textarea>
+                                        <textarea id="swDesc" class="sw-textarea form-control" rows="2" placeholder="Optional notes: version, intended use..."></textarea>
                                     </div>
                                     <div class="col-12">
                                         <div class="sw-actions-row">
                                             <button id="swUploadBtn" type="submit" class="btn-upload">
-                                                <i class="ri-upload-2-line"></i>
-                                                Upload
+                                                <i class="ri-add-line"></i>
+                                                Add Software
                                             </button>
                                         </div>
                                     </div>
@@ -2047,17 +1780,16 @@
                                         <table class="table table-hover align-middle mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th>Title</th>
-                                                    <th>File</th>
-                                                    <th>Size</th>
-                                                    <th>Uploaded By</th>
-                                                    <th>Date</th>
+                                                    <th>Software Name</th>
+                                                    <th>Lab Room</th>
+                                                    <th>Description</th>
+                                                    <th>Added By</th>
                                                     <th class="text-end">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="swTableBody">
                                                 <tr>
-                                                    <td colspan="6" class="sw-empty">No uploaded software or app files yet.</td>
+                                                    <td colspan="5" class="sw-empty">Loading software data...</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -3194,228 +2926,92 @@
         document.getElementById('refreshFeedbacksBtn')?.addEventListener('click', loadFeedbacks);
 
         (function initPcAvailabilityPanel() {
-            const TOTAL_PCS = 50;
-            const STORAGE_KEY = 'ccs_pc_availability_schedules';
-            const labSelect = document.getElementById('scheduleLab');
-            const dateInput = document.getElementById('scheduleDate');
-            const timeStartInput = document.getElementById('timeStart');
-            const timeEndInput = document.getElementById('timeEnd');
-            const pcGrid = document.getElementById('pcGrid');
-            const pcCounter = document.getElementById('pcCounter');
-            const form = document.getElementById('availabilityForm');
-            const schedulesBody = document.getElementById('schedulesBody');
-            if (!labSelect || !pcGrid || !form || !schedulesBody || !dateInput || !timeEndInput || !timeStartInput || !pcCounter) return;
-
-            let selected = new Set();
-            let editingId = null;
-
+            const liveLabSelect = document.getElementById('liveScheduleLab');
+            const livePcGrid = document.getElementById('livePcGrid');
+            const refreshLiveGridBtn = document.getElementById('refreshLiveGridBtn');
+            const liveAvailableCounter = document.getElementById('liveAvailableCounter');
+            
+            if (!liveLabSelect || !livePcGrid) return;
+            
             for (let i = 1; i <= 50; i++) {
                 const opt = document.createElement('option');
                 opt.value = 'S' + i;
                 opt.textContent = 'S' + i;
-                labSelect.appendChild(opt);
+                liveLabSelect.appendChild(opt);
             }
-
-            function formatDateDisplay(iso) {
-                if (!iso) return '—';
-                const d = new Date(iso + 'T12:00:00');
-                return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
-            }
-
-            function timeWindowLabel() {
-                const s = timeStartInput.value;
-                const e = timeEndInput.value;
-                if (s && e) return s + ' – ' + e;
-                if (e) return 'Until ' + e;
-                return '—';
-            }
-
-            function updateCounter() {
-                pcCounter.textContent = String(selected.size);
-            }
-
-            function renderGrid() {
-                pcGrid.innerHTML = '';
-                for (let n = 1; n <= TOTAL_PCS; n++) {
-                    const btn = document.createElement('button');
-                    btn.type = 'button';
-                    btn.className = 'pc-cell' + (selected.has(n) ? ' is-available' : '');
-                    btn.textContent = String(n);
-                    btn.setAttribute('aria-pressed', selected.has(n) ? 'true' : 'false');
-                    btn.addEventListener('click', function () {
-                        if (selected.has(n)) selected.delete(n);
-                        else selected.add(n);
-                        btn.classList.toggle('is-available', selected.has(n));
-                        btn.setAttribute('aria-pressed', selected.has(n) ? 'true' : 'false');
-                        updateCounter();
-                    });
-                    pcGrid.appendChild(btn);
+            
+            async function loadLiveGrid() {
+                const lab = liveLabSelect.value;
+                if (!lab) {
+                    livePcGrid.innerHTML = '<div class="empty-schedules py-5" style="grid-column: 1/-1;">Select a lab room to display real-time PC availability.</div>';
+                    liveAvailableCounter.textContent = '0';
+                    return;
                 }
-            }
-
-            function syncGridClasses() {
-                const cells = pcGrid.querySelectorAll('.pc-cell');
-                cells.forEach(function (cell, idx) {
-                    const n = idx + 1;
-                    const on = selected.has(n);
-                    cell.classList.toggle('is-available', on);
-                    cell.setAttribute('aria-pressed', on ? 'true' : 'false');
-                });
-                updateCounter();
-            }
-
-            document.getElementById('selectAllPcs').addEventListener('click', function () {
-                selected = new Set();
-                for (let i = 1; i <= TOTAL_PCS; i++) selected.add(i);
-                syncGridClasses();
-            });
-
-            document.getElementById('clearAllPcs').addEventListener('click', function () {
-                selected.clear();
-                syncGridClasses();
-            });
-
-            function loadSchedules() {
+                
+                livePcGrid.innerHTML = '<div class="empty-schedules py-5" style="grid-column: 1/-1;">Loading real-time availability...</div>';
+                
                 try {
-                    const raw = localStorage.getItem(STORAGE_KEY);
-                    return raw ? JSON.parse(raw) : [];
-                } catch (err) {
-                    return [];
+                    const res = await apiGet('get_pc_availability', 'lab_room=' + encodeURIComponent(lab));
+                    if (res.success && res.pcs) {
+                        const pcsData = res.pcs;
+                        const total = pcsData.length;
+                        const occupied = pcsData.filter(p => p.status === 'Occupied').length;
+                        
+                        liveAvailableCounter.textContent = Math.max(0, total - occupied);
+                        
+                        livePcGrid.innerHTML = '';
+                        pcsData.forEach(pc => {
+                            const isOccupied = pc.status === 'Occupied';
+                            
+                            const btn = document.createElement('div');
+                            btn.className = 'd-flex flex-column align-items-center justify-content-center rounded shadow-sm fw-bold p-1';
+                            btn.style.width = '100%';
+                            btn.style.height = '60px';
+                            btn.style.fontSize = '0.9rem';
+                            
+                            const numSpan = document.createElement('span');
+                            numSpan.textContent = pc.pc_number;
+                            btn.appendChild(numSpan);
+                            
+                            if (isOccupied) {
+                                btn.style.background = '#ef4444';
+                                btn.style.color = 'white';
+                                btn.style.border = '1px solid #dc2626';
+                                btn.title = `Occupied by ${pc.student || 'Unknown'}\nTime In: ${pc.time_in ? new Date(pc.time_in).toLocaleTimeString() : 'N/A'}`;
+                                
+                                const stSpan = document.createElement('span');
+                                stSpan.style.fontSize = '0.65rem';
+                                stSpan.style.fontWeight = 'normal';
+                                stSpan.style.opacity = '0.9';
+                                stSpan.style.marginTop = '2px';
+                                stSpan.textContent = (pc.student || '').split(' ')[0] || 'User'; // Show first name
+                                btn.appendChild(stSpan);
+                            } else {
+                                btn.style.background = '#e2e8f0';
+                                btn.style.color = '#334155';
+                                btn.style.border = '1px solid #cbd5e1';
+                                btn.title = 'PC ' + pc.pc_number + ' is Available';
+                            }
+                            livePcGrid.appendChild(btn);
+                        });
+                    } else {
+                        livePcGrid.innerHTML = '<div class="empty-schedules py-5" style="grid-column: 1/-1;">No data available for this lab.</div>';
+                    }
+                } catch (e) {
+                    showToast('Network error loading PC grid.', 'error');
+                    livePcGrid.innerHTML = '<div class="empty-schedules py-5 text-danger" style="grid-column: 1/-1;">Failed to load data.</div>';
                 }
             }
-
-            function saveSchedules(list) {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-            }
-
-            function availabilitySummary(count) {
-                return count + ' PC' + (count === 1 ? '' : 's');
-            }
-
-            function pcsRangeLabel(pcs) {
-                const list = Array.isArray(pcs) ? pcs.slice() : [];
-                if (!list.length) return '—';
-                list.sort(function (a, b) { return a - b; });
-                const min = list[0];
-                const max = list[list.length - 1];
-                if (min === max) return String(min);
-                return `${min}\u2013${max}`;
-            }
-
-            function renderTable(rows) {
-                schedulesBody.innerHTML = '';
-                if (!rows.length) {
-                    const tr = document.createElement('tr');
-                    tr.id = 'schedulesEmptyRow';
-                    tr.innerHTML = '<td colspan="5" class="empty-schedules">No schedules configured yet. Save a schedule above to list it here.</td>';
-                    schedulesBody.appendChild(tr);
-                    return;
-                }
-                rows.forEach(function (row) {
-                    const tr = document.createElement('tr');
-                    const range = pcsRangeLabel(row.pcs);
-                    tr.innerHTML =
-                        '<td><strong>' + escapeHtml(row.lab) + '</strong></td>' +
-                        '<td>' + escapeHtml(formatDateDisplay(row.date)) + '</td>' +
-                        '<td>' + escapeHtml(row.timeWindow) + '</td>' +
-                        '<td>' + escapeHtml(range) + ' <span class="text-muted">(' + escapeHtml(availabilitySummary(row.pcCount)) + ')</span></td>' +
-                        '<td>' +
-                        '<button type="button" class="btn-table-pc btn-edit" data-id="' + escapeHtml(row.id) + '"><i class="ri-edit-line me-1"></i>Edit</button>' +
-                        '<button type="button" class="btn-table-pc danger btn-delete" data-id="' + escapeHtml(row.id) + '"><i class="ri-delete-bin-line me-1"></i>Delete</button>' +
-                        '</td>';
-                    schedulesBody.appendChild(tr);
-                });
-            }
-
-            function escapeHtml(s) {
-                if (!s) return '';
-                return String(s)
-                    .replace(/&/g, '&amp;')
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/"/g, '&quot;');
-            }
-
-            function refreshTable() {
-                renderTable(loadSchedules());
-            }
-
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-                const lab = labSelect.value;
-                const date = dateInput.value;
-                const timeEnd = timeEndInput.value;
-                if (!lab || !date || !timeEnd) return;
-                if (selected.size === 0) {
-                    alert('Select at least one available PC.');
-                    return;
-                }
-                const list = loadSchedules();
-                const timeWindow = timeWindowLabel();
-                const pcList = Array.from(selected).sort(function (a, b) { return a - b; });
-                const entry = {
-                    id: editingId || ('sch_' + Date.now()),
-                    lab: lab,
-                    date: date,
-                    timeStart: timeStartInput.value || '',
-                    timeEnd: timeEnd,
-                    timeWindow: timeWindow,
-                    pcs: pcList,
-                    pcCount: pcList.length
-                };
-                if (editingId) {
-                    const ix = list.findIndex(function (r) { return r.id === editingId; });
-                    if (ix !== -1) list[ix] = entry;
-                    editingId = null;
-                } else {
-                    list.push(entry);
-                }
-                saveSchedules(list);
-                refreshTable();
-                form.reset();
-                dateInput.value = new Date().toISOString().slice(0, 10);
-                selected.clear();
-                syncGridClasses();
-            });
-
-            schedulesBody.addEventListener('click', function (e) {
-                const del = e.target.closest('.btn-delete');
-                const ed = e.target.closest('.btn-edit');
-                if (del) {
-                    const id = del.getAttribute('data-id');
-                    const list = loadSchedules().filter(function (r) { return r.id !== id; });
-                    saveSchedules(list);
-                    refreshTable();
-                    return;
-                }
-                if (ed) {
-                    const id = ed.getAttribute('data-id');
-                    const row = loadSchedules().find(function (r) { return r.id === id; });
-                    if (!row) return;
-                    editingId = row.id;
-                    labSelect.value = row.lab;
-                    dateInput.value = row.date;
-                    timeStartInput.value = row.timeStart || '';
-                    timeEndInput.value = row.timeEnd || '';
-                    selected = new Set(row.pcs || []);
-                    syncGridClasses();
-                    labSelect.focus();
-                }
-            });
-
-            const today = new Date().toISOString().slice(0, 10);
-            dateInput.value = today;
-
-            renderGrid();
-            updateCounter();
-            refreshTable();
+            
+            liveLabSelect.addEventListener('change', loadLiveGrid);
+            refreshLiveGridBtn.addEventListener('click', loadLiveGrid);
         })();
 
         (function initSoftwareUploadPanel() {
             const form = document.getElementById('swUploadForm');
             const titleInput = document.getElementById('swTitle');
             const descInput = document.getElementById('swDesc');
-            const fileInput = document.getElementById('swFile');
+            const labInput = document.getElementById('swLab');
             const tableBody = document.getElementById('swTableBody');
             const searchInput = document.getElementById('swSearch');
             const pageSizeSelect = document.getElementById('swPageSize');
@@ -3424,127 +3020,28 @@
             const pageInfo = document.getElementById('swPageInfo');
             const uploadBtn = document.getElementById('swUploadBtn');
 
-            if (!form || !titleInput || !descInput || !fileInput || !tableBody || !searchInput || !pageSizeSelect || !prevBtn || !nextBtn || !pageInfo || !uploadBtn) return;
+            if (!form || !titleInput || !descInput || !labInput || !tableBody || !searchInput || !pageSizeSelect || !prevBtn || !nextBtn || !pageInfo || !uploadBtn) return;
 
-            const DB_NAME = 'ccs_admin_uploads';
-            const STORE = 'files';
-            const ALLOWED_EXT = new Set(['exe', 'msi', 'zip', 'rar', 'pdf', 'txt', 'doc', 'docx']);
+            // Populate Lab Dropdown
+            for (let i = 1; i <= 50; i++) {
+                const opt = document.createElement('option');
+                opt.value = 'S' + i;
+                opt.textContent = 'S' + i;
+                labInput.appendChild(opt);
+            }
 
             let allRows = [];
             let page = 1;
-
-            function escapeHtml(s) {
-                if (!s) return '';
-                return String(s)
-                    .replace(/&/g, '&amp;')
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/\"/g, '&quot;');
-            }
-
-            function formatBytes(bytes) {
-                const n = Number(bytes || 0);
-                if (!n) return '0 B';
-                const units = ['B', 'KB', 'MB', 'GB', 'TB'];
-                let i = 0;
-                let v = n;
-                while (v >= 1024 && i < units.length - 1) { v /= 1024; i++; }
-                return `${v.toFixed(v >= 10 || i === 0 ? 0 : 1)} ${units[i]}`;
-            }
-
-            function formatDateDisplay(iso) {
-                if (!iso) return '—';
-                const d = new Date(iso);
-                if (Number.isNaN(d.getTime())) return '—';
-                return d.toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-            }
-
-            function getUploaderName() {
-                try {
-                    const raw = localStorage.getItem(USER_KEY);
-                    const u = raw ? JSON.parse(raw) : null;
-                    if (!u) return 'CCS Admin';
-                    const name = [u.first_name, u.middle_name, u.last_name].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
-                    return name || u.id_number || 'CCS Admin';
-                } catch (e) {
-                    return 'CCS Admin';
-                }
-            }
-
-            function openDb() {
-                return new Promise((resolve, reject) => {
-                    const req = indexedDB.open(DB_NAME, 1);
-                    req.onupgradeneeded = () => {
-                        const db = req.result;
-                        if (!db.objectStoreNames.contains(STORE)) {
-                            const os = db.createObjectStore(STORE, { keyPath: 'id' });
-                            os.createIndex('date', 'uploadedAt');
-                            os.createIndex('title', 'title');
-                            os.createIndex('filename', 'filename');
-                        }
-                    };
-                    req.onsuccess = () => resolve(req.result);
-                    req.onerror = () => reject(req.error);
-                });
-            }
-
-            async function getAllFiles() {
-                const db = await openDb();
-                return await new Promise((resolve, reject) => {
-                    const tx = db.transaction(STORE, 'readonly');
-                    const os = tx.objectStore(STORE);
-                    const req = os.getAll();
-                    req.onsuccess = () => resolve(req.result || []);
-                    req.onerror = () => reject(req.error);
-                    tx.oncomplete = () => db.close();
-                });
-            }
-
-            async function addFile(entry) {
-                const db = await openDb();
-                return await new Promise((resolve, reject) => {
-                    const tx = db.transaction(STORE, 'readwrite');
-                    const os = tx.objectStore(STORE);
-                    const req = os.put(entry);
-                    req.onsuccess = () => resolve(true);
-                    req.onerror = () => reject(req.error);
-                    tx.oncomplete = () => db.close();
-                });
-            }
-
-            async function deleteFile(id) {
-                const db = await openDb();
-                return await new Promise((resolve, reject) => {
-                    const tx = db.transaction(STORE, 'readwrite');
-                    const os = tx.objectStore(STORE);
-                    const req = os.delete(id);
-                    req.onsuccess = () => resolve(true);
-                    req.onerror = () => reject(req.error);
-                    tx.oncomplete = () => db.close();
-                });
-            }
-
-            async function getFile(id) {
-                const db = await openDb();
-                return await new Promise((resolve, reject) => {
-                    const tx = db.transaction(STORE, 'readonly');
-                    const os = tx.objectStore(STORE);
-                    const req = os.get(id);
-                    req.onsuccess = () => resolve(req.result || null);
-                    req.onerror = () => reject(req.error);
-                    tx.oncomplete = () => db.close();
-                });
-            }
 
             function filteredRows() {
                 const q = (searchInput.value || '').trim().toLowerCase();
                 if (!q) return allRows.slice();
                 return allRows.filter(r => {
                     const hay = [
-                        r.title,
+                        r.software_name,
                         r.description,
-                        r.filename,
-                        r.uploadedBy
+                        r.lab_room,
+                        r.added_by
                     ].filter(Boolean).join(' ').toLowerCase();
                     return hay.includes(q);
                 });
@@ -3564,8 +3061,7 @@
             }
 
             function render() {
-                const rows = filteredRows()
-                    .sort((a, b) => (b.uploadedAt || '').localeCompare(a.uploadedAt || ''));
+                const rows = filteredRows();
                 const total = rows.length;
                 const size = pageSize();
                 const totalPages = Math.max(1, Math.ceil(total / size));
@@ -3578,7 +3074,7 @@
                 nextBtn.disabled = page >= totalPages;
 
                 if (!pageRows.length) {
-                    tableBody.innerHTML = '<tr><td colspan="6" class="sw-empty">No uploaded software or app files yet.</td></tr>';
+                    tableBody.innerHTML = '<tr><td colspan="5" class="sw-empty">No software registered yet.</td></tr>';
                     setPageInfo(0, 0, 0);
                     return;
                 }
@@ -3588,20 +3084,15 @@
                 setPageInfo(total, startIdx, endIdx);
 
                 tableBody.innerHTML = pageRows.map(r => {
-                    const fileLabel = `${escapeHtml(r.filename || 'file')}`;
-                    const ext = (r.filename || '').split('.').pop().toLowerCase();
-                    const meta = ext ? `<span class="sw-badge"><i class="ri-file-3-line"></i>${escapeHtml(ext)}</span>` : '';
                     return `
                         <tr>
-                            <td><strong>${escapeHtml(r.title)}</strong>${r.description ? `<div class="text-muted small mt-1">${escapeHtml(r.description)}</div>` : ''}</td>
-                            <td>${fileLabel}<div class="mt-1">${meta}</div></td>
-                            <td>${escapeHtml(formatBytes(r.size))}</td>
-                            <td>${escapeHtml(r.uploadedBy || 'CCS Admin')}</td>
-                            <td>${escapeHtml(formatDateDisplay(r.uploadedAt))}</td>
+                            <td><strong>${escapeHtml(r.software_name)}</strong></td>
+                            <td><span class="sw-badge"><i class="ri-macbook-line"></i>${escapeHtml(r.lab_room)}</span></td>
+                            <td>${escapeHtml(r.description || '-')}</td>
+                            <td>${escapeHtml(r.added_by || 'Admin')}</td>
                             <td class="text-end">
                                 <div class="sw-table-actions">
-                                    <button type="button" class="btn-sw" data-sw-download="${escapeHtml(r.id)}"><i class="ri-download-2-line me-1"></i>Download</button>
-                                    <button type="button" class="btn-sw danger" data-sw-delete="${escapeHtml(r.id)}"><i class="ri-delete-bin-6-line me-1"></i>Delete</button>
+                                    <button type="button" class="btn-sw danger" data-sw-delete="${escapeHtml(r.id)}"><i class="ri-delete-bin-6-line me-1"></i>Remove</button>
                                 </div>
                             </td>
                         </tr>
@@ -3611,62 +3102,48 @@
 
             async function refresh() {
                 try {
-                    allRows = await getAllFiles();
-                    render();
+                    const res = await apiGet('get_lab_software');
+                    if (res.success) {
+                        allRows = res.software || [];
+                        render();
+                    } else {
+                        showToast(res.message || 'Unable to load software data.', 'error');
+                    }
                 } catch (err) {
-                    showToast('Unable to load uploaded files.', 'error');
+                    showToast('Unable to load software list.', 'error');
                 }
-            }
-
-            function validateFile(file) {
-                if (!file) return 'Please choose a file to upload.';
-                const name = file.name || '';
-                const ext = name.includes('.') ? name.split('.').pop().toLowerCase() : '';
-                if (!ext || !ALLOWED_EXT.has(ext)) {
-                    return 'Unsupported file type. Allowed: exe, msi, zip, rar, pdf, txt, doc, docx';
-                }
-                return '';
             }
 
             form.addEventListener('submit', async function (e) {
                 e.preventDefault();
                 const title = (titleInput.value || '').trim();
                 const desc = (descInput.value || '').trim();
-                const file = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+                const labRoom = labInput.value;
 
-                if (!title) {
-                    showToast('Title is required.', 'error');
-                    titleInput.focus();
-                    return;
-                }
-
-                const fileError = validateFile(file);
-                if (fileError) {
-                    showToast(fileError, 'error');
-                    fileInput.focus();
+                if (!title || !labRoom) {
+                    showToast('Software Name and Lab Room are required.', 'error');
                     return;
                 }
 
                 uploadBtn.disabled = true;
                 try {
-                    const entry = {
-                        id: 'sw_' + Date.now() + '_' + Math.random().toString(16).slice(2),
-                        title,
+                    const payload = {
+                        lab_room: labRoom,
+                        software_name: title,
                         description: desc,
-                        filename: file.name,
-                        mime: file.type || '',
-                        size: file.size || 0,
-                        uploadedBy: getUploaderName(),
-                        uploadedAt: new Date().toISOString(),
-                        blob: file
+                        added_by: 'CCS Admin'
                     };
-                    await addFile(entry);
-                    showToast('File uploaded successfully.', 'success');
-                    form.reset();
-                    page = 1;
-                    await refresh();
+                    const res = await apiPost('add_lab_software', payload);
+                    if (res.success) {
+                        showToast('Software added successfully.', 'success');
+                        form.reset();
+                        page = 1;
+                        await refresh();
+                    } else {
+                        showToast(res.message || 'Failed to add software.', 'error');
+                    }
                 } catch (err) {
-                    showToast('Upload failed. Please try again.', 'error');
+                    showToast('Add failed. Please try again.', 'error');
                 } finally {
                     uploadBtn.disabled = false;
                 }
@@ -3694,38 +3171,19 @@
 
             tableBody.addEventListener('click', async function (e) {
                 const del = e.target.closest('[data-sw-delete]');
-                const dl = e.target.closest('[data-sw-download]');
                 if (del) {
                     const id = del.getAttribute('data-sw-delete');
                     if (!id) return;
                     try {
-                        await deleteFile(id);
-                        showToast('File deleted.', 'success');
-                        await refresh();
+                        const res = await apiPost('remove_lab_software', { id: Number(id) });
+                        if (res.success) {
+                            showToast('Software removed.', 'success');
+                            await refresh();
+                        } else {
+                            showToast(res.message || 'Delete failed.', 'error');
+                        }
                     } catch (err) {
                         showToast('Delete failed.', 'error');
-                    }
-                    return;
-                }
-                if (dl) {
-                    const id = dl.getAttribute('data-sw-download');
-                    if (!id) return;
-                    try {
-                        const row = await getFile(id);
-                        if (!row || !row.blob) {
-                            showToast('File not found.', 'error');
-                            return;
-                        }
-                        const url = URL.createObjectURL(row.blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = row.filename || 'download';
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        setTimeout(() => URL.revokeObjectURL(url), 1500);
-                    } catch (err) {
-                        showToast('Download failed.', 'error');
                     }
                 }
             });

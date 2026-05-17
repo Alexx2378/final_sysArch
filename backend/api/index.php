@@ -5,6 +5,23 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../config/database.php';
 
+// Feature Initialization: Auto-create tables and columns
+try {
+    $pdo->exec("CREATE TABLE IF NOT EXISTS lab_software (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        lab_room VARCHAR(50) NOT NULL,
+        software_name VARCHAR(100) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )");
+    
+    $checkColumn = $pdo->query("SHOW COLUMNS FROM sitin_sessions LIKE 'pc_number'");
+    if ($checkColumn->rowCount() === 0) {
+        $pdo->exec("ALTER TABLE sitin_sessions ADD COLUMN pc_number INT DEFAULT NULL");
+    }
+} catch (PDOException $e) {
+    // Ignore
+}
+
 $action = $_GET['action'] ?? '';
 
 switch ($action) {
@@ -25,6 +42,21 @@ switch ($action) {
         break;
     case 'search_students':
         searchStudents($pdo);
+        break;
+    case 'public_leaderboard':
+        getPublicLeaderboard($pdo);
+        break;
+    case 'get_lab_software':
+        getLabSoftware($pdo);
+        break;
+    case 'add_lab_software':
+        addLabSoftware($pdo);
+        break;
+    case 'remove_lab_software':
+        removeLabSoftware($pdo);
+        break;
+    case 'get_pc_availability':
+        getPcAvailability($pdo);
         break;
     case 'create_sitin':
         createSitin($pdo);
@@ -228,7 +260,7 @@ function createAnnouncement(PDO $pdo): void
 
 function calculateRewardPoints(int $durationSeconds): int
 {
-    return max(1, (int)ceil($durationSeconds / 1800));
+    return (int)floor($durationSeconds / 1800);
 }
 
 function awardRewardPoints(PDO $pdo, int $userId, int $sourceId, int $points, string $description, string $sourceType = 'sitin'): void
@@ -996,6 +1028,19 @@ function createSitin(PDO $pdo): void
         return;
     }
 
+    $pcNumber = (int)($data['pc_number'] ?? 0);
+    $pcNumberSql = $pcNumber > 0 ? $pcNumber : null;
+    
+    if ($pcNumber > 0) {
+        $pcCheck = $pdo->prepare("SELECT id FROM sitin_sessions WHERE lab_room = :lab_room AND pc_number = :pc_number AND status = 'active' LIMIT 1");
+        $pcCheck->execute([':lab_room' => $labRoom, ':pc_number' => $pcNumber]);
+        if ($pcCheck->fetch()) {
+            http_response_code(409);
+            echo json_encode(['success' => false, 'message' => 'PC is already occupied in this lab']);
+            return;
+        }
+    }
+
     $remainingStmt = $pdo->prepare("SELECT remaining_sessions FROM users WHERE id = :user_id LIMIT 1");
     $remainingStmt->execute([':user_id' => (int)$user['id']]);
     $remainingSessions = (int)($remainingStmt->fetchColumn() ?: 0);
@@ -1013,11 +1058,12 @@ function createSitin(PDO $pdo): void
         return;
     }
 
-    $insertStmt = $pdo->prepare("INSERT INTO sitin_sessions (user_id, lab_room, purpose, status, time_in)
-        VALUES (:user_id, :lab_room, :purpose, 'active', NOW())");
+    $insertStmt = $pdo->prepare("INSERT INTO sitin_sessions (user_id, lab_room, pc_number, purpose, status, time_in)
+        VALUES (:user_id, :lab_room, :pc_number, :purpose, 'active', NOW())");
     $insertStmt->execute([
         ':user_id' => (int)$user['id'],
         ':lab_room' => $labRoom,
+        ':pc_number' => $pcNumberSql,
         ':purpose' => $purpose,
     ]);
 
@@ -1339,4 +1385,121 @@ function formatDurationLabel(int $seconds): string
     $hours = intdiv($minutes, 60);
     $remainingMinutes = $minutes % 60;
     return $hours . ' hr' . ($hours > 1 ? 's' : '') . ($remainingMinutes > 0 ? ' ' . $remainingMinutes . ' min' : '');
+}
+
+function getPublicLeaderboard(PDO $pdo): void
+{
+    echo json_encode([
+        'success' => true,
+        'leaderboard' => getRewardLeaderboard($pdo, 10),
+    ]);
+}
+
+function getLabSoftware(PDO $pdo): void
+{
+    $labRoom = trim($_GET['lab_room'] ?? '');
+    
+    if ($labRoom !== '') {
+        $stmt = $pdo->prepare("SELECT id, software_name FROM lab_software WHERE lab_room = :lab_room ORDER BY software_name ASC");
+        $stmt->execute([':lab_room' => $labRoom]);
+    } else {
+        $stmt = $pdo->query("SELECT id, lab_room, software_name FROM lab_software ORDER BY lab_room ASC, software_name ASC");
+    }
+    
+    echo json_encode([
+        'success' => true,
+        'software' => $stmt->fetchAll()
+    ]);
+}
+
+function addLabSoftware(PDO $pdo): void
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+        return;
+    }
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    $labRoom = trim((string)($data['lab_room'] ?? ''));
+    $softwareName = trim((string)($data['software_name'] ?? ''));
+
+    if ($labRoom === '' || $softwareName === '') {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Lab Room and Software Name are required']);
+        return;
+    }
+
+    $stmt = $pdo->prepare("INSERT INTO lab_software (lab_room, software_name) VALUES (:lab_room, :software_name)");
+    $stmt->execute([
+        ':lab_room' => $labRoom,
+        ':software_name' => $softwareName,
+    ]);
+
+    echo json_encode(['success' => true, 'message' => 'Software added successfully']);
+}
+
+function removeLabSoftware(PDO $pdo): void
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+        return;
+    }
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    $id = (int)($data['id'] ?? 0);
+
+    if ($id <= 0) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Invalid ID']);
+        return;
+    }
+
+    $stmt = $pdo->prepare("DELETE FROM lab_software WHERE id = :id");
+    $stmt->execute([':id' => $id]);
+
+    echo json_encode(['success' => true, 'message' => 'Software removed successfully']);
+}
+
+function getPcAvailability(PDO $pdo): void
+{
+    $labRoom = trim($_GET['lab_room'] ?? '');
+    
+    if ($labRoom === '') {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Lab Room is required']);
+        return;
+    }
+
+    // Default 30 PCs per lab
+    $stmt = $pdo->prepare("SELECT pc_number, u.first_name, u.last_name, s.time_in 
+        FROM sitin_sessions s 
+        INNER JOIN users u ON s.user_id = u.id 
+        WHERE s.lab_room = :lab_room AND s.status = 'active' AND s.pc_number IS NOT NULL");
+    $stmt->execute([':lab_room' => $labRoom]);
+    
+    $activeSessions = $stmt->fetchAll();
+    
+    $pcs = [];
+    for ($i = 1; $i <= 30; $i++) {
+        $pcs[$i] = ['pc_number' => $i, 'status' => 'Available', 'student' => null, 'time_in' => null];
+    }
+    
+    foreach ($activeSessions as $session) {
+        $pcNum = (int)$session['pc_number'];
+        if ($pcNum > 0 && $pcNum <= 30) {
+            $pcs[$pcNum] = [
+                'pc_number' => $pcNum,
+                'status' => 'Occupied',
+                'student' => $session['first_name'] . ' ' . $session['last_name'],
+                'time_in' => $session['time_in']
+            ];
+        }
+    }
+    
+    echo json_encode([
+        'success' => true,
+        'pcs' => array_values($pcs)
+    ]);
 }

@@ -7,36 +7,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="assets/theme.js"></script>
+    <link href="assets/theme.css" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
         :root {
             --font-body: 'Manrope', 'Segoe UI', system-ui, sans-serif;
             --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
-            --bg-0: #081325;
-            --bg-1: #0a1d34;
-            --bg-2: #0f2b46;
-            --panel: rgba(255, 255, 255, 0.06);
-            --panel-strong: rgba(255, 255, 255, 0.08);
-            --border: rgba(255, 255, 255, 0.1);
-            --text: #e6edf7;
-            --muted: rgba(230, 237, 247, 0.62);
-            --accent: #2196f3;
-            --accent-2: #57c6ff;
-            --danger: #dc3545;
-            --success: #16a34a;
             --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
         }
 
         body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: var(--font-body);
-            background:
-                radial-gradient(circle at top left, rgba(33, 150, 243, 0.15), transparent 32%),
-                radial-gradient(circle at bottom right, rgba(124, 58, 237, 0.16), transparent 30%),
-                linear-gradient(135deg, var(--bg-0) 0%, var(--bg-1) 42%, var(--bg-2) 100%);
-            color: var(--text);
+            /* Handled by theme.css */
             overflow-x: hidden;
         }
 
@@ -984,34 +967,6 @@
             .toast-notif { min-width: 0; width: calc(100vw - 36px); }
         }
 
-        /* Professional Light Theme Override */
-        :root {
-            --surface-bg: #f7f6fb;
-            --surface-card: #ffffff;
-            --surface-border: #e6e1f3;
-            --text-primary: #1f1b2d;
-            --text-muted: #6a637d;
-            --brand-primary: #2b124c;
-            --brand-primary-hover: #1f0d37;
-            --brand-soft: #efe9fb;
-            --brand-yellow: #edb42f;
-            --brand-yellow-hover: #d9a224;
-            --success: #2e7d32;
-            --danger: #c62828;
-            --panel: #ffffff;
-            --panel-strong: #ffffff;
-            --border: #e6e1f3;
-            --text: #1f1b2d;
-            --muted: #6a637d;
-            --accent: #5e3aa1;
-            --accent-2: #7a54bc;
-            --shadow: 0 10px 24px rgba(44, 31, 79, 0.08);
-        }
-
-        body {
-            background: radial-gradient(circle at top right, #f6f1ff 0%, rgba(246, 241, 255, 0) 45%), #f7f6fb;
-            color: var(--text-primary);
-        }
         .orb-container { display: none; }
         .navbar {
             background: var(--brand-primary);
@@ -2326,6 +2281,11 @@
                                 <li><a class="dropdown-item" href="#" id="logoutLink"><i class="ri-logout-box-r-line"></i>Logout</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item ms-2 d-flex align-items-center">
+                            <button class="btn-theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
+                                <i class="ri-sun-line theme-icon" id="theme-icon"></i>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -2386,7 +2346,7 @@
                             <div class="stat-label">Remaining Sessions</div>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-number" id="statPhoto">0</div>
+                            <div class="stat-number text-warning" id="statRewardPoints">0</div>
                             <div class="stat-label">Reward Points</div>
                         </div>
                     </div>
@@ -2655,119 +2615,70 @@
                 <div class="glass-card reservation-card">
                     <div class="section-title"><i class="ri-bookmark-3-line"></i> Reservation</div>
                     <div class="reservation-panel-grid">
-                        <div class="reservation-form-card">
+                        <div class="reservation-form-card" style="grid-column: 1 / -1;">
                             <div class="reservation-card-head">
-                                <div class="section-title mb-0"><i class="ri-edit-line"></i>Request a Sit-in Slot</div>
+                                <div class="section-title mb-0"><i class="ri-map-pin-line"></i> Step 1: Select a Laboratory</div>
                             </div>
-                            <div class="reservation-subtitle">Fill in your preferred lab schedule and purpose. Your details are prefilled from your account profile.</div>
+                            <div class="reservation-subtitle mb-3">Browse available labs, view their installed software, and check real-time PC availability.</div>
+                            
+                            <div id="labBrowser" class="row g-3 mb-4">
+                                <div class="col-12 text-center text-muted py-4"><span class="spinner-border spinner-border-sm me-2"></span>Loading labs...</div>
+                            </div>
+                            
+                            <div id="reservationDetailsSection" style="display: none; animation: panelIn 0.3s ease;">
+                                <div class="reservation-card-head mt-4 border-top pt-4">
+                                    <div class="section-title mb-0"><i class="ri-computer-line"></i> Step 2: Select a PC & Form</div>
+                                    <span class="badge bg-primary fs-6" id="selectedLabNameDisplay">Lab S1</span>
+                                </div>
+                                <div class="reservation-subtitle mb-3">Choose an available PC from the grid and complete your reservation details.</div>
+                                
+                                <div class="mb-4 p-3 rounded" style="background: var(--surface-bg); border: 1px solid var(--surface-border);">
+                                    <label class="form-label fw-bold mb-3 d-block text-center">PC Terminal Grid</label>
+                                    <div class="d-flex justify-content-center gap-3 mb-3 text-muted" style="font-size:0.8rem;">
+                                        <span><div class="d-inline-block rounded me-1" style="width:14px;height:14px;background:#e2e8f0;border:1px solid #cbd5e1;"></div> Available</span>
+                                        <span><div class="d-inline-block rounded me-1" style="width:14px;height:14px;background:#ef4444;border:1px solid #dc2626;"></div> Occupied</span>
+                                        <span><div class="d-inline-block rounded me-1" style="width:14px;height:14px;background:var(--brand-yellow);border:1px solid #d9a224;"></div> Selected</span>
+                                    </div>
+                                    <div id="pcGrid" class="d-flex flex-wrap justify-content-center gap-2 max-w-100" style="max-width: 600px; margin: 0 auto;">
+                                        <!-- PC Grid generated by JS -->
+                                    </div>
+                                </div>
 
-                            <div class="reservation-student-grid">
-                                <div class="reservation-student-item">
-                                    <span class="caption">ID Number</span>
-                                    <span class="value" id="reservationIdNumberDisplay">-</span>
+                                <form id="reservationForm" class="row g-3" novalidate>
+                                    <input type="hidden" id="reservationLab" required>
+                                    <input type="hidden" id="reservationPcNumber" required>
                                     <input type="hidden" id="reservationIdNumber">
-                                </div>
-                                <div class="reservation-student-item">
-                                    <span class="caption">Student Name</span>
-                                    <span class="value" id="reservationNameDisplay">-</span>
-                                    <input type="hidden" id="reservationName">
-                                </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="reservationPurpose">Purpose / Language</label>
+                                        <select id="reservationPurpose" class="form-select" required>
+                                            <option value="">Select language/use</option>
+                                            <option value="C Programming">C Programming</option>
+                                            <option value="Java">Java</option>
+                                            <option value="Python">Python</option>
+                                            <option value="Web Development">Web Development</option>
+                                            <option value="Database">Database</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="reservationSessions">Remaining Sessions</label>
+                                        <input type="number" id="reservationSessions" class="form-control" value="30" readonly>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="reservationDate">Date</label>
+                                        <input type="date" id="reservationDate" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="reservationTime">Time In</label>
+                                        <input type="time" id="reservationTime" class="form-control" required>
+                                    </div>
+                                    
+                                    <div class="col-12 d-flex justify-content-end mt-4">
+                                        <button type="submit" class="btn btn-primary-gradient px-4"><i class="ri-checkbox-circle-line me-1"></i>Confirm Reservation</button>
+                                    </div>
+                                </form>
                             </div>
-
-                            <form id="reservationForm" class="row g-3" novalidate>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="reservationPurpose">Purpose / Language</label>
-                                    <select id="reservationPurpose" class="form-select" required>
-                                        <option value="">Select language/use</option>
-                                        <option value="C Programming">C Programming</option>
-                                        <option value="Java">Java</option>
-                                        <option value="Python">Python</option>
-                                        <option value="Web Development">Web Development</option>
-                                        <option value="Database">Database</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="reservationLab">Lab</label>
-                                    <select id="reservationLab" class="form-select" required>
-                                        <option value="">Select a lab</option>
-                                        <option value="S1">S1</option>
-                                        <option value="S2">S2</option>
-                                        <option value="S3">S3</option>
-                                        <option value="S4">S4</option>
-                                        <option value="S5">S5</option>
-                                        <option value="S6">S6</option>
-                                        <option value="S7">S7</option>
-                                        <option value="S8">S8</option>
-                                        <option value="S9">S9</option>
-                                        <option value="S10">S10</option>
-                                        <option value="S11">S11</option>
-                                        <option value="S12">S12</option>
-                                        <option value="S13">S13</option>
-                                        <option value="S14">S14</option>
-                                        <option value="S15">S15</option>
-                                        <option value="S16">S16</option>
-                                        <option value="S17">S17</option>
-                                        <option value="S18">S18</option>
-                                        <option value="S19">S19</option>
-                                        <option value="S20">S20</option>
-                                        <option value="S21">S21</option>
-                                        <option value="S22">S22</option>
-                                        <option value="S23">S23</option>
-                                        <option value="S24">S24</option>
-                                        <option value="S25">S25</option>
-                                        <option value="S26">S26</option>
-                                        <option value="S27">S27</option>
-                                        <option value="S28">S28</option>
-                                        <option value="S29">S29</option>
-                                        <option value="S30">S30</option>
-                                        <option value="S31">S31</option>
-                                        <option value="S32">S32</option>
-                                        <option value="S33">S33</option>
-                                        <option value="S34">S34</option>
-                                        <option value="S35">S35</option>
-                                        <option value="S36">S36</option>
-                                        <option value="S37">S37</option>
-                                        <option value="S38">S38</option>
-                                        <option value="S39">S39</option>
-                                        <option value="S40">S40</option>
-                                        <option value="S41">S41</option>
-                                        <option value="S42">S42</option>
-                                        <option value="S43">S43</option>
-                                        <option value="S44">S44</option>
-                                        <option value="S45">S45</option>
-                                        <option value="S46">S46</option>
-                                        <option value="S47">S47</option>
-                                        <option value="S48">S48</option>
-                                        <option value="S49">S49</option>
-                                        <option value="S50">S50</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="reservationTime">Time In</label>
-                                    <input type="time" id="reservationTime" class="form-control">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="reservationDate">Date</label>
-                                    <input type="date" id="reservationDate" class="form-control">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label" for="reservationSessions">Remaining Sessions</label>
-                                    <input type="number" id="reservationSessions" class="form-control" value="30" readonly>
-                                </div>
-                                <div class="col-12 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary-gradient"><i class="ri-checkbox-circle-line me-1"></i>Reserve</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="reservation-notes-card">
-                                <div class="section-title mb-2"><i class="ri-lightbulb-line"></i> Reservation Notes</div>
-                                <div class="reservation-subtitle">Quick reminders before submitting your reservation.</div>
-                                <ul class="rules-list ps-3 mb-0">
-                                    <li>Select the programming language or use you will work on before reserving.</li>
-                                    <li>Choose the laboratory, date, and time so the reservation record is complete.</li>
-                                    <li>Reservation data is stored locally in this prototype.</li>
-                                </ul>
                         </div>
                     </div>
                 </div>
@@ -3080,7 +2991,7 @@
             document.getElementById('glanceCourse').textContent = profile.course || '-';
             document.getElementById('glanceYear').textContent = profile.year_level || '-';
             document.getElementById('statProfile').textContent = `${profile.remaining_sessions}`;
-            document.getElementById('statPhoto').textContent = `${profile.reward_points}`;
+            document.getElementById('statRewardPoints').textContent = `${profile.reward_points}`;
             const remainingLabel = document.querySelector('[data-remaining-label]');
             if (remainingLabel) {
                 remainingLabel.textContent = 'Remaining Sessions';
@@ -3468,6 +3379,180 @@
             return filtered;
         }
 
+        /* ── Reservation Lab Browser & PC Selection ── */
+        async function loadLabBrowser() {
+            try {
+                const [softwareRes, availabilityRes] = await Promise.all([
+                    apiGet('get_lab_software'),
+                    apiGet('get_pc_availability')
+                ]);
+                
+                let softwareMap = {};
+                if (softwareRes.success) {
+                    softwareRes.software.forEach(sw => {
+                        if (!softwareMap[sw.lab_room]) softwareMap[sw.lab_room] = [];
+                        softwareMap[sw.lab_room].push(sw.software_name);
+                    });
+                }
+                
+                const container = document.getElementById('labBrowser');
+                container.innerHTML = '';
+                
+                if (availabilityRes.success && availabilityRes.availability) {
+                    const labs = Object.keys(availabilityRes.availability).sort((a,b) => parseInt(a.replace('S','')) - parseInt(b.replace('S','')));
+                    
+                    labs.forEach(lab => {
+                        const data = availabilityRes.availability[lab];
+                        const swList = softwareMap[lab] || [];
+                        const swChips = swList.map(sw => `<span class="badge bg-light text-dark border me-1 mb-1 fw-normal" style="font-size:0.75rem;">${sw}</span>`).join('');
+                        
+                        const isFull = data.available <= 0;
+                        
+                        container.innerHTML += `
+                            <div class="col-md-4 col-sm-6">
+                                <div class="card h-100" style="background: var(--surface-card); border-color: var(--surface-border); cursor: ${isFull ? 'not-allowed' : 'pointer'}; opacity: ${isFull ? '0.7' : '1'}; transition: transform 0.2s;" 
+                                     ${!isFull ? `onclick="selectLab('${lab}')"` : ''} 
+                                     onmouseover="${!isFull ? `this.style.transform='translateY(-2px)'` : ''}" 
+                                     onmouseout="this.style.transform='none'">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h5 class="card-title fw-bold text-primary mb-0"><i class="ri-macbook-line me-1"></i>${lab}</h5>
+                                            <span class="badge ${isFull ? 'bg-danger' : (data.available < 10 ? 'bg-warning text-dark' : 'bg-success')}">
+                                                ${data.available}/${data.total} PCs Available
+                                            </span>
+                                        </div>
+                                        <div class="mt-3">
+                                            <div class="text-muted small mb-1">Installed Software:</div>
+                                            <div class="d-flex flex-wrap">
+                                                ${swChips || '<span class="text-muted small fst-italic">No specific software listed</span>'}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (e) {
+                console.error(e);
+                document.getElementById('labBrowser').innerHTML = '<div class="col-12 text-center text-danger">Failed to load laboratories.</div>';
+            }
+        }
+        
+        async function selectLab(labRoom) {
+            document.getElementById('reservationLab').value = labRoom;
+            document.getElementById('selectedLabNameDisplay').textContent = 'Lab ' + labRoom;
+            document.getElementById('reservationPcNumber').value = '';
+            
+            // Fetch real-time availability again just to be safe
+            try {
+                const res = await apiGet('get_pc_availability');
+                if (res.success && res.availability[labRoom]) {
+                    const data = res.availability[labRoom];
+                    renderPcGrid(data.total, data.occupied_pcs);
+                    document.getElementById('reservationDetailsSection').style.display = 'block';
+                    document.getElementById('reservationDetailsSection').scrollIntoView({behavior: 'smooth', block: 'start'});
+                }
+            } catch (e) {
+                showToast('Failed to load PC grid', 'error');
+            }
+        }
+        
+        function renderPcGrid(total, occupied) {
+            const grid = document.getElementById('pcGrid');
+            grid.innerHTML = '';
+            for (let i = 1; i <= total; i++) {
+                const isOccupied = occupied.includes(i.toString()) || occupied.includes(i);
+                
+                const btn = document.createElement('div');
+                btn.className = 'd-flex align-items-center justify-content-center rounded shadow-sm fw-bold';
+                btn.style.width = '42px';
+                btn.style.height = '42px';
+                btn.style.cursor = isOccupied ? 'not-allowed' : 'pointer';
+                btn.style.transition = 'all 0.2s';
+                btn.textContent = i;
+                
+                if (isOccupied) {
+                    btn.style.background = '#ef4444';
+                    btn.style.color = 'white';
+                    btn.style.border = '1px solid #dc2626';
+                    btn.title = 'PC ' + i + ' is Occupied';
+                } else {
+                    btn.style.background = '#e2e8f0';
+                    btn.style.color = '#334155';
+                    btn.style.border = '1px solid #cbd5e1';
+                    btn.title = 'Select PC ' + i;
+                    btn.id = 'pcBtn_' + i;
+                    
+                    btn.addEventListener('click', function() {
+                        // Deselect previous
+                        const prev = document.querySelector('#pcGrid .pc-selected');
+                        if (prev) {
+                            prev.classList.remove('pc-selected');
+                            prev.style.background = '#e2e8f0';
+                            prev.style.color = '#334155';
+                            prev.style.border = '1px solid #cbd5e1';
+                        }
+                        
+                        // Select current
+                        this.classList.add('pc-selected');
+                        this.style.background = 'var(--brand-yellow)';
+                        this.style.color = '#000';
+                        this.style.border = '2px solid #d9a224';
+                        
+                        document.getElementById('reservationPcNumber').value = i;
+                    });
+                }
+                grid.appendChild(btn);
+            }
+        }
+
+        document.getElementById('reservationForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const lab = document.getElementById('reservationLab').value;
+            const pcNumber = document.getElementById('reservationPcNumber').value;
+            if (!lab) return showToast('Please select a lab from the list first.', 'warning');
+            if (!pcNumber) return showToast('Please select an available PC from the grid.', 'warning');
+            
+            const payload = {
+                id_number: profile.id_number,
+                purpose: document.getElementById('reservationPurpose').value,
+                lab_room: lab,
+                pc_number: pcNumber,
+                time_in: document.getElementById('reservationTime').value,
+                preferred_date: document.getElementById('reservationDate').value || new Date().toISOString().slice(0, 10),
+                preferred_time: document.getElementById('reservationTime').value
+            };
+            
+            if (!payload.purpose || !payload.lab_room || !payload.time_in || !payload.preferred_date || !payload.pc_number) {
+                return showToast('Please complete all reservation fields.', 'error');
+            }
+
+            const btn = this.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Reserving...';
+
+            try {
+                const res = await apiPost('create_sitin', payload);
+                if (res.success) {
+                    showToast('Reservation requested successfully!', 'success');
+                    this.reset();
+                    document.getElementById('reservationPcNumber').value = '';
+                    document.getElementById('reservationDetailsSection').style.display = 'none';
+                    loadLabBrowser(); // Refresh availability
+                    loadHistoryAndReservations();
+                    setTimeout(() => setActiveSection('reservation-status'), 500);
+                } else {
+                    showToast(res.message || 'Failed to reserve slot.', 'error');
+                }
+            } catch (err) {
+                showToast('Network error while requesting reservation.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="ri-checkbox-circle-line me-1"></i>Confirm Reservation';
+            }
+        });
+
         function formatNotificationTime(timestamp) {
             const now = Math.floor(Date.now() / 1000);
             const diff = now - timestamp;
@@ -3834,7 +3919,7 @@
                 document.getElementById('statSessions').textContent = activeSessions.length;
                 document.getElementById('statReservations').textContent = reservations.length;
                 document.getElementById('statProfile').textContent = `${profile.remaining_sessions}`;
-                document.getElementById('statPhoto').textContent = `${profile.reward_points}`;
+                document.getElementById('statRewardPoints').textContent = `${profile.reward_points}`;
                 document.getElementById('reservationSessions').value = profile.remaining_sessions;
 
                 const reserveBtn = document.querySelector('#reservationForm button[type="submit"]');
@@ -3962,47 +4047,13 @@
             }
         });
 
-        document.getElementById('reservationForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const labRoom = document.getElementById('reservationLab').value.trim();
-            const purpose = document.getElementById('reservationPurpose').value.trim();
-            const preferredTime = document.getElementById('reservationTime').value;
-            const preferredDate = document.getElementById('reservationDate').value;
-
-            if (!labRoom || !purpose || !preferredTime || !preferredDate) {
-                showToast('Please fill in the reservation details.', 'error');
-                return;
-            }
-
-            const data = await apiPost('create_reservation', {
-                id_number: profile.id_number,
-                lab_room: labRoom,
-                purpose,
-                preferred_date: preferredDate,
-                preferred_time: preferredTime
-            });
-
-            if (data.success) {
-                showToast('Reservation submitted successfully.', 'success');
-                this.reset();
-                document.getElementById('reservationIdNumber').value = profile.id_number;
-                document.getElementById('reservationName').value = fullName();
-                document.getElementById('reservationIdNumberDisplay').textContent = profile.id_number || '-';
-                document.getElementById('reservationNameDisplay').textContent = fullName() || '-';
-                document.getElementById('reservationDate').value = new Date().toISOString().slice(0, 10);
-                await loadStudentDashboard();
-            } else {
-                showToast(data.message || 'Failed to submit reservation.', 'error');
-            }
-        });
-
         bindSectionLinks();
         fillProfileForm();
         loadStudentDashboard();
         setActiveSection('home');
         document.getElementById('statSessions').textContent = '0';
         document.getElementById('statProfile').textContent = `${profile.remaining_sessions}`;
-        document.getElementById('statPhoto').textContent = `${profile.reward_points}`;
+        document.getElementById('statRewardPoints').textContent = `${profile.reward_points}`;
     </script>
 </body>
 </html>
