@@ -193,12 +193,13 @@
             margin-bottom: 0;
         }
         .table-dark-surface thead th {
-            color: #cfe8ff;
-            font-size: 0.8rem;
+            background-color: #edb42f !important;
+            color: #1a1a1a !important;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-            white-space: nowrap;
+            letter-spacing: 0.05em;
+            padding: 12px 15px;
+            border: none;
         }
 
         .toast-container-custom {
@@ -300,8 +301,6 @@
             .content-grid { grid-template-columns: 1fr; }
             .leaderboard-layout { grid-template-columns: 1fr; }
         }
-
-        /* Professional Light Theme Override Removed - using theme.css instead */
 
         /* ── PC Availability (embedded panel) ── */
         .pc-avail-embed {
@@ -422,11 +421,6 @@
             color: var(--pc-text-muted) !important;
             margin-bottom: 6px;
         }
-        .pc-avail-embed .pc-form-label .optional-tag {
-            font-weight: 500;
-            color: #8b8499;
-            font-size: 0.8rem;
-        }
         .pc-avail-embed .pc-form-control,
         .pc-avail-embed .pc-form-select {
             border: 1px solid var(--pc-violet-border);
@@ -443,10 +437,6 @@
             box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.18);
             color: var(--pc-text);
             background: #fff;
-        }
-        .pc-avail-embed .pc-form-select option {
-            background: #fff;
-            color: var(--pc-text);
         }
 
         .pc-avail-embed .counter-pill {
@@ -468,11 +458,6 @@
             letter-spacing: 0.04em;
             color: var(--pc-text-muted);
             margin-right: 2px;
-        }
-        .pc-avail-embed .counter-pill-sep {
-            color: var(--pc-text-muted);
-            font-weight: 600;
-            margin: 0 1px;
         }
         .pc-avail-embed .counter-pill span.num {
             color: var(--pc-violet-primary);
@@ -510,42 +495,12 @@
             flex-shrink: 0;
         }
         .pc-avail-embed .legend-swatch.available {
-            background: var(--pc-available);
-            border-color: var(--pc-available-border);
+            background: #e2e8f0;
+            border-color: #cbd5e1;
         }
         .pc-avail-embed .legend-swatch.unavailable {
-            background: var(--pc-unavailable);
-            border-color: var(--pc-unavailable-border);
-        }
-        .pc-avail-embed .grid-toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-        .pc-avail-embed .btn-grid-action {
-            border-radius: var(--pc-radius);
-            font-weight: 600;
-            padding: 8px 16px;
-            font-size: 0.88rem;
-            border: 1px solid var(--pc-violet-border);
-            background: #fff;
-            color: var(--pc-violet-800);
-            transition: background 0.15s, border-color 0.15s, color 0.15s;
-        }
-        .pc-avail-embed .btn-grid-action:hover {
-            background: var(--pc-violet-soft);
-            border-color: var(--pc-violet-600);
-            color: var(--pc-violet-primary);
-        }
-        .pc-avail-embed .btn-grid-action.accent {
-            background: var(--pc-violet-soft);
-            border-color: var(--pc-yellow-accent);
-            color: var(--pc-violet-900);
-        }
-        .pc-avail-embed .btn-grid-action.accent:hover {
-            background: #fffbeb;
-            border-color: var(--pc-yellow-hover);
+            background: #ef4444;
+            border-color: #dc2626;
         }
 
         .pc-avail-embed .pc-grid {
@@ -555,184 +510,27 @@
             max-width: 100%;
             align-items: stretch;
         }
-        @media (min-width: 768px) {
-            .pc-avail-embed .pc-grid {
-                grid-template-columns: repeat(10, minmax(0, 1fr));
-            }
-        }
-        .pc-avail-embed .pc-cell {
-            aspect-ratio: 1;
-            min-height: 52px;
-            border-radius: var(--pc-radius);
-            border: 2px solid var(--pc-unavailable-border);
-            background: var(--pc-unavailable);
-            color: var(--pc-text-muted);
-            font-weight: 700;
-            font-size: 0.82rem;
-            font-variant-numeric: tabular-nums;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s, background 0.12s, color 0.12s;
-            box-shadow: 0 1px 3px rgba(45, 27, 105, 0.06);
-            user-select: none;
-        }
-        .pc-avail-embed .pc-cell:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(91, 33, 182, 0.15);
-        }
-        .pc-avail-embed .pc-cell.is-available {
-            background: var(--pc-available);
-            border-color: var(--pc-available-border);
-            color: #fff;
-            box-shadow: 0 2px 8px rgba(91, 33, 182, 0.25);
-        }
-        .pc-avail-embed .pc-cell:focus-visible {
-            outline: 3px solid var(--pc-yellow-accent);
-            outline-offset: 2px;
-        }
 
-        .pc-avail-embed .btn-save-pc {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 28px;
-            border-radius: var(--pc-radius);
-            font-weight: 700;
-            font-size: 1rem;
-            border: 2px solid rgba(212, 160, 23, 0.55);
-            color: #fff;
-            background: linear-gradient(135deg, var(--pc-violet-600) 0%, var(--pc-violet-primary) 100%);
-            box-shadow: 0 4px 16px rgba(91, 33, 182, 0.35);
-            transition: transform 0.12s, box-shadow 0.12s, filter 0.12s, border-color 0.15s;
-        }
-        .pc-avail-embed .btn-save-pc:hover {
-            color: #fff;
-            filter: brightness(1.05);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(91, 33, 182, 0.4);
-            border-color: var(--pc-yellow-accent);
-        }
-        .pc-avail-embed .btn-save-pc:active {
-            transform: translateY(0);
-        }
-
-        .pc-avail-embed .table-wrap-pc {
-            border: 1px solid var(--pc-violet-border);
-            border-radius: var(--pc-radius);
-            overflow: hidden;
-            box-shadow: var(--pc-shadow-sm);
-        }
-        .pc-avail-embed .table-schedules {
-            margin: 0;
-            font-size: 0.92rem;
-        }
-        .pc-avail-embed .table-schedules thead th {
-            background: linear-gradient(135deg, var(--pc-violet-600) 0%, var(--pc-violet-primary) 100%);
-            color: #fff !important;
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 0.82rem;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            padding: 14px 16px;
-            border: none;
-            vertical-align: middle;
-        }
-        .pc-avail-embed .table-schedules th:first-child,
-        .pc-avail-embed .table-schedules td:first-child { min-width: 4.5rem; }
-        .pc-avail-embed .table-schedules th:nth-child(2),
-        .pc-avail-embed .table-schedules td:nth-child(2) { min-width: 7.5rem; white-space: nowrap; }
-        .pc-avail-embed .table-schedules th:nth-child(3),
-        .pc-avail-embed .table-schedules td:nth-child(3) { min-width: 8.5rem; }
-        .pc-avail-embed .table-schedules th:nth-child(4),
-        .pc-avail-embed .table-schedules td:nth-child(4) { min-width: 9rem; }
-        .pc-avail-embed .table-schedules th:last-child,
-        .pc-avail-embed .table-schedules td:last-child { min-width: 11rem; }
-
-        .pc-avail-embed .table-schedules tbody td {
-            padding: 14px 16px;
-            vertical-align: middle;
-            border-color: var(--pc-violet-muted);
-            color: var(--pc-text);
-            background: #fff;
-        }
-        .pc-avail-embed .table-schedules tbody tr:nth-child(even) td {
-            background: #faf8ff;
-        }
-        .pc-avail-embed .btn-table-pc {
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.82rem;
-            padding: 6px 12px;
-            margin-right: 6px;
-            border: 1px solid var(--pc-violet-border);
-            background: #fff;
-            color: var(--pc-violet-800);
-        }
-        .pc-avail-embed .btn-table-pc:hover {
-            background: var(--pc-violet-soft);
-            border-color: var(--pc-violet-600);
-            color: var(--pc-violet-primary);
-        }
-        .pc-avail-embed .btn-table-pc.danger {
-            border-color: #e8d4d4;
-            color: #9b1c1c;
-        }
-        .pc-avail-embed .btn-table-pc.danger:hover {
-            background: #fef2f2;
-            border-color: #dc2626;
-        }
-        .pc-avail-embed .empty-schedules {
-            text-align: center;
-            padding: 2rem 1rem;
-            color: var(--pc-text-muted);
-            font-size: 0.95rem;
-            background: #faf8ff;
-        }
-
-        /* ── Software / App Import & Upload (embedded panel) ── */
+        /* ── Software Upload (embedded panel) ── */
         .sw-upload-embed {
             --sw-violet-900: #2b124c;
             --sw-violet-800: #3a1668;
             --sw-violet-primary: #5B1FA3;
-            --sw-violet-600: #6d28d9;
-            --sw-violet-soft: #ede9fe;
             --sw-violet-border: #d8cff5;
             --sw-yellow-accent: #edb42f;
-            --sw-yellow-hover: #d9a224;
             --sw-surface: #ffffff;
             --sw-page-bg: #f7f5fc;
-            --sw-page-tint: #f0ecfb;
             --sw-text: #1f1635;
-            --sw-text-muted: #5c566f;
             --sw-shadow-sm: 0 2px 8px rgba(75, 45, 130, 0.08);
             --sw-shadow-md: 0 10px 26px rgba(44, 31, 79, 0.12);
             --sw-radius: 12px;
             --sw-radius-lg: 16px;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 0;
-            font-family: var(--font-body);
-            color: var(--sw-text);
-            background: linear-gradient(180deg, var(--sw-page-bg) 0%, var(--sw-page-tint) 48%, #faf8ff 100%);
+            background: var(--sw-page-bg);
             border-radius: var(--sw-radius-lg);
             border: 1px solid var(--sw-violet-border);
             box-shadow: var(--sw-shadow-sm);
-            overflow: hidden;
-        }
-
-        .sw-upload-embed .sw-modal-shell {
-            padding: 18px 18px 22px;
-        }
-
-        .sw-upload-embed .sw-card {
-            background: var(--sw-surface);
-            border: 1px solid var(--sw-violet-border);
-            border-radius: var(--sw-radius-lg);
-            box-shadow: var(--sw-shadow-md);
             overflow: hidden;
         }
 
@@ -744,213 +542,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
         }
 
-        .sw-upload-embed .sw-card-title {
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 1.15rem;
-            margin: 0;
-            letter-spacing: -0.02em;
-            color: #fff;
-        }
-
-        .sw-upload-embed .sw-close-btn {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.22);
-            background: rgba(255,255,255,0.12);
-            color: #fff;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: transform 0.12s, background 0.15s, border-color 0.15s;
-            flex-shrink: 0;
-        }
-
-        .sw-upload-embed .sw-close-btn:hover {
-            background: rgba(255,255,255,0.18);
-            border-color: rgba(255,255,255,0.34);
-            transform: translateY(-1px);
-        }
-
-        .sw-upload-embed .sw-card-body {
-            padding: 18px;
-            background: #ffffff;
-        }
-
-        .sw-upload-embed .sw-helper {
-            margin: 0 0 14px;
-            color: var(--sw-text-muted);
-            font-size: 0.92rem;
-        }
-
-        .sw-upload-embed .sw-form-label {
-            font-weight: 700;
-            font-size: 0.86rem;
-            color: var(--sw-text-muted) !important;
-            margin-bottom: 6px;
-        }
-
-        .sw-upload-embed .sw-input,
-        .sw-upload-embed .sw-textarea,
-        .sw-upload-embed .sw-file {
-            border: 1px solid var(--sw-violet-border);
-            border-radius: var(--sw-radius);
-            padding: 10px 12px;
-            font-size: 0.95rem;
-            color: var(--sw-text);
-            background: #fff;
-        }
-
-        .sw-upload-embed .sw-input:focus,
-        .sw-upload-embed .sw-textarea:focus,
-        .sw-upload-embed .sw-file:focus {
-            border-color: #bca8e3;
-            box-shadow: 0 0 0 3px rgba(94, 58, 161, 0.12);
-            outline: none;
-        }
-
-        .sw-upload-embed .sw-allowed {
-            margin-top: 8px;
-            font-size: 0.82rem;
-            color: #7a7390;
-        }
-
-        .sw-upload-embed .sw-actions-row {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 14px;
-        }
-
-        .sw-upload-embed .btn-upload {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            border-radius: 12px;
-            font-weight: 700;
-            border: 1px solid #2e7d32;
-            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
-            color: #fff;
-            box-shadow: 0 8px 18px rgba(46, 125, 50, 0.18);
-            transition: transform 0.12s, filter 0.12s;
-        }
-
-        .sw-upload-embed .btn-upload:hover {
-            color: #fff;
-            filter: brightness(1.03);
-            transform: translateY(-1px);
-        }
-
-        .sw-upload-embed .sw-divider {
-            height: 1px;
-            background: var(--sw-violet-border);
-            opacity: 0.8;
-            margin: 18px 0;
-        }
-
-        .sw-upload-embed .sw-table-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-
-        .sw-upload-embed .sw-show-entries {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--sw-text-muted);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .sw-upload-embed .sw-select {
-            border: 1px solid var(--sw-violet-border);
-            border-radius: 12px;
-            padding: 8px 10px;
-            background: #fff;
-            color: var(--sw-text);
-            font-weight: 700;
-            font-size: 0.9rem;
-            min-width: 90px;
-        }
-
-        .sw-upload-embed .sw-search {
-            position: relative;
-            min-width: min(420px, 100%);
-            flex: 1 1 320px;
-        }
-
-        .sw-upload-embed .sw-search input {
-            width: 100%;
-            border: 1px solid var(--sw-violet-border);
-            border-radius: 12px;
-            padding: 10px 12px 10px 38px;
-            background: #fff;
-            color: var(--sw-text);
-            font-weight: 600;
-        }
-
-        .sw-upload-embed .sw-search i {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #7a7390;
-        }
-
-        .sw-upload-embed .sw-table-wrap {
-            border: 1px solid var(--sw-violet-border);
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: var(--sw-shadow-sm);
-        }
-
-        .sw-upload-embed table {
-            margin: 0;
-            font-size: 0.92rem;
-        }
-
-        .sw-upload-embed thead th {
-            background: linear-gradient(135deg, var(--sw-violet-600) 0%, var(--sw-violet-primary) 100%);
-            color: #fff !important;
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            padding: 14px 14px;
-            border: none;
-            white-space: nowrap;
-        }
-
-        .sw-upload-embed tbody td {
-            padding: 14px 14px;
-            vertical-align: middle;
-            border-color: #eee8fb;
-            color: var(--sw-text);
-            background: #fff;
-        }
-
-        .sw-upload-embed tbody tr:nth-child(even) td {
-            background: #faf8ff;
-        }
-
-        .sw-upload-embed .sw-empty {
-            text-align: center;
-            padding: 1.8rem 1rem;
-            color: var(--sw-text-muted);
-            background: #faf8ff;
-        }
+        .sw-upload-embed .sw-card-body { padding: 18px; background: #fff; }
 
         .sw-upload-embed .sw-badge {
             display: inline-flex;
@@ -958,88 +552,109 @@
             gap: 6px;
             padding: 6px 10px;
             border-radius: 999px;
-            background: var(--sw-violet-soft);
+            background: #ede9fe;
             border: 1px solid var(--sw-violet-border);
             color: var(--sw-violet-900);
             font-weight: 800;
             font-size: 0.82rem;
-        }
-
-        .sw-upload-embed .sw-table-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: flex-end;
-        }
-
-        .sw-upload-embed .btn-sw {
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 0.82rem;
-            padding: 7px 10px;
-            border: 1px solid var(--sw-violet-border);
-            background: #fff;
-            color: var(--sw-violet-900);
-        }
-
-        .sw-upload-embed .btn-sw:hover {
-            background: var(--sw-violet-soft);
-            border-color: #bca8e3;
-            color: var(--sw-violet-primary);
-        }
-
-        .sw-upload-embed .btn-sw.danger {
-            border-color: #f1d6d6;
-            color: #9b1c1c;
-            background: #fff;
-        }
-
-        .sw-upload-embed .btn-sw.danger:hover {
-            background: #fef2f2;
-            border-color: #dc2626;
-            color: #7f1d1d;
-        }
-
-        .sw-upload-embed .sw-pagination {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-            padding-top: 12px;
-        }
-
-        .sw-upload-embed .sw-page-info {
-            color: var(--sw-text-muted);
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .sw-upload-embed .sw-page-controls {
-            display: inline-flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .sw-upload-embed .btn-page {
-            border-radius: 12px;
-            padding: 8px 14px;
-            font-weight: 900;
-            font-size: 0.86rem;
-            border: 1px solid var(--sw-violet-border);
-            background: #fff;
-            color: var(--sw-violet-900);
-        }
-
-        .sw-upload-embed .btn-page:hover {
-            background: var(--sw-violet-soft);
-            border-color: #bca8e3;
-            color: var(--sw-violet-primary);
         }
 
         .sw-upload-embed .btn-page:disabled {
             opacity: 0.55;
             cursor: not-allowed;
+        }
+
+        /* --- Enhanced Report UI Styles --- */
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .report-card-premium {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 220px;
+        }
+        .report-card-premium:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            border-color: #edb42f;
+        }
+        .report-card-premium::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(237, 180, 47, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .report-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .report-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .report-icon-reservations { background: rgba(237, 180, 47, 0.15); color: #edb42f; }
+        .report-icon-students { background: rgba(33, 150, 243, 0.15); color: #2196f3; }
+        .report-icon-history { background: rgba(76, 175, 80, 0.15); color: #4caf50; }
+        .report-icon-leaderboard { background: rgba(156, 39, 176, 0.15); color: #9c27b0; }
+        
+        .report-card-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin: 0;
+            color: #fff;
+        }
+        .report-card-desc {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .btn-report-download {
+            width: 100%;
+            border-radius: 12px;
+            padding: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-report-download.reservations { background: #edb42f; color: #1a1a1a; }
+        .btn-report-download.students { background: #2196f3; color: #fff; }
+        .btn-report-download.history { background: #4caf50; color: #fff; }
+        .btn-report-download.leaderboard { background: #9c27b0; color: #fff; }
+        
+        .btn-report-download:hover {
+            filter: brightness(1.1);
+            transform: scale(1.02);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -1300,56 +915,11 @@
                             <label class="form-label" for="formLab">Sit Lab</label>
                             <select id="formLab" class="form-select" required>
                                 <option value="">Select a lab</option>
-                                <option value="S1">S1</option>
-                                <option value="S2">S2</option>
-                                <option value="S3">S3</option>
-                                <option value="S4">S4</option>
-                                <option value="S5">S5</option>
-                                <option value="S6">S6</option>
-                                <option value="S7">S7</option>
-                                <option value="S8">S8</option>
-                                <option value="S9">S9</option>
-                                <option value="S10">S10</option>
-                                <option value="S11">S11</option>
-                                <option value="S12">S12</option>
-                                <option value="S13">S13</option>
-                                <option value="S14">S14</option>
-                                <option value="S15">S15</option>
-                                <option value="S16">S16</option>
-                                <option value="S17">S17</option>
-                                <option value="S18">S18</option>
-                                <option value="S19">S19</option>
-                                <option value="S20">S20</option>
-                                <option value="S21">S21</option>
-                                <option value="S22">S22</option>
-                                <option value="S23">S23</option>
-                                <option value="S24">S24</option>
-                                <option value="S25">S25</option>
-                                <option value="S26">S26</option>
-                                <option value="S27">S27</option>
-                                <option value="S28">S28</option>
-                                <option value="S29">S29</option>
-                                <option value="S30">S30</option>
-                                <option value="S31">S31</option>
-                                <option value="S32">S32</option>
-                                <option value="S33">S33</option>
-                                <option value="S34">S34</option>
-                                <option value="S35">S35</option>
-                                <option value="S36">S36</option>
-                                <option value="S37">S37</option>
-                                <option value="S38">S38</option>
-                                <option value="S39">S39</option>
-                                <option value="S40">S40</option>
-                                <option value="S41">S41</option>
-                                <option value="S42">S42</option>
-                                <option value="S43">S43</option>
-                                <option value="S44">S44</option>
-                                <option value="S45">S45</option>
-                                <option value="S46">S46</option>
-                                <option value="S47">S47</option>
-                                <option value="S48">S48</option>
-                                <option value="S49">S49</option>
-                                <option value="S50">S50</option>
+                                <option value="S1">S1</option><option value="S2">S2</option><option value="S3">S3</option><option value="S4">S4</option><option value="S5">S5</option><option value="S6">S6</option><option value="S7">S7</option><option value="S8">S8</option><option value="S9">S9</option><option value="S10">S10</option>
+                                <option value="S11">S11</option><option value="S12">S12</option><option value="S13">S13</option><option value="S14">S14</option><option value="S15">S15</option><option value="S16">S16</option><option value="S17">S17</option><option value="S18">S18</option><option value="S19">S19</option><option value="S20">S20</option>
+                                <option value="S21">S21</option><option value="S22">S22</option><option value="S23">S23</option><option value="S24">S24</option><option value="S25">S25</option><option value="S26">S26</option><option value="S27">S27</option><option value="S28">S28</option><option value="S29">S29</option><option value="S30">S30</option>
+                                <option value="S31">S31</option><option value="S32">S32</option><option value="S33">S33</option><option value="S34">S34</option><option value="S35">S35</option><option value="S36">S36</option><option value="S37">S37</option><option value="S38">S38</option><option value="S39">S39</option><option value="S40">S40</option>
+                                <option value="S41">S41</option><option value="S42">S42</option><option value="S43">S43</option><option value="S44">S44</option><option value="S45">S45</option><option value="S46">S46</option><option value="S47">S47</option><option value="S48">S48</option><option value="S49">S49</option><option value="S50">S50</option>
                             </select>
                         </div>
                         <div class="col-md-4">
@@ -1363,7 +933,6 @@
                                 <option value="Database">Database</option>
                                 <option value="Other">Other</option>
                             </select>
-                            <div class="small-note mt-2">The selected language/use will be stored in the sit-in record.</div>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label" for="formPurposeCustom">Custom Note (optional)</label>
@@ -1423,7 +992,7 @@
                                 </tr>
                             </thead>
                             <tbody id="recordsBody">
-                                <tr><td colspan="8" class="text-center py-4 text-white-50">No current sit-in records.</td></tr>
+                                <tr><td colspan="9" class="text-center py-4 text-white-50">No current sit-in records.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1489,73 +1058,79 @@
             <section class="section-panel" data-panel="analytics">
                 <div class="content-grid">
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="ri-pie-chart-line"></i>Reservation Status <span class="title-note">Pending, approved, rejected</span></div>
-                        <div class="chart-shell">
-                            <div class="chart-canvas-wrap">
-                                <canvas id="reservationStatusChart"></canvas>
-                            </div>
-                            <div class="chart-caption">Track the current flow of reservation requests to quickly spot bottlenecks.</div>
-                        </div>
+                        <div class="section-title"><i class="ri-pie-chart-line"></i>Reservation Status</div>
+                        <div class="chart-shell"><div class="chart-canvas-wrap"><canvas id="reservationStatusChart"></canvas></div></div>
                     </div>
                     <div class="glass-card content-card">
-                        <div class="section-title"><i class="ri-bar-chart-2-line"></i>Leaderboard Analytics <span class="title-note">Top weighted performance</span></div>
-                        <div class="chart-shell">
-                            <div class="chart-canvas-wrap">
-                                <canvas id="leaderboardChart"></canvas>
-                            </div>
-                            <div class="chart-caption">Scores follow the weighted model already implemented in your system.</div>
-                        </div>
+                        <div class="section-title"><i class="ri-bar-chart-2-line"></i>Leaderboard Analytics</div>
+                        <div class="chart-shell"><div class="chart-canvas-wrap"><canvas id="leaderboardChart"></canvas></div></div>
                     </div>
                 </div>
-
-                <div class="content-grid mt-4">
-                    <div class="glass-card content-card">
-                        <div class="section-title"><i class="ri-pulse-line"></i>Dashboard Highlights</div>
-                        <div class="stats-grid">
-                            <div class="stat-box"><div class="stat-number" id="analyticsStudents">0</div><div class="stat-label">Students</div></div>
-                            <div class="stat-box"><div class="stat-number" id="analyticsActive">0</div><div class="stat-label">Active Sessions</div></div>
-                            <div class="stat-box"><div class="stat-number" id="analyticsPending">0</div><div class="stat-label">Pending Reservations</div></div>
-                            <div class="stat-box"><div class="stat-number" id="analyticsRewards">0</div><div class="stat-label">Reward Points</div></div>
-                        </div>
-                    </div>
-                    <div class="glass-card content-card">
-                        <div class="section-title"><i class="ri-lightbulb-line"></i>Analytics Notes</div>
-                        <ul class="rules-list ps-3 mb-0">
-                            <li>Reservation status is grouped from the live reservation queue.</li>
-                            <li>Leaderboard ranking reflects the 50/30/20 weighting already used by the system.</li>
-                            <li>Use the reports tab to export the same data for submission or review.</li>
-                        </ul>
+                <div class="glass-card content-card mt-4">
+                    <div class="stats-grid">
+                        <div class="stat-box"><div class="stat-number" id="analyticsStudents">0</div><div class="stat-label">Students</div></div>
+                        <div class="stat-box"><div class="stat-number" id="analyticsActive">0</div><div class="stat-label">Active</div></div>
+                        <div class="stat-box"><div class="stat-number" id="analyticsPending">0</div><div class="stat-label">Pending</div></div>
+                        <div class="stat-box"><div class="stat-number" id="analyticsRewards">0</div><div class="stat-label">Points</div></div>
                     </div>
                 </div>
             </section>
 
             <section class="section-panel" data-panel="reports">
-                <div class="content-grid">
-                    <div class="glass-card content-card report-ui-enhanced">
-                        <div class="section-title mb-2"><i class="ri-file-download-line"></i>Generate Reports</div>
-                        <div class="mb-3 text-secondary">Download reservation, student, session, or leaderboard reports as PDF files with improved formatting for official use.</div>
-                        <div class="d-flex flex-wrap gap-2">
-                            <button class="btn btn-warning shadow-sm" id="downloadReservationsReportBtn"><i class="ri-inbox-2-line me-1"></i>Reservation PDF</button>
-                            <button class="btn btn-primary shadow-sm" id="downloadStudentsReportBtn"><i class="ri-group-line me-1"></i>Student PDF</button>
-                            <button class="btn btn-success shadow-sm" id="downloadHistoryReportBtn"><i class="ri-time-line me-1"></i>Session History PDF</button>
-                            <button class="btn btn-info shadow-sm" id="downloadLeaderboardReportBtn"><i class="ri-trophy-line me-1"></i>Leaderboard PDF</button>
-                        </div>
-                        <div class="mt-4 p-3 rounded bg-light border border-warning-subtle">
-                            <div class="fw-bold mb-1"><i class="ri-lightbulb-flash-line text-warning"></i> New: PDF reports are now styled for official submission!</div>
-                            <ul class="mb-0 ps-3 small text-muted">
-                                <li>PDFs include school branding, date, and a formatted table.</li>
-                                <li>Reservation report matches the official summary layout.</li>
-                                <li>All data is up-to-date with the dashboard view.</li>
-                            </ul>
+                <div class="glass-card hero-card mb-4">
+                    <div class="hero-header">
+                        <i class="ri-file-chart-line" style="font-size: 2.5rem; color: #edb42f;"></i>
+                        <div class="hero-title-wrap">
+                            <span class="hero-kicker">Data & Exports</span>
+                            <h1 class="hero-title">Professional Reports</h1>
                         </div>
                     </div>
-                    <div class="glass-card content-card">
-                        <div class="section-title"><i class="ri-file-check-line"></i>Report Notes</div>
-                        <ul class="rules-list ps-3 mb-0">
-                            <li>Reports use the data already loaded in the admin dashboard.</li>
-                            <li>PDF exports are ready for printing or digital submission.</li>
-                            <li>Leaderboard exports include the weighted score breakdown.</li>
-                        </ul>
+                    <p class="hero-subtitle">Generate and download official PDF reports with school branding and yellow highlighted table headers.</p>
+                </div>
+
+                <div class="report-grid">
+                    <div class="report-card-premium">
+                        <div>
+                            <div class="report-card-header">
+                                <div class="report-icon-wrapper report-icon-reservations"><i class="ri-inbox-2-line"></i></div>
+                                <h3 class="report-card-title">Reservations Summary</h3>
+                            </div>
+                            <p class="report-card-desc">Detailed log of all student reservations including lab room and purpose.</p>
+                        </div>
+                        <button class="btn btn-report-download reservations" id="downloadReservationsReportBtn"><i class="ri-file-pdf-line"></i> Download PDF</button>
+                    </div>
+
+                    <div class="report-card-premium">
+                        <div>
+                            <div class="report-card-header">
+                                <div class="report-icon-wrapper report-icon-students"><i class="ri-group-line"></i></div>
+                                <h3 class="report-card-title">Student Directory</h3>
+                            </div>
+                            <p class="report-card-desc">Comprehensive list of registered students and their details.</p>
+                        </div>
+                        <button class="btn btn-report-download students" id="downloadStudentsReportBtn"><i class="ri-file-pdf-line"></i> Download PDF</button>
+                    </div>
+
+                    <div class="report-card-premium">
+                        <div>
+                            <div class="report-card-header">
+                                <div class="report-icon-wrapper report-icon-history"><i class="ri-time-line"></i></div>
+                                <h3 class="report-card-title">Session History</h3>
+                            </div>
+                            <p class="report-card-desc">Complete record of sit-in sessions with time tracking.</p>
+                        </div>
+                        <button class="btn btn-report-download history" id="downloadHistoryReportBtn"><i class="ri-file-pdf-line"></i> Download PDF</button>
+                    </div>
+
+                    <div class="report-card-premium">
+                        <div>
+                            <div class="report-card-header">
+                                <div class="report-icon-wrapper report-icon-leaderboard"><i class="ri-trophy-line"></i></div>
+                                <h3 class="report-card-title">Performance Rewards</h3>
+                            </div>
+                            <p class="report-card-desc">Official ranking of students based on system metrics.</p>
+                        </div>
+                        <button class="btn btn-report-download leaderboard" id="downloadLeaderboardReportBtn"><i class="ri-file-pdf-line"></i> Download PDF</button>
                     </div>
                 </div>
             </section>
@@ -1565,96 +1140,37 @@
                     <div class="leaderboard-column">
                         <div class="glass-card content-card">
                             <div class="section-title"><i class="ri-trophy-line"></i>Leaderboard</div>
-                            <div class="empty-note mb-3">Ranking uses 50% earned points, 30% total sit-in hours, and 20% task completion.</div>
                             <div class="table-responsive">
                                 <table class="table table-dark-surface align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th>Rank</th>
-                                            <th>Student</th>
-                                            <th>Points</th>
-                                            <th>Hours</th>
-                                            <th>Tasks</th>
-                                            <th>Score</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="leaderboardBody">
-                                        <tr><td colspan="6" class="text-center py-4 text-white-50">Loading leaderboard...</td></tr>
-                                    </tbody>
+                                    <thead><tr><th>Rank</th><th>Student</th><th>Points</th><th>Hours</th><th>Tasks</th><th>Score</th></tr></thead>
+                                    <tbody id="leaderboardBody"><tr><td colspan="6" class="text-center py-4 text-white-50">Loading...</td></tr></tbody>
                                 </table>
                             </div>
                         </div>
-
                         <div class="glass-card content-card">
                             <div class="section-title"><i class="ri-gift-line"></i>Award Reward Points</div>
-                            <form id="rewardForm" class="row g-3" novalidate>
-                                <div class="col-12">
-                                    <label class="form-label" for="rewardIdNumber">ID Number</label>
-                                    <input type="text" id="rewardIdNumber" class="form-control" placeholder="Enter student ID number" required>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label" for="rewardPoints">Points</label>
-                                    <input type="number" id="rewardPoints" class="form-control" min="1" value="1" required>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label" for="rewardDescription">Description</label>
-                                    <textarea id="rewardDescription" class="form-control" rows="4" placeholder="Reason for awarding points" required></textarea>
-                                </div>
-                                <div class="col-12 d-flex flex-wrap gap-2">
-                                    <button type="submit" class="btn btn-primary-gradient"><i class="ri-checkbox-circle-line me-1"></i>Award Points</button>
-                                    <button type="button" class="btn btn-outline-soft" id="clearRewardFormBtn"><i class="ri-restart-line me-1"></i>Clear</button>
-                                </div>
+                            <form id="rewardForm" class="row g-3">
+                                <div class="col-12"><label class="form-label">ID Number</label><input type="text" id="rewardIdNumber" class="form-control" required></div>
+                                <div class="col-12"><label class="form-label">Points</label><input type="number" id="rewardPoints" class="form-control" min="1" value="1" required></div>
+                                <div class="col-12"><label class="form-label">Description</label><textarea id="rewardDescription" class="form-control" rows="3" required></textarea></div>
+                                <div class="col-12"><button type="submit" class="btn btn-primary-gradient w-100">Award Points</button></div>
                             </form>
                         </div>
                     </div>
-
                     <div class="leaderboard-column">
                         <div class="glass-card content-card">
-                            <div class="section-title"><i class="ri-lightbulb-line"></i>Scoring Breakdown</div>
-                            <div class="small-note mb-3">This matches the percentages from the sketch.</div>
-                            <div class="d-grid gap-3">
-                                <div>
-                                    <div class="d-flex justify-content-between small mb-1"><span>Earned Points</span><span>50%</span></div>
-                                    <div class="progress" style="height: 10px; background: var(--surface-border);"><div class="progress-bar" style="width: 50%; background: linear-gradient(135deg, #2b124c, #5e3aa1);"></div></div>
-                                </div>
-                                <div>
-                                    <div class="d-flex justify-content-between small mb-1"><span>Total Sit-in Hours</span><span>30%</span></div>
-                                    <div class="progress" style="height: 10px; background: var(--surface-border);"><div class="progress-bar" style="width: 30%; background: linear-gradient(135deg, #3b1a63, #7c4dbd);"></div></div>
-                                </div>
-                                <div>
-                                    <div class="d-flex justify-content-between small mb-1"><span>Task Completed</span><span>20%</span></div>
-                                    <div class="progress" style="height: 10px; background: var(--surface-border);"><div class="progress-bar" style="width: 20%; background: linear-gradient(135deg, #d9a224, #edb42f);"></div></div>
-                                </div>
-                            </div>
+                            <div class="section-title"><i class="ri-bar-chart-2-fill"></i>Performance Graph</div>
+                            <div style="height: 300px;"><canvas id="leaderboardSectionChart"></canvas></div>
                         </div>
-
                         <div class="glass-card content-card">
-                            <div class="section-title"><i class="ri-bar-chart-2-fill"></i>Leaderboard Bar Graph</div>
-                            <div class="empty-note mb-3">Different colors show points, hours, and tasks contributions for the top five students.</div>
-                            <div style="height: 320px;">
-                                <canvas id="leaderboardSectionChart"></canvas>
+                            <div class="section-title"><i class="ri-time-line"></i>Recent Awards</div>
+                            <div class="table-responsive">
+                                <table class="table table-dark-surface align-middle">
+                                    <thead><tr><th>Date</th><th>Student</th><th>Points</th></tr></thead>
+                                    <tbody id="rewardHistoryBody"><tr><td colspan="3" class="text-center py-4 text-white-50">Loading...</td></tr></tbody>
+                                </table>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="glass-card content-card mt-4">
-                    <div class="section-title"><i class="ri-time-line"></i>Reward History</div>
-                    <div class="table-responsive">
-                        <table class="table table-dark-surface align-middle">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Student</th>
-                                    <th>Type</th>
-                                    <th>Description</th>
-                                    <th>Points</th>
-                                </tr>
-                            </thead>
-                            <tbody id="rewardHistoryBody">
-                                <tr><td colspan="5" class="text-center py-4 text-white-50">Loading reward history...</td></tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </section>
@@ -1663,52 +1179,23 @@
                 <div class="pc-avail-embed">
                     <header class="pc-avail-header">
                         <div class="pc-avail-header-inner">
-                            <div>
-                                <h1 class="pc-avail-title">Real-Time PC Occupancy Manager</h1>
-                                <div class="pc-avail-title-sub">View live availability of PCs per lab based on active sessions.</div>
-                            </div>
-                            <a class="btn-pc-back-dash" href="#" data-section="dashboard"><i class="ri-arrow-left-line"></i>Back to Dashboard</a>
+                            <h1 class="pc-avail-title">PC Occupancy Manager</h1>
+                            <a class="btn-pc-back-dash" href="#" data-section="dashboard">Back</a>
                         </div>
                     </header>
                     <div class="pc-avail-main">
                         <div class="panel-card">
-                            <div class="panel-card-header">Select Lab to View</div>
                             <div class="panel-card-body">
                                 <div class="row g-3 align-items-end">
-                                    <div class="col-md-4">
-                                        <label class="pc-form-label form-label" for="liveScheduleLab">Lab Room</label>
-                                        <select id="liveScheduleLab" class="pc-form-select form-select">
-                                            <option value="">Select a lab</option>
-                                        </select>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Lab Room</label>
+                                        <select id="liveScheduleLab" class="form-select"><option value="">Select a lab</option></select>
                                     </div>
-                                    <div class="col-md-4">
-                                        <button class="btn btn-primary-gradient mt-4" id="refreshLiveGridBtn"><i class="ri-refresh-line me-1"></i>Refresh View</button>
-                                    </div>
-                                    <div class="col-12 col-md-4 ms-auto text-md-end">
-                                        <div class="counter-pill" aria-live="polite">
-                                            <span class="counter-pill-label">Available</span>
-                                            <span class="num" id="liveAvailableCounter">0</span><span class="counter-pill-sep">/</span><span class="num">30</span>
-                                        </div>
+                                    <div class="col-md-6">
+                                        <div class="counter-pill">Available <span class="num" id="liveAvailableCounter">0</span>/30</div>
                                     </div>
                                 </div>
-
-                                <hr class="my-4 opacity-25" style="border-color: var(--pc-violet-border);">
-
-                                <div class="pc-section-label">Live PC Grid (30 Terminals)</div>
-                                <div class="legend-row">
-                                    <span class="legend-item">
-                                        <span class="legend-swatch available" aria-hidden="true" style="background:#e2e8f0; border-color:#cbd5e1;"></span>
-                                        Available
-                                    </span>
-                                    <span class="legend-item">
-                                        <span class="legend-swatch unavailable" aria-hidden="true" style="background:#ef4444; border-color:#dc2626;"></span>
-                                        Occupied
-                                    </span>
-                                </div>
-                                
-                                <div class="pc-grid" id="livePcGrid" role="group">
-                                    <div class="empty-schedules py-5" style="grid-column: 1/-1;">Select a lab room to display real-time PC availability.</div>
-                                </div>
+                                <div class="pc-grid mt-4" id="livePcGrid"></div>
                             </div>
                         </div>
                     </div>
@@ -1717,90 +1204,20 @@
 
             <section class="section-panel" data-panel="software-upload">
                 <div class="sw-upload-embed">
-                    <div class="sw-modal-shell">
-                        <div class="sw-card">
-                            <div class="sw-card-header">
-                                <h2 class="sw-card-title">Manage Lab Software</h2>
-                                <a class="sw-close-btn" href="#" data-section="dashboard" aria-label="Close">
-                                    <i class="ri-close-line"></i>
-                                </a>
-                            </div>
-                            <div class="sw-card-body">
-                                <p class="sw-helper">
-                                    Register installed software for specific laboratories. Students will see this information when selecting a lab.
-                                </p>
-
-                                <form id="swUploadForm" class="row g-3" novalidate>
-                                    <div class="col-12 col-md-6">
-                                        <label class="sw-form-label form-label" for="swTitle">Software Name</label>
-                                        <input id="swTitle" class="sw-input form-control" type="text" placeholder="e.g., VS Code" required>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <label class="sw-form-label form-label" for="swLab">Laboratory</label>
-                                        <select id="swLab" class="sw-input form-select" required>
-                                            <option value="">Select a lab</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <label class="sw-form-label form-label" for="swDesc">Description (optional)</label>
-                                        <textarea id="swDesc" class="sw-textarea form-control" rows="2" placeholder="Optional notes: version, intended use..."></textarea>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="sw-actions-row">
-                                            <button id="swUploadBtn" type="submit" class="btn-upload">
-                                                <i class="ri-add-line"></i>
-                                                Add Software
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-
-                                <div class="sw-divider"></div>
-
-                                <div class="sw-table-toolbar">
-                                    <div class="sw-show-entries">
-                                        Show
-                                        <select id="swPageSize" class="sw-select" aria-label="Show entries">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                        </select>
-                                        entries
-                                    </div>
-                                    <div class="sw-search">
-                                        <i class="ri-search-line" aria-hidden="true"></i>
-                                        <input id="swSearch" type="text" placeholder="Search uploaded files..." aria-label="Search uploaded files">
-                                    </div>
-                                </div>
-
-                                <div class="sw-table-wrap">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover align-middle mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Software Name</th>
-                                                    <th>Lab Room</th>
-                                                    <th>Description</th>
-                                                    <th>Added By</th>
-                                                    <th class="text-end">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="swTableBody">
-                                                <tr>
-                                                    <td colspan="5" class="sw-empty">Loading software data...</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <div class="sw-pagination">
-                                    <div class="sw-page-info" id="swPageInfo">Showing 0 to 0 of 0 entries</div>
-                                    <div class="sw-page-controls">
-                                        <button type="button" class="btn-page" id="swPrevBtn">Previous</button>
-                                        <button type="button" class="btn-page" id="swNextBtn">Next</button>
-                                    </div>
-                                </div>
+                    <div class="sw-card">
+                        <div class="sw-card-header"><h2 class="sw-card-title">Lab Software Manager</h2></div>
+                        <div class="sw-card-body">
+                            <form id="swUploadForm" class="row g-3">
+                                <div class="col-md-4"><label class="form-label">Software Name</label><input id="swTitle" class="form-control" type="text" required></div>
+                                <div class="col-md-4"><label class="form-label">Laboratory</label><select id="swLab" class="form-select" required><option value="">Select</option></select></div>
+                                <div class="col-md-4"><label class="form-label">Description</label><input id="swDesc" class="form-control" type="text"></div>
+                                <div class="col-12"><button type="submit" class="btn btn-primary-gradient" id="swUploadBtn">Add Software</button></div>
+                            </form>
+                            <div class="mt-4 table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead><tr><th>Software</th><th>Lab</th><th>Description</th><th>Action</th></tr></thead>
+                                    <tbody id="swTableBody"></tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -1813,56 +1230,21 @@
     <script>
         const API_BASE = 'backend/api/index.php';
         const USER_KEY = 'ccs_user';
-        let languageChart = null;
-        let reservationStatusChart = null;
-        let leaderboardChart = null;
-        let leaderboardSectionChart = null;
-        let studentCache = [];
-        let reservationCache = [];
-        let announcementCache = [];
-        let ruleCache = [];
-        let feedbackCache = [];
-        let adminHistoryCache = [];
-        let rewardHistoryCache = [];
-        let adminLeaderboardCache = [];
-
-        function uiColor(variableName, fallback) {
-            const value = getComputedStyle(document.documentElement).getPropertyValue(variableName).trim();
-            return value || fallback;
-        }
-
-        function getChartTheme() {
-            return {
-                text: uiColor('--text-primary', '#1f1b2d'),
-                muted: uiColor('--text-muted', '#6a637d'),
-                border: uiColor('--surface-border', '#e6e1f3'),
-                brand: uiColor('--brand-primary', '#2b124c'),
-                brandSoft: uiColor('--brand-soft', '#efe9fb'),
-                yellow: uiColor('--brand-yellow', '#edb42f'),
-                yellowHover: uiColor('--brand-yellow-hover', '#d9a224')
-            };
-        }
+        let languageChart, reservationStatusChart, leaderboardChart, leaderboardSectionChart;
+        let studentCache = [], reservationCache = [], adminHistoryCache = [], adminLeaderboardCache = [];
 
         const userRaw = localStorage.getItem(USER_KEY);
-        if (!userRaw) {
-            window.location.href = 'login.html';
-        }
-        const user = userRaw ? JSON.parse(userRaw) : null;
-        if (user && user.role !== 'admin') {
-            window.location.href = 'dashboard.html';
-        }
+        if (!userRaw) window.location.href = 'login.html';
+        const user = JSON.parse(userRaw);
+        if (user.role !== 'admin') window.location.href = 'dashboard.html';
 
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
-            const icons = { success: 'ri-checkbox-circle-fill', error: 'ri-close-circle-fill', warning: 'ri-error-warning-fill' };
             const toast = document.createElement('div');
             toast.className = `toast-notif ${type}`;
-            toast.innerHTML = `<i class="${icons[type] || icons.success}"></i><span>${message}</span>`;
+            toast.innerHTML = `<span>${message}</span>`;
             container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.animation = 'toastOut 0.3s forwards';
-                setTimeout(() => toast.remove(), 300);
-            }, 3200);
+            setTimeout(() => { toast.style.animation = 'toastOut 0.3s forwards'; setTimeout(() => toast.remove(), 300); }, 3000);
         }
 
         function setActiveSection(sectionName) {
@@ -1872,29 +1254,113 @@
             document.querySelectorAll('[data-section]').forEach(link => {
                 link.classList.toggle('active', link.dataset.section === sectionName);
             });
+            // Update hash without jumping
+            history.pushState(null, null, '#' + sectionName);
         }
 
+        document.querySelectorAll('[data-section]').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                setActiveSection(this.dataset.section);
+                
+                // Close mobile navbar if open
+                const navbarCollapse = document.getElementById('navbarNav');
+                if (navbarCollapse.classList.contains('show')) {
+                    bootstrap.Collapse.getInstance(navbarCollapse).hide();
+                }
+            });
+        });
+
+        document.querySelectorAll('[data-section-jump]').forEach(btn => {
+            btn.addEventListener('click', function () {
+                setActiveSection(this.dataset.sectionJump);
+            });
+        });
+
         async function apiGet(action, query = '') {
-            const url = `${API_BASE}?action=${encodeURIComponent(action)}${query ? `&${query}` : ''}`;
-            const res = await fetch(url);
-            return await res.json();
+            const res = await fetch(`${API_BASE}?action=${action}${query ? '&' + query : ''}`);
+            return res.json();
         }
 
         async function apiPost(action, payload) {
-            const res = await fetch(`${API_BASE}?action=${encodeURIComponent(action)}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            return await res.json();
+            const res = await fetch(`${API_BASE}?action=${action}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            return res.json();
         }
+
+        async function toDataURL(url) {
+            try {
+                const res = await fetch(url);
+                const blob = await res.blob();
+                return new Promise(resolve => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result);
+                    reader.readAsDataURL(blob);
+                });
+            } catch (e) { return null; }
+        }
+
+        async function generatePdfReport(title, headers, rows, filename) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a4' });
+            const pageWidth = doc.internal.pageSize.getWidth();
+
+            const [ccsLogo, ucmnLogo] = await Promise.all([toDataURL('assets/ccs-logo.png'), toDataURL('assets/ucmn_logo.jpg')]);
+
+            if (ccsLogo) doc.addImage(ccsLogo, 'PNG', 40, 30, 60, 60);
+            if (ucmnLogo) doc.addImage(ucmnLogo, 'JPEG', pageWidth - 100, 30, 60, 60);
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(22);
+            doc.setTextColor(43, 18, 76);
+            doc.text('University of Cebu Main Campus', pageWidth / 2, 55, { align: 'center' });
+            doc.setFontSize(14);
+            doc.setTextColor(100, 100, 100);
+            doc.text('College of Computer Studies', pageWidth / 2, 75, { align: 'center' });
+            doc.setFontSize(18);
+            doc.setTextColor(0, 0, 0);
+            doc.text(title, pageWidth / 2, 105, { align: 'center' });
+            doc.setFontSize(10);
+            doc.text('Generated on: ' + new Date().toLocaleString(), pageWidth / 2, 125, { align: 'center' });
+
+            doc.autoTable({
+                startY: 140,
+                head: [headers],
+                body: rows,
+                theme: 'grid',
+                headStyles: { fillColor: [255, 221, 51], textColor: [0, 0, 0], fontStyle: 'bold', halign: 'center' },
+                alternateRowStyles: { fillColor: [255, 251, 230] },
+                margin: { left: 40, right: 40 }
+            });
+
+            doc.save(filename);
+            showToast('PDF Exported: ' + filename);
+        }
+
+        document.getElementById('downloadStudentsReportBtn').addEventListener('click', () => {
+            const rows = studentCache.map(s => [s.id_number, s.first_name + ' ' + s.last_name, s.course, s.year_level, s.email, s.remaining_sessions]);
+            generatePdfReport('Student Directory', ['ID', 'Name', 'Course', 'Year', 'Email', 'Sessions'], rows, 'students.pdf');
+        });
+
+        document.getElementById('downloadReservationsReportBtn').addEventListener('click', () => {
+            const rows = reservationCache.map(r => [r.id_number, r.first_name + ' ' + r.last_name, r.lab_room, r.purpose, r.preferred_date, r.status]);
+            generatePdfReport('Reservations Summary', ['ID', 'Name', 'Lab', 'Purpose', 'Date', 'Status'], rows, 'reservations.pdf');
+        });
+
+        document.getElementById('downloadHistoryReportBtn').addEventListener('click', () => {
+            const rows = adminHistoryCache.map(h => [h.id_number, h.first_name + ' ' + h.last_name, h.lab_room, h.time_in, h.time_out, h.duration_time]);
+            generatePdfReport('Session History', ['ID', 'Name', 'Lab', 'Time In', 'Time Out', 'Duration'], rows, 'history.pdf');
+        });
+
+        document.getElementById('downloadLeaderboardReportBtn').addEventListener('click', () => {
+            const rows = adminLeaderboardCache.map((l, i) => ['#' + (i + 1), l.id_number, l.first_name + ' ' + l.last_name, l.reward_points, l.total_hours, l.leaderboard_score]);
+            generatePdfReport('Leaderboard Report', ['Rank', 'ID', 'Name', 'Points', 'Hours', 'Score'], rows, 'leaderboard.pdf');
+        });
 
         function renderLanguageChart(data) {
             const labels = Object.keys(data || {});
             const values = Object.values(data || {});
             const ctx = document.getElementById('languagePieChart');
             if (!ctx) return;
-            const theme = getChartTheme();
             if (languageChart) languageChart.destroy();
             languageChart = new Chart(ctx, {
                 type: 'pie',
@@ -1910,49 +1376,10 @@
                 options: {
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: theme.text,
-                                usePointStyle: true,
-                                boxWidth: 10,
-                                padding: 14
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: '#ffffff',
-                            titleColor: theme.text,
-                            bodyColor: theme.text,
-                            borderColor: theme.border,
-                            borderWidth: 1
-                        }
+                        legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 10, padding: 14 } }
                     }
                 }
             });
-        }
-
-        function renderSearchStudents(students) {
-            const tbody = document.getElementById('searchBody');
-            if (!students.length) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-white-50">No student found.</td></tr>';
-                return;
-            }
-            tbody.innerHTML = students.map(student => {
-                const fullName = [student.first_name, student.middle_name, student.last_name].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
-                return `
-                    <tr>
-                        <td>${student.id_number}</td>
-                        <td>${fullName}</td>
-                        <td>${student.course}</td>
-                        <td>${student.year_level}</td>
-                        <td>${student.email || '-'}</td>
-                        <td class="d-flex flex-wrap gap-2">
-                            <button class="btn btn-primary-gradient btn-sm" data-use-student="${student.id}"><i class="ri-add-circle-line me-1"></i> Sit-in</button>
-                            <button class="btn btn-outline-soft btn-sm" data-reset-sessions="${student.id}" data-id-number="${student.id_number}"><i class="ri-restart-line me-1"></i>Reset</button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
         }
 
         function renderStudentsList(students) {
@@ -1980,760 +1407,187 @@
             }).join('');
         }
 
-        function renderCurrentRecords(records) {
-            const tbody = document.getElementById('recordsBody');
-            if (!records.length) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-white-50">No current sit-in records.</td></tr>';
-                return;
-            }
-            tbody.innerHTML = records.map(record => `
-                <tr>
-                    <td>${record.id}</td>
-                    <td>${record.id_number}</td>
-                    <td>${record.first_name} ${record.last_name}</td>
-                    <td>${record.purpose}</td>
-                    <td>${record.lab_room}</td>
-                    <td>${record.elapsed_time || '-'}</td>
-                    <td>${record.remaining_sessions}</td>
-                    <td>${new Date(record.time_in).toLocaleString()}</td>
-                    <td><button class="btn btn-danger btn-sm" data-end-session="${record.id}"><i class="ri-stop-circle-line me-1"></i>End</button></td>
-                </tr>
-            `).join('');
-        }
-
-        function renderReservations(reservations) {
-            const tbody = document.getElementById('reservationsBody');
-            if (!reservations.length) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-white-50">No reservation requests yet.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = reservations.map(reservation => {
-                const fullName = [reservation.first_name, reservation.last_name].filter(Boolean).join(' ').trim();
-                const statusBadge = reservation.status === 'approved'
-                    ? '<span class="badge text-bg-success">Approved</span>'
-                    : reservation.status === 'rejected'
-                        ? '<span class="badge text-bg-danger">Rejected</span>'
-                        : '<span class="badge text-bg-warning">Pending</span>';
-
-                const actionButtons = reservation.status === 'pending'
-                    ? `
-                        <button class="btn btn-success btn-sm me-1" data-approve-reservation="${reservation.id}"><i class="ri-check-line me-1"></i>Approve</button>
-                        <button class="btn btn-outline-soft btn-sm" data-reject-reservation="${reservation.id}"><i class="ri-close-line me-1"></i>Reject</button>
-                    `
-                    : '-';
-
-                return `
-                    <tr>
-                        <td>${reservation.id_number}</td>
-                        <td>${fullName}</td>
-                        <td>${reservation.lab_room}</td>
-                        <td>${reservation.purpose}</td>
-                        <td>${reservation.preferred_date || '-'}</td>
-                        <td>${reservation.preferred_time || '-'}</td>
-                        <td>${statusBadge}</td>
-                        <td>${actionButtons}</td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        function formatHours(seconds) {
-            return (Number(seconds || 0) / 3600).toFixed(1);
-        }
-
-        function renderLeaderboard(leaderboard) {
-            const tbody = document.getElementById('leaderboardBody');
-            if (!tbody) return;
-
-            if (!leaderboard.length) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-white-50">No leaderboard data available yet.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = leaderboard.map((student, index) => {
-                const fullName = [student.first_name, student.last_name].filter(Boolean).join(' ').trim();
-                return `
-                    <tr>
-                        <td>#${index + 1}</td>
-                        <td>${fullName}<div class="small text-white-50">${student.id_number}</div></td>
-                        <td>${student.reward_points ?? 0}</td>
-                        <td>${student.total_hours ?? 0}</td>
-                        <td>${student.completed_sessions ?? 0}</td>
-                        <td>
-                            <div class="fw-semibold">${student.leaderboard_score ?? 0}</div>
-                            <div class="small text-white-50">50/30/20 weighted</div>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        function renderReservationStatusAnalytics(reservations) {
-            const canvas = document.getElementById('reservationStatusChart');
-            if (!canvas) return;
-            const theme = getChartTheme();
-
-            const statusCounts = { pending: 0, approved: 0, rejected: 0 };
-            reservations.forEach(item => {
-                const status = item.status || 'pending';
-                if (statusCounts[status] !== undefined) {
-                    statusCounts[status] += 1;
-                }
-            });
-
-            if (reservationStatusChart) reservationStatusChart.destroy();
-            reservationStatusChart = new Chart(canvas, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Pending', 'Approved', 'Rejected'],
-                    datasets: [{
-                        data: [statusCounts.pending, statusCounts.approved, statusCounts.rejected],
-                        backgroundColor: [theme.yellow, '#2b124c', '#7a54bc'],
-                        borderColor: '#ffffff',
-                        borderWidth: 2,
-                        hoverOffset: 6
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    cutout: '56%',
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: theme.text,
-                                usePointStyle: true,
-                                boxWidth: 10,
-                                padding: 14
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: '#ffffff',
-                            titleColor: theme.text,
-                            bodyColor: theme.text,
-                            borderColor: theme.border,
-                            borderWidth: 1
-                        }
-                    }
-                }
-            });
-        }
-
-        function renderLeaderboardAnalytics(leaderboard) {
-            const canvas = document.getElementById('leaderboardChart');
-            if (!canvas) return;
-            const theme = getChartTheme();
-
-            const topEntries = (leaderboard || []).slice(0, 5);
-            if (leaderboardChart) leaderboardChart.destroy();
-            leaderboardChart = new Chart(canvas, {
-                type: 'bar',
-                data: {
-                    labels: topEntries.map(item => [item.first_name, item.last_name].filter(Boolean).join(' ').trim() || item.id_number),
-                    datasets: [{
-                        label: 'Weighted Score',
-                        data: topEntries.map(item => Number(item.leaderboard_score || 0)),
-                        backgroundColor: theme.yellow,
-                        borderColor: theme.yellowHover,
-                        borderWidth: 1,
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: {
-                        legend: { labels: { color: theme.text } },
-                        tooltip: {
-                            backgroundColor: '#ffffff',
-                            titleColor: theme.text,
-                            bodyColor: theme.text,
-                            borderColor: theme.border,
-                            borderWidth: 1
-                        }
-                    },
-                    scales: {
-                        x: { ticks: { color: theme.text }, grid: { color: 'rgba(43,18,76,0.10)' } },
-                        y: { ticks: { color: theme.text }, grid: { color: 'rgba(43,18,76,0.08)' } }
-                    }
-                }
-            });
-        }
-
-        function renderLeaderboardSectionChart(leaderboard) {
-            const canvas = document.getElementById('leaderboardSectionChart');
-            if (!canvas) return;
-            const theme = getChartTheme();
-
-            const topEntries = (leaderboard || []).slice(0, 5);
-            const labels = topEntries.map(item => [item.first_name, item.last_name].filter(Boolean).join(' ').trim() || item.id_number);
-
-            const pointsRaw = topEntries.map(item => Number(item.reward_points ?? 0));
-            const hoursRaw = topEntries.map(item => Number(item.total_hours ?? 0));
-            const tasksRaw = topEntries.map(item => Number(item.completed_sessions ?? 0));
-
-            const pointsScore = topEntries.map(item => Number(item.earned_points_score ?? 0));
-            const hoursScore = topEntries.map(item => Number(item.sit_in_hours_score ?? 0));
-            const tasksScore = topEntries.map(item => Number(item.task_completed_score ?? 0));
-            const totals = topEntries.map((_, index) => (pointsScore[index] + hoursScore[index] + tasksScore[index]));
-
-            const totalMax = Math.max(100, ...totals, 1);
-
-            const totalLabelsPlugin = {
-                id: 'leaderboardTotalLabels',
-                afterDatasetsDraw(chart) {
-                    const { ctx } = chart;
-                    const baseMeta = chart.getDatasetMeta(0);
-                    const yScale = chart.scales.y;
-
-                    ctx.save();
-                    ctx.fillStyle = theme.text;
-                    ctx.font = '600 13px Segoe UI, Arial, sans-serif';
-                    ctx.textAlign = 'center';
-
-                    baseMeta.data.forEach((bar, index) => {
-                        const total = Number(totals[index] || 0);
-                        const y = yScale.getPixelForValue(total);
-                        ctx.fillText(`${Math.round(total)}%`, bar.x, y - 10);
-                    });
-
-                    ctx.restore();
-                }
-            };
-
-            if (leaderboardSectionChart) leaderboardSectionChart.destroy();
-            leaderboardSectionChart = new Chart(canvas, {
-                type: 'bar',
-                data: {
-                    labels,
-                    datasets: [
-                        {
-                            label: 'Points (50%)',
-                            data: pointsScore,
-                            backgroundColor: 'rgba(43, 18, 76, 0.9)',
-                            borderColor: '#2b124c',
-                            borderWidth: 1,
-                            borderRadius: 8,
-                            stack: 'score',
-                            barPercentage: 0.7,
-                            categoryPercentage: 0.72,
-                        },
-                        {
-                            label: 'Duration / Hours (30%)',
-                            data: hoursScore,
-                            backgroundColor: 'rgba(122, 84, 188, 0.88)',
-                            borderColor: '#7a54bc',
-                            borderWidth: 1,
-                            borderRadius: 8,
-                            stack: 'score',
-                            barPercentage: 0.7,
-                            categoryPercentage: 0.72,
-                        },
-                        {
-                            label: 'Tasks (20%)',
-                            data: tasksScore,
-                            backgroundColor: 'rgba(237, 180, 47, 0.92)',
-                            borderColor: '#d9a224',
-                            borderWidth: 1,
-                            borderRadius: 8,
-                            stack: 'score',
-                            barPercentage: 0.7,
-                            categoryPercentage: 0.72,
-                        }
-                    ]
-                },
-                plugins: [totalLabelsPlugin],
-                options: {
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'bottom',
-                            labels: { color: theme.text }
-                        },
-                        tooltip: {
-                            backgroundColor: '#ffffff',
-                            titleColor: theme.text,
-                            bodyColor: theme.text,
-                            borderColor: theme.border,
-                            borderWidth: 1,
-                            callbacks: {
-                                label: (context) => {
-                                    const value = Number(context.raw || 0);
-                                    return `${context.dataset.label}: ${value.toFixed(1)}%`;
-                                },
-                                footer: (tooltipItems) => {
-                                    const index = tooltipItems?.[0]?.dataIndex ?? 0;
-                                    return `Points: ${pointsRaw[index]} | Hours: ${hoursRaw[index]} | Tasks: ${tasksRaw[index]}`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            stacked: true,
-                            ticks: {
-                                color: theme.text,
-                                font: { size: 11 },
-                                maxRotation: 0,
-                                minRotation: 0,
-                                autoSkip: false
-                            },
-                            grid: { display: false },
-                            border: { display: false }
-                        },
-                        y: {
-                            stacked: true,
-                            beginAtZero: true,
-                            suggestedMax: totalMax,
-                            ticks: {
-                                color: theme.text,
-                                callback: (value) => `${value}%`
-                            },
-                            grid: { color: 'rgba(43,18,76,0.10)' },
-                            border: { display: false }
-                        }
-                    }
-                }
-            });
-        }
-
-        function renderAnalytics(stats, reservations, leaderboard) {
-            document.getElementById('analyticsStudents').textContent = stats.registered_students || 0;
-            document.getElementById('analyticsActive').textContent = stats.currently_sitin || 0;
-            document.getElementById('analyticsPending').textContent = stats.pending_reservations || 0;
-            document.getElementById('analyticsRewards').textContent = stats.total_reward_points || 0;
-            renderReservationStatusAnalytics(reservations || []);
-            renderLeaderboardAnalytics(leaderboard || []);
-            renderLeaderboardSectionChart(leaderboard || []);
-        }
-
-        function toCsvValue(value) {
-            return `"${String(value ?? '').replace(/"/g, '""')}"`;
-        }
-
-        function downloadCsv(filename, title, headers, rows) {
-            const reportDate = new Date().toLocaleDateString();
-            const titleRow = [toCsvValue(title)];
-            const dateRow = [toCsvValue(`Date: ${reportDate}`)];
-            const emptyRow = [''];
-            const csv = [
-                titleRow.join(','),
-                dateRow.join(','),
-                emptyRow.join(','),
-                headers.map(toCsvValue).join(','),
-                ...rows.map(row => row.map(toCsvValue).join(','))
-            ].join('\n');
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            link.click();
-            URL.revokeObjectURL(link.href);
-        }
-
-        function buildStudentReportRows() {
-            return studentCache.map(student => [
-                student.id_number,
-                [student.first_name, student.middle_name, student.last_name].filter(Boolean).join(' ').trim(),
-                student.course,
-                student.year_level,
-                student.email || '',
-                student.address || '',
-                student.remaining_sessions ?? 0,
-                student.reward_points ?? 0
-            ]);
-        }
-
-        function buildReservationReportRows() {
-            return reservationCache.map(item => [
-                item.id_number,
-                [item.first_name, item.last_name].filter(Boolean).join(' ').trim(),
-                item.lab_room,
-                item.purpose,
-                item.preferred_date || '',
-                item.preferred_time || '',
-                item.status,
-                item.created_at || ''
-            ]);
-        }
-
-        function buildHistoryReportRows() {
-            return adminHistoryCache.map(item => [
-                item.id_number,
-                [item.first_name, item.last_name].filter(Boolean).join(' ').trim(),
-                item.purpose,
-                item.lab_room,
-                item.time_in || '',
-                item.time_out || '',
-                item.duration_time || '',
-                item.status
-            ]);
-        }
-
-        function buildLeaderboardReportRows() {
-            return adminLeaderboardCache.map((item, index) => [
-                index + 1,
-                item.id_number,
-                [item.first_name, item.last_name].filter(Boolean).join(' ').trim(),
-                item.reward_points ?? 0,
-                item.total_hours ?? 0,
-                item.completed_sessions ?? 0,
-                item.leaderboard_score ?? 0,
-                item.earned_points_score ?? 0,
-                item.sit_in_hours_score ?? 0,
-                item.task_completed_score ?? 0
-            ]);
-        }
-
-        function renderRewardHistory(rewards) {
-            const tbody = document.getElementById('rewardHistoryBody');
-            if (!tbody) return;
-
-            if (!rewards.length) {
-                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-white-50">No reward history available yet.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = rewards.map(item => {
-                const fullName = [item.first_name, item.last_name].filter(Boolean).join(' ').trim();
-                return `
-                    <tr>
-                        <td>${item.created_at ? new Date(item.created_at).toLocaleString() : '-'}</td>
-                        <td>${fullName}<div class="small text-white-50">${item.id_number || ''}</div></td>
-                        <td>${escapeHtml(item.source_type || '-')}</td>
-                        <td>${escapeHtml(item.description || '-')}</td>
-                        <td>${item.points ?? 0}</td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        function renderHistory(history) {
-            const tbody = document.getElementById('historyBodyAdmin');
-            if (!tbody) return;
-
-            if (!history.length) {
-                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-white-50">No session history available yet.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = history.map(item => {
-                const fullName = [item.first_name, item.last_name].filter(Boolean).join(' ').trim();
-                const statusBadge = item.status === 'active'
-                    ? '<span class="badge text-bg-success">Active</span>'
-                    : '<span class="badge text-bg-secondary">Completed</span>';
-
-                return `
-                    <tr>
-                        <td>${item.id_number}</td>
-                        <td>${fullName}</td>
-                        <td>${item.purpose}</td>
-                        <td>${item.lab_room}</td>
-                        <td>${item.time_in ? new Date(item.time_in).toLocaleString() : '-'}</td>
-                        <td>${item.duration_time || '-'}</td>
-                        <td>${item.time_out ? new Date(item.time_out).toLocaleString() : '-'}</td>
-                        <td>${statusBadge}</td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        function escapeHtml(value) {
-            return String(value ?? '')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;');
-        }
-
         function renderAnnouncements(announcements) {
             const container = document.getElementById('adminAnnouncementList');
             if (!container) return;
-
-            if (!announcements.length) {
-                container.innerHTML = '<div class="empty-note">No announcements posted yet.</div>';
-                return;
-            }
-
-            container.innerHTML = announcements.map(item => {
-                const createdAt = item.created_at ? new Date(item.created_at).toLocaleString() : '-';
-                const audienceLabel = item.audience ? item.audience.toUpperCase() : 'ALL';
-                return `
-                    <div class="announcement-feed-item">
-                        <div class="announcement-head">
-                            <span class="badge text-bg-info">${escapeHtml(audienceLabel)}</span>
-                            <span>${escapeHtml(item.posted_by || 'CCS Admin')}</span>
-                            <span>${escapeHtml(createdAt)}</span>
-                        </div>
-                        <div class="announcement-title">${escapeHtml(item.title || 'Announcement')}</div>
-                        <div class="announcement-body">${escapeHtml(item.body || '')}</div>
+            if (!announcements.length) { container.innerHTML = '<div class="empty-note">No announcements posted yet.</div>'; return; }
+            container.innerHTML = announcements.map(item => `
+                <div class="announcement-feed-item">
+                    <div class="announcement-head">
+                        <span class="badge text-bg-info">${item.audience ? item.audience.toUpperCase() : 'ALL'}</span>
+                        <span>${item.posted_by || 'CCS Admin'}</span>
+                        <span>${item.created_at ? new Date(item.created_at).toLocaleString() : '-'}</span>
                     </div>
-                `;
-            }).join('');
+                    <div class="announcement-title">${item.title || 'Announcement'}</div>
+                    <div class="announcement-body">${item.body || ''}</div>
+                </div>
+            `).join('');
         }
 
         function renderRules(rules) {
             const container = document.getElementById('adminRuleList');
             if (!container) return;
-
-            if (!rules.length) {
-                container.innerHTML = '<div class="empty-note">No rules posted yet.</div>';
-                return;
-            }
-
-            container.innerHTML = rules.map(item => {
-                const createdAt = item.created_at ? new Date(item.created_at).toLocaleString() : '-';
-                return `
-                    <div class="announcement-feed-item">
-                        <div class="announcement-head">
-                            <span class="badge text-bg-warning">RULE</span>
-                            <span>${escapeHtml(item.posted_by || 'CCS Admin')}</span>
-                            <span>${escapeHtml(createdAt)}</span>
-                        </div>
-                        <div class="announcement-title">${escapeHtml(item.title || 'Lab Rule')}</div>
-                        <div class="announcement-body">${escapeHtml(item.body || '')}</div>
+            if (!rules.length) { container.innerHTML = '<div class="empty-note">No rules posted yet.</div>'; return; }
+            container.innerHTML = rules.map(item => `
+                <div class="announcement-feed-item">
+                    <div class="announcement-head">
+                        <span class="badge text-bg-warning">RULE</span>
+                        <span>${item.posted_by || 'CCS Admin'}</span>
+                        <span>${item.created_at ? new Date(item.created_at).toLocaleString() : '-'}</span>
                     </div>
-                `;
-            }).join('');
+                    <div class="announcement-title">${item.title || 'Lab Rule'}</div>
+                    <div class="announcement-body">${item.body || ''}</div>
+                </div>
+            `).join('');
         }
 
         function renderFeedbacks(feedbacks) {
             const container = document.getElementById('adminFeedbackList');
             if (!container) return;
-
-            if (!feedbacks.length) {
-                container.innerHTML = '<div class="empty-note">No feedback submitted yet.</div>';
-                return;
-            }
-
-            container.innerHTML = feedbacks.map(item => {
-                const createdAt = item.created_at ? new Date(item.created_at).toLocaleString() : '-';
-                const statusLabel = item.status === 'reviewed' ? 'Reviewed' : 'New';
-                const statusClass = item.status === 'reviewed' ? 'text-bg-success' : 'text-bg-warning';
-                return `
-                    <div class="feedback-feed-item">
-                        <div class="feedback-head">
-                            <span class="badge ${statusClass}">${escapeHtml(statusLabel)}</span>
-                            <span>${escapeHtml(item.id_number || '')}</span>
-                            <span>${escapeHtml(item.first_name || '')} ${escapeHtml(item.last_name || '')}</span>
-                            <span>${escapeHtml(createdAt)}</span>
-                        </div>
-                        <div class="feedback-subject">${escapeHtml(item.subject || 'Feedback')}</div>
-                        <div class="feedback-body mb-3">${escapeHtml(item.message || '')}</div>
-                        ${item.status !== 'reviewed' ? `<button class="btn btn-outline-soft btn-sm" data-review-feedback="${item.id}"><i class="ri-check-double-line me-1"></i>Mark Reviewed</button>` : ''}
+            if (!feedbacks.length) { container.innerHTML = '<div class="empty-note">No feedback submitted yet.</div>'; return; }
+            container.innerHTML = feedbacks.map(item => `
+                <div class="feedback-feed-item">
+                    <div class="feedback-head">
+                        <span class="badge ${item.status === 'reviewed' ? 'text-bg-success' : 'text-bg-warning'}">${item.status === 'reviewed' ? 'Reviewed' : 'New'}</span>
+                        <span>${item.id_number || ''}</span>
+                        <span>${item.first_name || ''} ${item.last_name || ''}</span>
+                        <span>${item.created_at ? new Date(item.created_at).toLocaleString() : '-'}</span>
                     </div>
-                `;
-            }).join('');
+                    <div class="feedback-subject">${item.subject || 'Feedback'}</div>
+                    <div class="feedback-body mb-3">${item.message || ''}</div>
+                    ${item.status !== 'reviewed' ? `<button class="btn btn-outline-soft btn-sm" data-review-feedback="${item.id}"><i class="ri-check-double-line me-1"></i>Mark Reviewed</button>` : ''}
+                </div>
+            `).join('');
         }
 
-        function useStudentInForm(studentId) {
-            const student = studentCache.find(item => Number(item.id) === Number(studentId));
-            if (!student) return;
-            const fullName = [student.first_name, student.middle_name, student.last_name].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
-            document.getElementById('formIdNumber').value = student.id_number;
-            document.getElementById('formStudentName').value = fullName;
-            document.getElementById('formRemaining').value = student.remaining_sessions ?? 30;
-            setActiveSection('sitin-form');
-            showToast('Student loaded into Sit-in Form.', 'success');
-        }
+        // Auto-refresh every 30 seconds
+        setInterval(loadDashboard, 30000);
 
-        async function loadDashboard() {
+        async function loadStudents() {
             try {
-                const [dashRes, recordRes, reservationRes, historyRes] = await Promise.all([
-                    apiGet('admin_dashboard'),
-                    apiGet('current_sitin_records'),
-                    apiGet('admin_reservations'),
-                    apiGet('admin_session_history')
-                ]);
-                const rewardRes = await apiGet('reward_history', 'limit=20');
-
-                if (dashRes.success) {
-                    document.getElementById('registeredCount').textContent = dashRes.stats.registered_students || 0;
-                    document.getElementById('currentCount').textContent = dashRes.stats.currently_sitin || 0;
-                    document.getElementById('totalSitinCount').textContent = dashRes.stats.total_sitin || 0;
-                    document.getElementById('pendingReservationCount').textContent = dashRes.stats.pending_reservations || 0;
-                    document.getElementById('totalRewardPoints').textContent = dashRes.stats.total_reward_points || 0;
-                    renderLanguageChart(dashRes.language_usage || {});
-                    renderLeaderboard(dashRes.leaderboard || []);
-                    adminLeaderboardCache = dashRes.leaderboard || [];
+                const data = await apiGet('students');
+                if (data.success) { 
+                    studentCache = data.students || []; 
+                    renderStudentsList(studentCache); 
+                } else {
+                    console.error('Failed to load students:', data.message);
                 }
-
-                if (recordRes.success) {
-                    renderCurrentRecords(recordRes.records || []);
-                }
-                if (reservationRes && reservationRes.success) {
-                    reservationCache = reservationRes.reservations || [];
-                    renderReservations(reservationCache);
-                }
-
-                if (historyRes && historyRes.success) {
-                    adminHistoryCache = historyRes.history || [];
-                    renderHistory(adminHistoryCache);
-                }
-                if (rewardRes && rewardRes.success) {
-                    rewardHistoryCache = rewardRes.rewards || [];
-                    renderRewardHistory(rewardHistoryCache);
-                }
-
-                renderAnalytics(dashRes.stats || {}, reservationCache, adminLeaderboardCache);
-            } catch (error) {
-                showToast('Failed to load dashboard data.', 'error');
+            } catch (e) {
+                console.error('Network error loading students:', e);
             }
         }
-
-        async function resetStudentSessions(studentId, idNumber) {
-            const confirmReset = window.confirm(`Reset remaining sessions for ${idNumber} back to 30?`);
-            if (!confirmReset) return;
-
-            const data = await apiPost('reset_sessions', {
-                id_number: idNumber,
-                remaining_sessions: 30
-            });
-
-            if (data.success) {
-                showToast('Student sessions reset successfully.', 'success');
-                await Promise.all([loadStudents(), loadDashboard()]);
-            } else {
-                showToast(data.message || 'Failed to reset sessions.', 'error');
-            }
-        }
-
-        document.getElementById('rewardForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const idNumber = document.getElementById('rewardIdNumber').value.trim();
-            const points = Number(document.getElementById('rewardPoints').value);
-            const description = document.getElementById('rewardDescription').value.trim();
-
-            if (!idNumber || !points || points <= 0 || !description) {
-                showToast('Please complete the reward form.', 'error');
-                return;
-            }
-
-            const data = await apiPost('award_reward_points', {
-                id_number: idNumber,
-                points,
-                description
-            });
-
-            if (data.success) {
-                showToast('Reward points awarded successfully.', 'success');
-                this.reset();
-                document.getElementById('rewardPoints').value = 1;
-                await loadDashboard();
-            } else {
-                showToast(data.message || 'Failed to award reward points.', 'error');
-            }
-        });
-
-        document.getElementById('clearRewardFormBtn').addEventListener('click', function () {
-            document.getElementById('rewardForm').reset();
-            document.getElementById('rewardPoints').value = 1;
-        });
-
-        document.getElementById('downloadStudentsReportBtn')?.addEventListener('click', function () {
-            downloadCsv('student-report.csv', 'Student Report', ['ID Number', 'Name', 'Course', 'Year', 'Email', 'Address', 'Remaining Sessions', 'Reward Points'], buildStudentReportRows());
-        });
-
-        document.getElementById('downloadReservationsReportBtn')?.addEventListener('click', function () {
-            downloadCsv('reservation-report.csv', 'Reservation Report', ['ID Number', 'Name', 'Lab', 'Purpose', 'Preferred Date', 'Preferred Time', 'Status', 'Created At'], buildReservationReportRows());
-        });
-
-        document.getElementById('downloadHistoryReportBtn')?.addEventListener('click', function () {
-            downloadCsv('session-history-report.csv', 'Session History Report', ['ID Number', 'Name', 'Purpose', 'Lab', 'Time In', 'Time Out', 'Duration', 'Status'], buildHistoryReportRows());
-        });
-
-        document.getElementById('downloadLeaderboardReportBtn')?.addEventListener('click', function () {
-            downloadCsv('leaderboard-report.csv', 'Leaderboard Report', ['Rank', 'ID Number', 'Name', 'Reward Points', 'Total Hours', 'Completed Sessions', 'Weighted Score', 'Earned Points Score', 'Sit-in Hours Score', 'Task Completed Score'], buildLeaderboardReportRows());
-        });
-
 
         async function loadAnnouncements() {
             try {
                 const data = await apiGet('announcements', 'audience=all');
-                if (!data.success) {
-                    showToast(data.message || 'Unable to load announcements.', 'error');
-                    return;
-                }
-                announcementCache = data.announcements || [];
-                renderAnnouncements(announcementCache);
-            } catch (error) {
-                showToast('Network error while loading announcements.', 'error');
-            }
+                if (data.success) renderAnnouncements(data.announcements || []);
+            } catch (e) { console.error(e); }
         }
 
         async function loadRules() {
             try {
                 const data = await apiGet('rules');
-                if (!data.success) {
-                    showToast(data.message || 'Unable to load rules.', 'error');
-                    return;
-                }
-                ruleCache = data.rules || [];
-                renderRules(ruleCache);
-            } catch (error) {
-                showToast('Network error while loading rules.', 'error');
-            }
+                if (data.success) renderRules(data.rules || []);
+            } catch (e) { console.error(e); }
         }
 
         async function loadFeedbacks() {
             try {
                 const data = await apiGet('feedbacks');
-                if (!data.success) {
-                    showToast(data.message || 'Unable to load feedback.', 'error');
-                    return;
+                if (data.success) renderFeedbacks(data.feedbacks || []);
+            } catch (e) { console.error(e); }
+        }
+
+        // Data Loading Logic
+        async function loadDashboard() {
+            try {
+                const [dash, sitin, res, hist] = await Promise.all([
+                    apiGet('admin_dashboard'), 
+                    apiGet('current_sitin_records'), 
+                    apiGet('admin_reservations'), 
+                    apiGet('admin_session_history')
+                ]);
+                
+                if (dash.success) {
+                    document.getElementById('registeredCount').textContent = dash.stats.registered_students || 0;
+                    document.getElementById('currentCount').textContent = dash.stats.currently_sitin || 0;
+                    document.getElementById('totalSitinCount').textContent = dash.stats.total_sitin || 0;
+                    document.getElementById('pendingReservationCount').textContent = dash.stats.pending_reservations || 0;
+                    document.getElementById('totalRewardPoints').textContent = dash.stats.total_reward_points || 0;
+                    adminLeaderboardCache = dash.leaderboard || [];
+                    renderLeaderboard(adminLeaderboardCache);
+                    renderLanguageChart(dash.language_usage || {});
+                    renderAnalytics(dash.stats || {}, reservationCache, adminLeaderboardCache);
                 }
-                feedbackCache = data.feedbacks || [];
-                renderFeedbacks(feedbackCache);
+                if (sitin.success) renderCurrentRecords(sitin.records || []);
+                if (res.success) { reservationCache = res.reservations || []; renderReservations(reservationCache); }
+                if (hist.success) adminHistoryCache = hist.history || [];
+
+                await Promise.all([
+                    loadStudents(),
+                    loadAnnouncements(),
+                    loadRules(),
+                    loadFeedbacks()
+                ]);
             } catch (error) {
-                showToast('Network error while loading feedback.', 'error');
+                showToast('Network error while loading admin dashboard.', 'error');
             }
         }
 
-        async function loadStudents() {
-            try {
-                const data = await apiGet('students');
-                if (!data.success) {
-                    showToast(data.message || 'Unable to load students.', 'error');
-                    return;
-                }
-                studentCache = data.students || [];
-                renderStudentsList(studentCache);
-            } catch (error) {
-                showToast('Network error while loading students.', 'error');
-            }
+        function renderCurrentRecords(recs) {
+            document.getElementById('recordsBody').innerHTML = recs.map(r => `<tr><td>${r.id}</td><td>${r.id_number}</td><td>${r.first_name} ${r.last_name}</td><td>${r.purpose}</td><td>${r.lab_room}</td><td>${r.elapsed_time}</td><td>${r.remaining_sessions}</td><td>${r.time_in}</td><td><button class="btn btn-danger btn-sm" onclick="endSession(${r.id})">End</button></td></tr>`).join('');
         }
 
-        async function loadReservations() {
-            try {
-                const data = await apiGet('admin_reservations');
-                if (!data.success) {
-                    showToast(data.message || 'Unable to load reservations.', 'error');
-                    return;
-                }
-                reservationCache = data.reservations || [];
-                renderReservations(reservationCache);
-                document.getElementById('pendingReservationCount').textContent = reservationCache.filter(item => item.status === 'pending').length;
-            } catch (error) {
-                showToast('Network error while loading reservations.', 'error');
-            }
+        function renderReservations(res) {
+            document.getElementById('reservationsBody').innerHTML = res.map(r => `<tr><td>${r.id_number}</td><td>${r.first_name} ${r.last_name}</td><td>${r.lab_room}</td><td>${r.purpose}</td><td>${r.preferred_date}</td><td>${r.preferred_time}</td><td>${r.status}</td><td>${r.status === 'pending' ? `<button class="btn btn-success btn-sm" onclick="approveRes(${r.id})">Approve</button>` : '-'}</td></tr>`).join('');
+        }
+
+        function renderLeaderboard(lb) {
+            document.getElementById('leaderboardBody').innerHTML = lb.map((s, i) => `<tr><td>#${i + 1}</td><td>${s.first_name} ${s.last_name}</td><td>${s.reward_points}</td><td>${s.total_hours}</td><td>${s.completed_sessions}</td><td>${s.leaderboard_score}</td></tr>`).join('');
         }
 
         async function searchStudents() {
             const q = document.getElementById('searchInput').value.trim();
-            try {
-                const data = await apiGet('search_students', `query=${encodeURIComponent(q)}`);
-                if (!data.success) {
-                    showToast(data.message || 'Search failed.', 'error');
-                    return;
-                }
-                renderSearchStudents(data.students || []);
-            } catch (error) {
-                showToast('Network error while searching.', 'error');
+            if (!q) { renderStudentsList(studentCache); return; }
+            const data = await apiGet('search_students', `query=${encodeURIComponent(q)}`);
+            if (data.success) renderSearchStudents(data.students || []);
+        }
+
+        function renderSearchStudents(students) {
+            const tbody = document.getElementById('searchBody');
+            if (!students.length) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-white-50">No matching students found.</td></tr>';
+                return;
             }
+            tbody.innerHTML = students.map(student => {
+                const fullName = [student.first_name, student.last_name].filter(Boolean).join(' ').trim();
+                return `
+                    <tr>
+                        <td>${student.id_number}</td>
+                        <td>${fullName}</td>
+                        <td>${student.course}</td>
+                        <td>${student.year_level}</td>
+                        <td>${student.email || '-'}</td>
+                        <td><button class="btn btn-outline-soft btn-sm" data-use-student="${student.id}"><i class="ri-list-check-2 me-1"></i>Use in Form</button></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function useStudentInForm(studentId) {
+            const student = studentCache.find(s => String(s.id) === String(studentId));
+            if (!student) return;
+            document.getElementById('formIdNumber').value = student.id_number;
+            document.getElementById('formStudentName').value = [student.first_name, student.last_name].filter(Boolean).join(' ').trim();
+            document.getElementById('formRemaining').value = student.remaining_sessions ?? 30;
+            setActiveSection('sitin-form');
+            showToast('Student loaded into form.', 'success');
+        }
+
+        async function resetStudentSessions(studentId, idNumber) {
+            if (!confirm(`Reset remaining sessions for ${idNumber} back to 30?`)) return;
+            const data = await apiPost('reset_sessions', { id_number: idNumber, remaining_sessions: 30 });
+            if (data.success) { showToast('Sessions reset.', 'success'); loadDashboard(); }
         }
 
         function clearSitinForm() {
@@ -2742,545 +1596,178 @@
             document.getElementById('formRemaining').value = 30;
         }
 
-        document.querySelectorAll('[data-section]').forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                setActiveSection(this.dataset.section);
-            });
-        });
+        document.getElementById('searchBtn')?.addEventListener('click', searchStudents);
+        document.getElementById('searchInput')?.addEventListener('keypress', e => { if (e.key === 'Enter') searchStudents(); });
+        document.getElementById('clearFormBtn')?.addEventListener('click', clearSitinForm);
 
-        document.querySelectorAll('[data-section-jump]').forEach(btn => {
-            btn.addEventListener('click', function () {
-                setActiveSection(this.dataset.sectionJump);
-            });
-        });
-
-        document.getElementById('logoutLink').addEventListener('click', function (e) {
+        document.getElementById('logoutLink')?.addEventListener('click', e => {
             e.preventDefault();
             localStorage.removeItem(USER_KEY);
             window.location.href = 'login.html';
         });
 
-        document.getElementById('searchBtn').addEventListener('click', searchStudents);
-        document.getElementById('searchInput').addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                searchStudents();
-            }
+        document.getElementById('announcementForm')?.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const title = document.getElementById('announcementTitle').value.trim();
+            const body = document.getElementById('announcementBody').value.trim();
+            const audience = document.getElementById('announcementAudience').value;
+            if (!title || !body) return showToast('Title and body required.', 'error');
+            const res = await apiPost('create_announcement', { title, body, audience, posted_by: 'CCS Admin' });
+            if (res.success) { showToast('Posted.', 'success'); this.reset(); loadAnnouncements(); }
         });
 
-        document.body.addEventListener('click', async function (e) {
+        document.getElementById('ruleForm')?.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const title = document.getElementById('ruleTitle').value.trim();
+            const body = document.getElementById('ruleBody').value.trim();
+            if (!title || !body) return showToast('Title and details required.', 'error');
+            const res = await apiPost('create_rule', { title, body, posted_by: 'CCS Admin' });
+            if (res.success) { showToast('Posted.', 'success'); this.reset(); loadRules(); }
+        });
+
+        document.getElementById('sitinForm')?.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const id_number = document.getElementById('formIdNumber').value.trim();
+            const lab_room = document.getElementById('formLab').value;
+            const selectedPurpose = document.getElementById('formPurpose').value;
+            const customPurpose = document.getElementById('formPurposeCustom').value.trim();
+            const purpose = customPurpose ? `${selectedPurpose} - ${customPurpose}` : selectedPurpose;
+            if (!id_number || !lab_room || !purpose) return showToast('Complete all fields.', 'error');
+            const res = await apiPost('create_sitin', { id_number, lab_room, purpose });
+            if (res.success) { showToast('Saved.', 'success'); clearSitinForm(); loadDashboard(); }
+        });
+
+        document.body.addEventListener('click', async e => {
             const useBtn = e.target.closest('[data-use-student]');
-            if (useBtn) {
-                useStudentInForm(useBtn.dataset.useStudent);
-                return;
-            }
+            if (useBtn) { useStudentInForm(useBtn.dataset.useStudent); return; }
 
             const resetBtn = e.target.closest('[data-reset-sessions]');
-            if (resetBtn) {
-                await resetStudentSessions(resetBtn.dataset.resetSessions, resetBtn.dataset.idNumber);
-                return;
+            if (resetBtn) { await resetStudentSessions(resetBtn.dataset.resetSessions, resetBtn.dataset.idNumber); return; }
+
+            const reviewBtn = e.target.closest('[data-review-feedback]');
+            if (reviewBtn) {
+                const res = await apiPost('review_feedback', { feedback_id: Number(reviewBtn.dataset.reviewFeedback) });
+                if (res.success) { showToast('Feedback reviewed.', 'success'); loadFeedbacks(); }
             }
 
             const approveBtn = e.target.closest('[data-approve-reservation]');
             if (approveBtn) {
-                const data = await apiPost('approve_reservation', { reservation_id: Number(approveBtn.dataset.approveReservation) });
-                if (data.success) {
-                    showToast('Reservation approved.', 'success');
-                    await loadDashboard();
-                    await loadReservations();
-                } else {
-                    showToast(data.message || 'Could not approve reservation.', 'error');
-                }
-                return;
+                const res = await apiPost('approve_reservation', { reservation_id: Number(approveBtn.dataset.approveReservation) });
+                if (res.success) { showToast('Approved.', 'success'); loadDashboard(); }
             }
 
             const rejectBtn = e.target.closest('[data-reject-reservation]');
             if (rejectBtn) {
-                const data = await apiPost('reject_reservation', { reservation_id: Number(rejectBtn.dataset.rejectReservation) });
-                if (data.success) {
-                    showToast('Reservation rejected.', 'warning');
-                    await loadDashboard();
-                    await loadReservations();
-                } else {
-                    showToast(data.message || 'Could not reject reservation.', 'error');
-                }
-                return;
-            }
-
-            const reviewBtn = e.target.closest('[data-review-feedback]');
-            if (reviewBtn) {
-                const data = await apiPost('review_feedback', { feedback_id: Number(reviewBtn.dataset.reviewFeedback) });
-                if (data.success) {
-                    showToast('Feedback marked as reviewed.', 'success');
-                    await loadFeedbacks();
-                } else {
-                    showToast(data.message || 'Could not review feedback.', 'error');
-                }
-                return;
+                const res = await apiPost('reject_reservation', { reservation_id: Number(rejectBtn.dataset.rejectReservation) });
+                if (res.success) { showToast('Rejected.', 'warning'); loadDashboard(); }
             }
 
             const endBtn = e.target.closest('[data-end-session]');
             if (endBtn) {
-                const sessionId = Number(endBtn.dataset.endSession);
-                const data = await apiPost('end_session', { session_id: sessionId });
-                if (data.success) {
-                    showToast('Session ended successfully.', 'success');
-                    await loadDashboard();
-                } else {
-                    showToast(data.message || 'Could not end session.', 'error');
+                const res = await apiPost('end_session', { session_id: Number(endBtn.dataset.endSession) });
+                if (res.success) { showToast('Session ended.', 'success'); loadDashboard(); }
+            }
+        });
+
+        window.endSession = async id => { const res = await apiPost('end_session', { session_id: id }); if (res.success) loadDashboard(); };
+        window.approveRes = async id => { const res = await apiPost('approve_reservation', { reservation_id: id }); if (res.success) loadDashboard(); };
+
+        (function initPcAvailability() {
+            const select = document.getElementById('liveScheduleLab');
+            const grid = document.getElementById('livePcGrid');
+            if (!select || !grid) return;
+            async function loadGrid() {
+                const lab = select.value;
+                if (!lab) { grid.innerHTML = 'Select lab.'; return; }
+                const res = await apiGet('get_pc_availability', 'lab_room=' + encodeURIComponent(lab));
+                if (res.success && res.pcs) {
+                    document.getElementById('liveAvailableCounter').textContent = res.pcs.filter(p => p.status !== 'Occupied').length;
+                    grid.innerHTML = res.pcs.map(p => `
+                        <div class="d-flex flex-column align-items-center justify-content-center rounded shadow-sm fw-bold p-1" 
+                             style="width: 100%; height: 60px; font-size: 0.9rem; background: ${p.status === 'Occupied' ? '#ef4444' : '#e2e8f0'}; color: ${p.status === 'Occupied' ? 'white' : '#334155'}; border: 1px solid ${p.status === 'Occupied' ? '#dc2626' : '#cbd5e1'};"
+                             title="${p.status === 'Occupied' ? 'Occupied by ' + p.student : 'Available'}">
+                            <span>${p.pc_number}</span>
+                            ${p.status === 'Occupied' ? `<span style="font-size: 0.65rem; font-weight: normal; opacity: 0.9;">${(p.student || '').split(' ')[0]}</span>` : ''}
+                        </div>
+                    `).join('');
                 }
             }
-        });
-
-        document.getElementById('announcementForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const title = document.getElementById('announcementTitle').value.trim();
-            const body = document.getElementById('announcementBody').value.trim();
-            const audience = document.getElementById('announcementAudience').value;
-
-            if (!title || !body) {
-                showToast('Title and message are required.', 'error');
-                return;
-            }
-
-            const data = await apiPost('create_announcement', {
-                title,
-                body,
-                audience,
-                posted_by: 'CCS Admin'
-            });
-
-            if (data.success) {
-                showToast('Announcement posted successfully.', 'success');
-                this.reset();
-                await loadAnnouncements();
-            } else {
-                showToast(data.message || 'Failed to post announcement.', 'error');
-            }
-        });
-
-        document.getElementById('ruleForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const title = document.getElementById('ruleTitle').value.trim();
-            const body = document.getElementById('ruleBody').value.trim();
-
-            if (!title || !body) {
-                showToast('Title and rule details are required.', 'error');
-                return;
-            }
-
-            const data = await apiPost('create_rule', {
-                title,
-                body,
-                posted_by: 'CCS Admin'
-            });
-
-            if (data.success) {
-                showToast('Rule posted successfully.', 'success');
-                this.reset();
-                await loadRules();
-            } else {
-                showToast(data.message || 'Failed to post rule.', 'error');
-            }
-        });
-
-        document.getElementById('sitinForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const idNumber = document.getElementById('formIdNumber').value.trim();
-            const labRoom = document.getElementById('formLab').value.trim();
-            const selectedPurpose = document.getElementById('formPurpose').value;
-            const customPurpose = document.getElementById('formPurposeCustom').value.trim();
-            const purpose = customPurpose ? `${selectedPurpose} - ${customPurpose}` : selectedPurpose;
-
-            if (!idNumber || !labRoom || !purpose) {
-                showToast('Please complete all required fields.', 'error');
-                return;
-            }
-
-            const data = await apiPost('create_sitin', {
-                id_number: idNumber,
-                lab_room: labRoom,
-                purpose: purpose
-            });
-
-            if (data.success) {
-                showToast('Sit-in form submitted successfully.', 'success');
-                clearSitinForm();
-                await loadDashboard();
-            } else {
-                showToast(data.message || 'Failed to save sit-in form.', 'error');
-            }
-        });
-
-        document.getElementById('clearFormBtn').addEventListener('click', clearSitinForm);
-        document.getElementById('refreshRecordsBtn').addEventListener('click', loadDashboard);
-        document.getElementById('refreshReservationsBtn').addEventListener('click', loadReservations);
-        document.getElementById('refreshHistoryBtn').addEventListener('click', loadDashboard);
-        document.getElementById('refreshAnnouncementsBtn').addEventListener('click', loadAnnouncements);
-        document.getElementById('refreshRulesBtn').addEventListener('click', loadRules);
-        document.getElementById('refreshFeedbacksBtn')?.addEventListener('click', loadFeedbacks);
-
-        (function initPcAvailabilityPanel() {
-            const liveLabSelect = document.getElementById('liveScheduleLab');
-            const livePcGrid = document.getElementById('livePcGrid');
-            const refreshLiveGridBtn = document.getElementById('refreshLiveGridBtn');
-            const liveAvailableCounter = document.getElementById('liveAvailableCounter');
-            
-            if (!liveLabSelect || !livePcGrid) return;
-            
-            for (let i = 1; i <= 50; i++) {
-                const opt = document.createElement('option');
-                opt.value = 'S' + i;
-                opt.textContent = 'S' + i;
-                liveLabSelect.appendChild(opt);
-            }
-            
-            async function loadLiveGrid() {
-                const lab = liveLabSelect.value;
-                if (!lab) {
-                    livePcGrid.innerHTML = '<div class="empty-schedules py-5" style="grid-column: 1/-1;">Select a lab room to display real-time PC availability.</div>';
-                    liveAvailableCounter.textContent = '0';
-                    return;
-                }
-                
-                livePcGrid.innerHTML = '<div class="empty-schedules py-5" style="grid-column: 1/-1;">Loading real-time availability...</div>';
-                
-                try {
-                    const res = await apiGet('get_pc_availability', 'lab_room=' + encodeURIComponent(lab));
-                    if (res.success && res.pcs) {
-                        const pcsData = res.pcs;
-                        const total = pcsData.length;
-                        const occupied = pcsData.filter(p => p.status === 'Occupied').length;
-                        
-                        liveAvailableCounter.textContent = Math.max(0, total - occupied);
-                        
-                        livePcGrid.innerHTML = '';
-                        pcsData.forEach(pc => {
-                            const isOccupied = pc.status === 'Occupied';
-                            
-                            const btn = document.createElement('div');
-                            btn.className = 'd-flex flex-column align-items-center justify-content-center rounded shadow-sm fw-bold p-1';
-                            btn.style.width = '100%';
-                            btn.style.height = '60px';
-                            btn.style.fontSize = '0.9rem';
-                            
-                            const numSpan = document.createElement('span');
-                            numSpan.textContent = pc.pc_number;
-                            btn.appendChild(numSpan);
-                            
-                            if (isOccupied) {
-                                btn.style.background = '#ef4444';
-                                btn.style.color = 'white';
-                                btn.style.border = '1px solid #dc2626';
-                                btn.title = `Occupied by ${pc.student || 'Unknown'}\nTime In: ${pc.time_in ? new Date(pc.time_in).toLocaleTimeString() : 'N/A'}`;
-                                
-                                const stSpan = document.createElement('span');
-                                stSpan.style.fontSize = '0.65rem';
-                                stSpan.style.fontWeight = 'normal';
-                                stSpan.style.opacity = '0.9';
-                                stSpan.style.marginTop = '2px';
-                                stSpan.textContent = (pc.student || '').split(' ')[0] || 'User'; // Show first name
-                                btn.appendChild(stSpan);
-                            } else {
-                                btn.style.background = '#e2e8f0';
-                                btn.style.color = '#334155';
-                                btn.style.border = '1px solid #cbd5e1';
-                                btn.title = 'PC ' + pc.pc_number + ' is Available';
-                            }
-                            livePcGrid.appendChild(btn);
-                        });
-                    } else {
-                        livePcGrid.innerHTML = '<div class="empty-schedules py-5" style="grid-column: 1/-1;">No data available for this lab.</div>';
-                    }
-                } catch (e) {
-                    showToast('Network error loading PC grid.', 'error');
-                    livePcGrid.innerHTML = '<div class="empty-schedules py-5 text-danger" style="grid-column: 1/-1;">Failed to load data.</div>';
-                }
-            }
-            
-            liveLabSelect.addEventListener('change', loadLiveGrid);
-            refreshLiveGridBtn.addEventListener('click', loadLiveGrid);
+            select.addEventListener('change', loadGrid);
         })();
 
-        (function initSoftwareUploadPanel() {
+        (function initSoftware() {
             const form = document.getElementById('swUploadForm');
-            const titleInput = document.getElementById('swTitle');
-            const descInput = document.getElementById('swDesc');
-            const labInput = document.getElementById('swLab');
-            const tableBody = document.getElementById('swTableBody');
-            const searchInput = document.getElementById('swSearch');
-            const pageSizeSelect = document.getElementById('swPageSize');
-            const prevBtn = document.getElementById('swPrevBtn');
-            const nextBtn = document.getElementById('swNextBtn');
-            const pageInfo = document.getElementById('swPageInfo');
-            const uploadBtn = document.getElementById('swUploadBtn');
-
-            if (!form || !titleInput || !descInput || !labInput || !tableBody || !searchInput || !pageSizeSelect || !prevBtn || !nextBtn || !pageInfo || !uploadBtn) return;
-
-            // Populate Lab Dropdown
-            for (let i = 1; i <= 50; i++) {
-                const opt = document.createElement('option');
-                opt.value = 'S' + i;
-                opt.textContent = 'S' + i;
-                labInput.appendChild(opt);
-            }
-
-            let allRows = [];
-            let page = 1;
-
-            function filteredRows() {
-                const q = (searchInput.value || '').trim().toLowerCase();
-                if (!q) return allRows.slice();
-                return allRows.filter(r => {
-                    const hay = [
-                        r.software_name,
-                        r.description,
-                        r.lab_room,
-                        r.added_by
-                    ].filter(Boolean).join(' ').toLowerCase();
-                    return hay.includes(q);
-                });
-            }
-
-            function pageSize() {
-                const n = parseInt(pageSizeSelect.value, 10);
-                return Number.isFinite(n) && n > 0 ? n : 10;
-            }
-
-            function setPageInfo(total, startIdx, endIdx) {
-                if (!total) {
-                    pageInfo.textContent = 'Showing 0 to 0 of 0 entries';
-                    return;
-                }
-                pageInfo.textContent = `Showing ${startIdx} to ${endIdx} of ${total} entries`;
-            }
-
-            function render() {
-                const rows = filteredRows();
-                const total = rows.length;
-                const size = pageSize();
-                const totalPages = Math.max(1, Math.ceil(total / size));
-                if (page > totalPages) page = totalPages;
-                if (page < 1) page = 1;
-                const start = (page - 1) * size;
-                const pageRows = rows.slice(start, start + size);
-
-                prevBtn.disabled = page <= 1;
-                nextBtn.disabled = page >= totalPages;
-
-                if (!pageRows.length) {
-                    tableBody.innerHTML = '<tr><td colspan="5" class="sw-empty">No software registered yet.</td></tr>';
-                    setPageInfo(0, 0, 0);
-                    return;
-                }
-
-                const startIdx = start + 1;
-                const endIdx = start + pageRows.length;
-                setPageInfo(total, startIdx, endIdx);
-
-                tableBody.innerHTML = pageRows.map(r => {
-                    return `
-                        <tr>
-                            <td><strong>${escapeHtml(r.software_name)}</strong></td>
-                            <td><span class="sw-badge"><i class="ri-macbook-line"></i>${escapeHtml(r.lab_room)}</span></td>
-                            <td>${escapeHtml(r.description || '-')}</td>
-                            <td>${escapeHtml(r.added_by || 'Admin')}</td>
-                            <td class="text-end">
-                                <div class="sw-table-actions">
-                                    <button type="button" class="btn-sw danger" data-sw-delete="${escapeHtml(r.id)}"><i class="ri-delete-bin-6-line me-1"></i>Remove</button>
-                                </div>
-                            </td>
-                        </tr>
-                    `;
-                }).join('');
-            }
-
+            const tbody = document.getElementById('swTableBody');
+            if (!form || !tbody) return;
             async function refresh() {
-                try {
-                    const res = await apiGet('get_lab_software');
-                    if (res.success) {
-                        allRows = res.software || [];
-                        render();
-                    } else {
-                        showToast(res.message || 'Unable to load software data.', 'error');
-                    }
-                } catch (err) {
-                    showToast('Unable to load software list.', 'error');
+                const res = await apiGet('get_lab_software');
+                if (res.success) {
+                    tbody.innerHTML = res.software.map(r => `
+                        <tr>
+                            <td><strong>${r.software_name}</strong></td>
+                            <td><span class="sw-badge"><i class="ri-macbook-line"></i>${r.lab_room}</span></td>
+                            <td>${r.description || '-'}</td>
+                            <td><button class="btn btn-danger btn-sm" onclick="removeSw(${r.id})">Remove</button></td>
+                        </tr>
+                    `).join('');
                 }
             }
-
-            form.addEventListener('submit', async function (e) {
+            form.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                const title = (titleInput.value || '').trim();
-                const desc = (descInput.value || '').trim();
-                const labRoom = labInput.value;
-
-                if (!title || !labRoom) {
-                    showToast('Software Name and Lab Room are required.', 'error');
-                    return;
-                }
-
-                uploadBtn.disabled = true;
-                try {
-                    const payload = {
-                        lab_room: labRoom,
-                        software_name: title,
-                        description: desc,
-                        added_by: 'CCS Admin'
-                    };
-                    const res = await apiPost('add_lab_software', payload);
-                    if (res.success) {
-                        showToast('Software added successfully.', 'success');
-                        form.reset();
-                        page = 1;
-                        await refresh();
-                    } else {
-                        showToast(res.message || 'Failed to add software.', 'error');
-                    }
-                } catch (err) {
-                    showToast('Add failed. Please try again.', 'error');
-                } finally {
-                    uploadBtn.disabled = false;
-                }
+                const payload = { lab_room: document.getElementById('swLab').value, software_name: document.getElementById('swTitle').value, description: document.getElementById('swDesc').value, added_by: 'CCS Admin' };
+                const res = await apiPost('add_lab_software', payload);
+                if (res.success) { showToast('Added.', 'success'); this.reset(); refresh(); }
             });
-
-            searchInput.addEventListener('input', function () {
-                page = 1;
-                render();
-            });
-
-            pageSizeSelect.addEventListener('change', function () {
-                page = 1;
-                render();
-            });
-
-            prevBtn.addEventListener('click', function () {
-                page = Math.max(1, page - 1);
-                render();
-            });
-
-            nextBtn.addEventListener('click', function () {
-                page = page + 1;
-                render();
-            });
-
-            tableBody.addEventListener('click', async function (e) {
-                const del = e.target.closest('[data-sw-delete]');
-                if (del) {
-                    const id = del.getAttribute('data-sw-delete');
-                    if (!id) return;
-                    try {
-                        const res = await apiPost('remove_lab_software', { id: Number(id) });
-                        if (res.success) {
-                            showToast('Software removed.', 'success');
-                            await refresh();
-                        } else {
-                            showToast(res.message || 'Delete failed.', 'error');
-                        }
-                    } catch (err) {
-                        showToast('Delete failed.', 'error');
-                    }
-                }
-            });
-
+            window.removeSw = async id => { if (await apiPost('remove_lab_software', { id })) refresh(); };
             refresh();
         })();
 
-        const hashSection = (location.hash || '').replace(/^#/, '');
-        if (hashSection && document.querySelector('[data-panel="' + hashSection + '"]')) {
-            setActiveSection(hashSection);
-        } else {
-            setActiveSection('dashboard');
-        }
-        loadStudents();
-        loadDashboard();
-        loadReservations();
-        loadAnnouncements();
-        loadRules();
-        loadFeedbacks();
-
-// --- PDF Export for Reservation Report ---
-document.getElementById('downloadReservationsReportBtn').addEventListener('click', async function () {
-    // Fetch reservation data (replace with your actual data source if needed)
-    const response = await fetch('backend/api/index.php?action=admin_reservations');
-    const data = await response.json();
-    // Prepare table rows
-    const rows = data.map((row, idx) => [
-        idx + 1,
-        row.id_number,
-        row.name,
-        row.lab,
-        row.purpose,
-        row.date,
-        row.time,
-        row.status
-    ]);
-
-    // PDF setup
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a4' });
-    const pageWidth = doc.internal.pageSize.getWidth();
-
-    // Logos
-    const ccsLogo = 'assets/ccs-logo.png';
-    const ucmnLogo = 'assets/ucmn_logo.jpg';
-    // Load images as base64
-    async function toDataURL(url) {
-        const res = await fetch(url);
-        const blob = await res.blob();
-        return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.readAsDataURL(blob);
+        document.getElementById('rewardForm')?.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const id_number = document.getElementById('rewardIdNumber').value.trim();
+            const points = Number(document.getElementById('rewardPoints').value);
+            const description = document.getElementById('rewardDescription').value.trim();
+            if (!id_number || !points || !description) return showToast('Complete form.', 'error');
+            const res = await apiPost('award_reward_points', { id_number, points, description });
+            if (res.success) { showToast('Awarded.', 'success'); this.reset(); loadDashboard(); }
         });
-    }
-    const [ccsLogoData, ucmnLogoData] = await Promise.all([
-        toDataURL(ccsLogo),
-        toDataURL(ucmnLogo)
-    ]);
 
-    // Header
-    doc.addImage(ccsLogoData, 'PNG', 40, 30, 60, 60);
-    doc.addImage(ucmnLogoData, 'JPEG', pageWidth - 100, 30, 60, 60);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(24);
-    doc.text('University of Cebu Main Campus', pageWidth / 2, 55, { align: 'center' });
-    doc.setFontSize(16);
-    doc.text('College of Computer Studies', pageWidth / 2, 80, { align: 'center' });
-    doc.setFontSize(12);
-    doc.setTextColor('#888');
-    doc.text('Generated: ' + new Date().toLocaleString(), pageWidth / 2, 100, { align: 'center' });
+        function renderAnalytics(stats, resCache, leaderboard) {
+            document.getElementById('analyticsStudents').textContent = stats.registered_students || 0;
+            document.getElementById('analyticsActive').textContent = stats.currently_sitin || 0;
+            document.getElementById('analyticsPending').textContent = stats.pending_reservations || 0;
+            document.getElementById('analyticsRewards').textContent = stats.total_reward_points || 0;
+            
+            // Re-render leaderboard chart if needed
+            const ctx = document.getElementById('leaderboardChart');
+            if (ctx && leaderboard.length) {
+                if (leaderboardChart) leaderboardChart.destroy();
+                leaderboardChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: leaderboard.slice(0, 5).map(l => l.last_name),
+                        datasets: [{ label: 'Score', data: leaderboard.slice(0, 5).map(l => l.leaderboard_score), backgroundColor: '#edb42f' }]
+                    },
+                    options: { maintainAspectRatio: false }
+                });
+            }
+        }
 
-    // Table
-    doc.autoTable({
-        startY: 120,
-        head: [[
-            '#', 'ID Number', 'Name', 'Lab', 'Purpose', 'Date', 'Time', 'Status'
-        ]],
-        body: rows,
-        theme: 'grid',
-        headStyles: {
-            fillColor: [255, 221, 51], // yellow
-            textColor: [0, 0, 0],
-            fontStyle: 'bold',
-            halign: 'center',
-            fontSize: 12
-        },
-        bodyStyles: {
-            fontSize: 11,
-            halign: 'center',
-            valign: 'middle',
-            textColor: [30, 30, 30]
-        },
-        alternateRowStyles: {
-            fillColor: [255, 251, 204]
-        },
-        margin: { left: 40, right: 40 },
-        styles: { cellPadding: 6 }
-    });
+        (function initLabs() {
+            const selects = [document.getElementById('formLab'), document.getElementById('liveScheduleLab'), document.getElementById('swLab')];
+            selects.forEach(s => { 
+                if (!s) return;
+                for (let i = 1; i <= 50; i++) { 
+                    const o = document.createElement('option'); 
+                    o.value = 'S' + i; 
+                    o.textContent = 'S' + i; 
+                    s.appendChild(o); 
+                } 
+            });
+        })();
 
-    doc.save('reservation_summary.pdf');
-});
+        setActiveSection('dashboard');
+        loadDashboard();
+    </script>
+</body>
+</html>

@@ -124,12 +124,72 @@ switch ($action) {
     case 'reset_all_sessions':
         resetAllStudentSessions($pdo);
         break;
+    case 'update_profile':
+        handleUpdateProfile($pdo);
+        break;
     case 'create_student':
         createStudent($pdo);
         break;
     default:
         http_response_code(404);
         echo json_encode(['success' => false, 'message' => 'Invalid action']);
+}
+
+function handleUpdateProfile(PDO $pdo): void
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+        return;
+    }
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    $idNumber = trim((string)($data['id_number'] ?? ''));
+    
+    if ($idNumber === '') {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'ID Number is required']);
+        return;
+    }
+
+    // Identify updateable fields
+    $fields = [
+        'first_name' => trim((string)($data['first_name'] ?? '')),
+        'last_name' => trim((string)($data['last_name'] ?? '')),
+        'middle_name' => trim((string)($data['middle_name'] ?? '')),
+        'email' => trim((string)($data['email'] ?? '')),
+        'course' => trim((string)($data['course'] ?? '')),
+        'year_level' => (int)($data['year_level'] ?? 0),
+        'address' => trim((string)($data['address'] ?? '')),
+    ];
+
+    $setParts = [];
+    $params = [':id_number' => $idNumber];
+
+    foreach ($fields as $col => $val) {
+        if ($val !== '' && $val !== 0) {
+            $setParts[] = "$col = :$col";
+            $params[":$col"] = $val;
+        }
+    }
+
+    if (empty($setParts)) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'No fields to update']);
+        return;
+    }
+
+    $sql = "UPDATE users SET " . implode(', ', $setParts) . " WHERE id_number = :id_number";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+
+    if ($stmt->rowCount() === 0) {
+        // Might be because no values changed
+        echo json_encode(['success' => true, 'message' => 'Profile processed (no changes or updated)']);
+        return;
+    }
+
+    echo json_encode(['success' => true, 'message' => 'Profile updated successfully']);
 }
 
 function fetchAnnouncements(PDO $pdo, string $audience = 'student', int $limit = 10): array

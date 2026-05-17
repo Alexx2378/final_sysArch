@@ -3760,26 +3760,41 @@
             document.getElementById('notifCountArchived').textContent = '0';
         }
 
-        document.getElementById('profileForm').addEventListener('submit', function (e) {
+        document.getElementById('profileForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            profile.email = document.getElementById('profileEmail').value.trim();
-            profile.last_name = document.getElementById('profileLastName').value.trim();
-            profile.first_name = document.getElementById('profileFirstName').value.trim();
-            profile.middle_name = document.getElementById('profileMiddleName').value.trim();
-            profile.course = document.getElementById('profileCourse').value;
-            profile.year_level = document.getElementById('profileYearLevel').value;
-            profile.address = document.getElementById('profileAddress').value.trim();
+            const updatedData = {
+                id_number: profile.id_number,
+                email: document.getElementById('profileEmail').value.trim(),
+                last_name: document.getElementById('profileLastName').value.trim(),
+                first_name: document.getElementById('profileFirstName').value.trim(),
+                middle_name: document.getElementById('profileMiddleName').value.trim(),
+                course: document.getElementById('profileCourse').value,
+                year_level: document.getElementById('profileYearLevel').value,
+                address: document.getElementById('profileAddress').value.trim()
+            };
 
-            localStorage.setItem(profileStorageKey, JSON.stringify(profile));
-            localStorage.setItem(USER_KEY, JSON.stringify({
-                ...baseUser,
-                ...profile
-            }));
+            const res = await apiPost('update_profile', updatedData);
 
-            fillProfileForm();
-            showToast('Profile updated successfully.', 'success');
+            if (res.success) {
+                // Update local caches
+                Object.assign(profile, updatedData);
+                localStorage.setItem(profileStorageKey, JSON.stringify(profile));
+                localStorage.setItem(USER_KEY, JSON.stringify({
+                    ...baseUser,
+                    ...profile
+                }));
+
+                fillProfileForm();
+                showToast('Profile updated successfully.', 'success');
+                await loadStudentDashboard();
+            } else {
+                showToast(res.message || 'Failed to update profile.', 'error');
+            }
         });
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadStudentDashboard, 30000);
 
         document.getElementById('resetProfileBtn').addEventListener('click', function () {
             profile.email = baseUser.email || profile.email;
