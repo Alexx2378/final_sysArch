@@ -690,6 +690,7 @@
                                 <li><a class="dropdown-item" href="#" data-section="reservations"><i class="ri-inbox-2-line"></i>Reservations</a></li>
                                 <li><a class="dropdown-item" href="#" data-section="history"><i class="ri-time-line"></i>Session History</a></li>
                                 <li><a class="dropdown-item" href="#" data-section="pc-availability"><i class="ri-computer-line"></i>PC Availability</a></li>
+                                <li><a class="dropdown-item" href="#" data-section="pc-scheduling"><i class="ri-calendar-todo-line"></i>PC Scheduling</a></li>
                                 <li><a class="dropdown-item" href="#" data-section="software-upload"><i class="ri-upload-cloud-2-line"></i>Software / App Upload</a></li>
                             </ul>
                         </li>
@@ -985,6 +986,7 @@
                                     <th>Name</th>
                                     <th>Purpose</th>
                                     <th>Lab</th>
+                                    <th>PC</th>
                                     <th>Duration</th>
                                     <th>Remaining</th>
                                     <th>Time In</th>
@@ -992,7 +994,7 @@
                                 </tr>
                             </thead>
                             <tbody id="recordsBody">
-                                <tr><td colspan="9" class="text-center py-4 text-white-50">No current sit-in records.</td></tr>
+                                <tr><td colspan="10" class="text-center py-4 text-white-50">No current sit-in records.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1197,6 +1199,82 @@
                                 </div>
                                 <div class="pc-grid mt-4" id="livePcGrid"></div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-panel" data-panel="pc-scheduling">
+                <div class="glass-card hero-card mb-4">
+                    <div class="hero-header">
+                        <i class="ri-calendar-todo-line" style="font-size: 2.5rem; color: #edb42f;"></i>
+                        <div class="hero-title-wrap">
+                            <span class="hero-kicker">Availability Management</span>
+                            <h1 class="hero-title">PC Scheduling</h1>
+                        </div>
+                    </div>
+                    <p class="hero-subtitle">Define PC availability windows for labs. Unselected PCs will be marked as 'Unavailable' for students during the scheduled time.</p>
+                </div>
+
+                <div class="content-grid">
+                    <div class="glass-card content-card">
+                        <div class="section-title mb-3"><i class="ri-add-box-line"></i>Create Availability Schedule</div>
+                        <form id="pcScheduleForm" class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Lab Room</label>
+                                <select id="schedLab" class="form-select" required><option value="">Select Lab</option></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Date</label>
+                                <input type="date" id="schedDate" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Start Time (Optional)</label>
+                                <input type="time" id="schedStart" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">End Time (Optional)</label>
+                                <input type="time" id="schedEnd" class="form-control">
+                            </div>
+                            
+                            <div class="col-12 mt-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label mb-0">Select Available PCs (<span id="selectedPcCount">0</span>/50)</label>
+                                    <div class="d-flex gap-2">
+                                        <button type="button" class="btn btn-outline-soft btn-sm" id="schedSelectAll">Select All</button>
+                                        <button type="button" class="btn btn-outline-soft btn-sm" id="schedClearAll">Clear All</button>
+                                    </div>
+                                </div>
+                                <div class="pc-grid" id="schedPcGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(45px, 1fr)); gap: 8px;">
+                                    <!-- PCs 1-50 generated here -->
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-primary-gradient w-100" id="saveSchedBtn">
+                                    <i class="ri-save-line me-1"></i>Save Availability Schedule
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="glass-card content-card">
+                        <div class="section-title mb-3"><i class="ri-list-settings-line"></i>Configured Schedules</div>
+                        <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                            <table class="table table-dark-surface align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Lab</th>
+                                        <th>Date</th>
+                                        <th>Window</th>
+                                        <th>PCs</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="schedTableBody">
+                                    <tr><td colspan="5" class="text-center py-4 text-white-50">No schedules configured.</td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -1535,11 +1613,61 @@
         }
 
         function renderCurrentRecords(recs) {
-            document.getElementById('recordsBody').innerHTML = recs.map(r => `<tr><td>${r.id}</td><td>${r.id_number}</td><td>${r.first_name} ${r.last_name}</td><td>${r.purpose}</td><td>${r.lab_room}</td><td>${r.elapsed_time}</td><td>${r.remaining_sessions}</td><td>${r.time_in}</td><td><button class="btn btn-danger btn-sm" onclick="endSession(${r.id})">End</button></td></tr>`).join('');
+            const tbody = document.getElementById('recordsBody');
+            if (!recs.length) {
+                tbody.innerHTML = '<tr><td colspan="10" class="text-center py-4 text-white-50">No current sit-in records.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = recs.map(r => `
+                <tr>
+                    <td>${r.id}</td>
+                    <td>${r.id_number}</td>
+                    <td>${r.first_name} ${r.last_name}</td>
+                    <td>${r.purpose}</td>
+                    <td>${r.lab_room}</td>
+                    <td>${r.pc_number || '-'}</td>
+                    <td>${r.elapsed_time || '0m'}</td>
+                    <td>${r.remaining_sessions}</td>
+                    <td>${r.time_in ? new Date(r.time_in).toLocaleTimeString() : '-'}</td>
+                    <td><button class="btn btn-danger btn-sm" data-end-session="${r.id}"><i class="ri-stop-circle-line me-1"></i>End</button></td>
+                </tr>`).join('');
         }
 
         function renderReservations(res) {
-            document.getElementById('reservationsBody').innerHTML = res.map(r => `<tr><td>${r.id_number}</td><td>${r.first_name} ${r.last_name}</td><td>${r.lab_room}</td><td>${r.purpose}</td><td>${r.preferred_date}</td><td>${r.preferred_time}</td><td>${r.status}</td><td>${r.status === 'pending' ? `<button class="btn btn-success btn-sm" onclick="approveRes(${r.id})">Approve</button>` : '-'}</td></tr>`).join('');
+            const tbody = document.getElementById('reservationsBody');
+            if (!res.length) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-white-50">No reservation requests yet.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = res.map(r => {
+                const statusBadge = r.status === 'approved' 
+                    ? '<span class="badge text-bg-success">Approved</span>' 
+                    : r.status === 'rejected' 
+                        ? '<span class="badge text-bg-danger">Rejected</span>' 
+                        : '<span class="badge text-bg-warning">Pending</span>';
+                
+                let actions = '-';
+                if (r.status === 'pending') {
+                    actions = `
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-success btn-sm" data-approve-reservation="${r.id}"><i class="ri-check-line"></i></button>
+                            <button class="btn btn-danger btn-sm" data-reject-reservation="${r.id}"><i class="ri-close-line"></i></button>
+                        </div>
+                    `;
+                }
+                
+                return `
+                <tr>
+                    <td>${r.id_number}</td>
+                    <td>${r.first_name} ${r.last_name}</td>
+                    <td>${r.lab_room}</td>
+                    <td>${r.purpose}</td>
+                    <td>${r.preferred_date}</td>
+                    <td>${r.preferred_time}</td>
+                    <td>${statusBadge}</td>
+                    <td>${actions}</td>
+                </tr>`;
+            }).join('');
         }
 
         function renderLeaderboard(lb) {
@@ -1753,8 +1881,97 @@
             }
         }
 
+        (function initPcScheduling() {
+            const grid = document.getElementById('schedPcGrid');
+            const form = document.getElementById('pcScheduleForm');
+            const selectAllBtn = document.getElementById('schedSelectAll');
+            const clearAllBtn = document.getElementById('schedClearAll');
+            const pcCountSpan = document.getElementById('selectedPcCount');
+            const tableBody = document.getElementById('schedTableBody');
+            let selectedPcs = new Set();
+
+            function updatePcCount() {
+                pcCountSpan.textContent = selectedPcs.size;
+            }
+
+            function renderGrid() {
+                if (!grid) return;
+                grid.innerHTML = '';
+                for (let i = 1; i <= 50; i++) {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = `btn btn-sm ${selectedPcs.has(i) ? 'btn-warning' : 'btn-outline-soft'}`;
+                    btn.textContent = i;
+                    btn.style.width = '100%';
+                    btn.onclick = () => {
+                        if (selectedPcs.has(i)) selectedPcs.delete(i);
+                        else selectedPcs.add(i);
+                        renderGrid();
+                        updatePcCount();
+                    };
+                    grid.appendChild(btn);
+                }
+            }
+
+            selectAllBtn?.addEventListener('click', () => {
+                for (let i = 1; i <= 50; i++) selectedPcs.add(i);
+                renderGrid();
+                updatePcCount();
+            });
+
+            clearAllBtn?.addEventListener('click', () => {
+                selectedPcs.clear();
+                renderGrid();
+                updatePcCount();
+            });
+
+            async function loadSchedules() {
+                const res = await apiGet('get_pc_schedules');
+                if (res.success && tableBody) {
+                    tableBody.innerHTML = res.schedules.length ? res.schedules.map(s => `
+                        <tr>
+                            <td><strong>${s.lab_room}</strong></td>
+                            <td>${s.schedule_date}</td>
+                            <td>${s.time_start || 'All Day'} - ${s.time_end || ''}</td>
+                            <td><span class="badge text-bg-warning">${JSON.parse(s.available_pcs).length}/50 Available</span></td>
+                            <td><button class="btn btn-danger btn-sm" onclick="deleteSched(${s.id})"><i class="ri-delete-bin-line"></i></button></td>
+                        </tr>
+                    `).join('') : '<tr><td colspan="5" class="text-center py-4 text-white-50">No schedules configured.</td></tr>';
+                }
+            }
+
+            form?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const payload = {
+                    lab_room: document.getElementById('schedLab').value,
+                    schedule_date: document.getElementById('schedDate').value,
+                    time_start: document.getElementById('schedStart').value,
+                    time_end: document.getElementById('schedEnd').value,
+                    available_pcs: Array.from(selectedPcs)
+                };
+                const res = await apiPost('save_pc_schedule', payload);
+                if (res.success) {
+                    showToast('Schedule saved successfully!');
+                    selectedPcs.clear();
+                    renderGrid();
+                    updatePcCount();
+                    loadSchedules();
+                }
+            });
+
+            window.deleteSched = async (id) => {
+                if (confirm('Delete this schedule?')) {
+                    const res = await apiPost('delete_pc_schedule', { id });
+                    if (res.success) { showToast('Schedule removed.'); loadSchedules(); }
+                }
+            };
+
+            renderGrid();
+            loadSchedules();
+        })();
+
         (function initLabs() {
-            const selects = [document.getElementById('formLab'), document.getElementById('liveScheduleLab'), document.getElementById('swLab')];
+            const selects = [document.getElementById('formLab'), document.getElementById('liveScheduleLab'), document.getElementById('swLab'), document.getElementById('schedLab')];
             selects.forEach(s => { 
                 if (!s) return;
                 for (let i = 1; i <= 50; i++) { 

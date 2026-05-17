@@ -2944,14 +2944,12 @@
             return [data.first_name, data.middle_name, data.last_name].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
         }
 
-        function updateProfilePhoto(source) {
-            const mainPhoto = document.getElementById('profilePhotoPreview');
-            const miniPhoto = document.getElementById('miniPreview');
-            const summaryPhoto = document.getElementById('summaryPhoto');
-            const sidebarPhoto = document.getElementById('sidebarPhoto');
-            [mainPhoto, miniPhoto, summaryPhoto, sidebarPhoto].forEach(img => {
-                if (img) img.src = source;
+        function updateProfilePhoto(dataUrl) {
+            const avatarImgs = document.querySelectorAll('.profile-avatar, .avatar-preview, #previewPhoto, #profilePhotoPreview, #miniPreview, #summaryPhoto, #sidebarPhoto');
+            avatarImgs.forEach(img => {
+                if (img) img.src = dataUrl || defaultProfilePhoto;
             });
+            profile.photo = dataUrl || defaultProfilePhoto;
         }
 
         function fillProfileForm() {
@@ -2963,6 +2961,8 @@
             document.getElementById('profileCourse').value = profile.course;
             document.getElementById('profileYearLevel').value = profile.year_level;
             document.getElementById('profileAddress').value = profile.address;
+
+            updateProfilePhoto(profile.photo);
 
             document.getElementById('reservationIdNumber').value = profile.id_number;
             document.getElementById('reservationName').value = fullName();
@@ -2998,7 +2998,6 @@
                 remainingLabel.textContent = 'Remaining Sessions';
             }
             document.getElementById('reservationSessions').value = profile.remaining_sessions;
-            updateProfilePhoto(profile.photo);
         }
 
         function setActiveSection(sectionName) {
@@ -3445,12 +3444,10 @@
             document.getElementById('selectedLabNameDisplay').textContent = 'Lab ' + labRoom;
             document.getElementById('reservationPcNumber').value = '';
             
-            // Fetch real-time availability again just to be safe
             try {
-                const res = await apiGet('get_pc_availability');
-                if (res.success && res.availability[labRoom]) {
-                    const data = res.availability[labRoom];
-                    renderPcGrid(data.total, data.occupied_pcs);
+                const res = await apiGet('get_pc_availability', 'lab_room=' + encodeURIComponent(labRoom));
+                if (res.success && res.pcs) {
+                    renderPcGrid(res.pcs);
                     document.getElementById('reservationDetailsSection').style.display = 'block';
                     document.getElementById('reservationDetailsSection').scrollIntoView({behavior: 'smooth', block: 'start'});
                 }
@@ -3459,34 +3456,39 @@
             }
         }
         
-        function renderPcGrid(total, occupied) {
+        function renderPcGrid(pcs) {
             const grid = document.getElementById('pcGrid');
             grid.innerHTML = '';
-            for (let i = 1; i <= total; i++) {
-                const isOccupied = occupied.includes(i.toString()) || occupied.includes(i);
+            pcs.forEach(pc => {
+                const isOccupied = pc.status === 'Occupied';
+                const isUnavailable = pc.status === 'Unavailable';
+                const pcNum = pc.pc_number;
                 
                 const btn = document.createElement('div');
                 btn.className = 'd-flex align-items-center justify-content-center rounded shadow-sm fw-bold';
                 btn.style.width = '42px';
                 btn.style.height = '42px';
-                btn.style.cursor = isOccupied ? 'not-allowed' : 'pointer';
+                btn.style.cursor = (isOccupied || isUnavailable) ? 'not-allowed' : 'pointer';
                 btn.style.transition = 'all 0.2s';
-                btn.textContent = i;
+                btn.textContent = pcNum;
                 
                 if (isOccupied) {
                     btn.style.background = '#ef4444';
                     btn.style.color = 'white';
                     btn.style.border = '1px solid #dc2626';
-                    btn.title = 'PC ' + i + ' is Occupied';
+                    btn.title = 'PC ' + pcNum + ' is Occupied';
+                } else if (isUnavailable) {
+                    btn.style.background = '#64748b'; // Muted slate for maintenance
+                    btn.style.color = 'white';
+                    btn.style.border = '1px solid #475569';
+                    btn.title = 'PC ' + pcNum + ' is Under Maintenance';
                 } else {
                     btn.style.background = '#e2e8f0';
                     btn.style.color = '#334155';
                     btn.style.border = '1px solid #cbd5e1';
-                    btn.title = 'Select PC ' + i;
-                    btn.id = 'pcBtn_' + i;
+                    btn.title = 'Select PC ' + pcNum;
                     
                     btn.addEventListener('click', function() {
-                        // Deselect previous
                         const prev = document.querySelector('#pcGrid .pc-selected');
                         if (prev) {
                             prev.classList.remove('pc-selected');
@@ -3495,17 +3497,15 @@
                             prev.style.border = '1px solid #cbd5e1';
                         }
                         
-                        // Select current
                         this.classList.add('pc-selected');
                         this.style.background = 'var(--brand-yellow)';
                         this.style.color = '#000';
                         this.style.border = '2px solid #d9a224';
-                        
-                        document.getElementById('reservationPcNumber').value = i;
+                        document.getElementById('reservationPcNumber').value = pcNum;
                     });
                 }
                 grid.appendChild(btn);
-            }
+            });
         }
 
         document.getElementById('reservationForm').addEventListener('submit', async function (e) {
@@ -3520,12 +3520,11 @@
                 purpose: document.getElementById('reservationPurpose').value,
                 lab_room: lab,
                 pc_number: pcNumber,
-                time_in: document.getElementById('reservationTime').value,
                 preferred_date: document.getElementById('reservationDate').value || new Date().toISOString().slice(0, 10),
                 preferred_time: document.getElementById('reservationTime').value
             };
             
-            if (!payload.purpose || !payload.lab_room || !payload.time_in || !payload.preferred_date || !payload.pc_number) {
+            if (!payload.purpose || !payload.lab_room || !payload.preferred_date || !payload.pc_number) {
                 return showToast('Please complete all reservation fields.', 'error');
             }
 
@@ -3534,14 +3533,14 @@
             btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Reserving...';
 
             try {
-                const res = await apiPost('create_sitin', payload);
+                const res = await apiPost('create_reservation', payload);
                 if (res.success) {
                     showToast('Reservation requested successfully!', 'success');
                     this.reset();
                     document.getElementById('reservationPcNumber').value = '';
                     document.getElementById('reservationDetailsSection').style.display = 'none';
-                    loadLabBrowser(); // Refresh availability
-                    loadHistoryAndReservations();
+                    loadLabBrowser(); 
+                    loadStudentDashboard();
                     setTimeout(() => setActiveSection('reservation-status'), 500);
                 } else {
                     showToast(res.message || 'Failed to reserve slot.', 'error');
@@ -3554,33 +3553,8 @@
             }
         });
 
-        function formatNotificationTime(timestamp) {
-            const now = Math.floor(Date.now() / 1000);
-            const diff = now - timestamp;
-
-            if (diff < 60) {
-                return 'Just now';
-            } else if (diff < 3600) {
-                const mins = Math.floor(diff / 60);
-                return `${mins}m ago`;
-            } else if (diff < 86400) {
-                const hours = Math.floor(diff / 3600);
-                return `${hours}h ago`;
-            } else {
-                const date = new Date(timestamp * 1000);
-                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            }
-        }
-
         function buildNotificationActions(item) {
-            let actions = '';
-            if (item.type === 'reservation' && item.status === 'pending') {
-                actions += `
-                    <a class="notification-action-link success" onclick="handleReservationApprove(event)">Accept</a>
-                    <a class="notification-action-link danger" onclick="handleReservationReject(event)">Decline</a>
-                `;
-            }
-            return actions;
+            return ''; // Users cannot perform actions on notifications
         }
 
         function handleReservationApprove(event) {

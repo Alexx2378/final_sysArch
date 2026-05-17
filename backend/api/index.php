@@ -18,6 +18,50 @@ try {
     if ($checkColumn->rowCount() === 0) {
         $pdo->exec("ALTER TABLE sitin_sessions ADD COLUMN pc_number INT DEFAULT NULL");
     }
+    $checkColumnRes = $pdo->query("SHOW COLUMNS FROM reservations LIKE 'pc_number'");
+    if ($checkColumnRes->rowCount() === 0) {
+        $pdo->exec("ALTER TABLE reservations ADD COLUMN pc_number INT DEFAULT NULL");
+    }
+    $checkUserPhoto = $pdo->query("SHOW COLUMNS FROM users LIKE 'photo'");
+    if ($checkUserPhoto->rowCount() === 0) {
+        $pdo->exec("ALTER TABLE users ADD COLUMN photo LONGTEXT DEFAULT NULL");
+    }
+    
+    $checkUserMiddle = $pdo->query("SHOW COLUMNS FROM users LIKE 'middle_name'");
+    if ($checkUserMiddle->rowCount() === 0) {
+        $pdo->exec("ALTER TABLE users ADD COLUMN middle_name VARCHAR(100) DEFAULT '' AFTER first_name");
+    }
+
+    $checkUserAddress = $pdo->query("SHOW COLUMNS FROM users LIKE 'address'");
+    if ($checkUserAddress->rowCount() === 0) {
+        $pdo->exec("ALTER TABLE users ADD COLUMN address TEXT DEFAULT '' AFTER password_hash");
+    }
+
+    $checkUserRole = $pdo->query("SHOW COLUMNS FROM users LIKE 'role'");
+    if ($checkUserRole->rowCount() === 0) {
+        $pdo->exec("ALTER TABLE users ADD COLUMN role ENUM('student', 'admin') DEFAULT 'student' AFTER reward_points");
+    }
+
+    // Ensure Admin Account Exists (password: admin123)
+    $adminExists = $pdo->prepare("SELECT id FROM users WHERE id_number = '00-0000' LIMIT 1");
+    $adminExists->execute();
+    if (!$adminExists->fetch()) {
+        $adminHash = password_hash('admin123', PASSWORD_DEFAULT);
+        $pdo->prepare("INSERT INTO users (id_number, last_name, first_name, course, year_level, email, password_hash, remaining_sessions, reward_points, role)
+            VALUES ('00-0000', 'Admin', 'System', 'BSIT', 4, 'admin@ccs.uc.edu.ph', :hash, 30, 0, 'admin')")
+            ->execute([':hash' => $adminHash]);
+    }
+
+    $pdo->exec("CREATE TABLE IF NOT EXISTS lab_pc_schedules (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        lab_room VARCHAR(50) NOT NULL,
+        schedule_date DATE NOT NULL,
+        time_start TIME DEFAULT NULL,
+        time_end TIME DEFAULT NULL,
+        available_pcs TEXT NOT NULL,
+        status VARCHAR(20) DEFAULT 'active',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )");
 } catch (PDOException $e) {
     // Ignore
 }
@@ -124,6 +168,15 @@ switch ($action) {
     case 'reset_all_sessions':
         resetAllStudentSessions($pdo);
         break;
+    case 'save_pc_schedule':
+        savePcSchedule($pdo);
+        break;
+    case 'get_pc_schedules':
+        getPcSchedules($pdo);
+        break;
+    case 'delete_pc_schedule':
+        deletePcSchedule($pdo);
+        break;
     case 'update_profile':
         handleUpdateProfile($pdo);
         break;
@@ -161,6 +214,7 @@ function handleUpdateProfile(PDO $pdo): void
         'course' => trim((string)($data['course'] ?? '')),
         'year_level' => (int)($data['year_level'] ?? 0),
         'address' => trim((string)($data['address'] ?? '')),
+        'photo' => trim((string)($data['photo'] ?? '')),
     ];
 
     $setParts = [];
@@ -763,7 +817,7 @@ function handleLogin(PDO $pdo): void
         return;
     }
 
-    $stmt = $pdo->prepare("SELECT id, id_number, first_name, last_name, course, year_level, email, password_hash, remaining_sessions, reward_points, role FROM users WHERE id_number = :id_number");
+    $stmt = $pdo->prepare("SELECT id, id_number, first_name, last_name, middle_name, course, year_level, email, address, photo, remaining_sessions, reward_points, role, password_hash FROM users WHERE id_number = :id_number");
     $stmt->execute([':id_number' => $idNumber]);
     $user = $stmt->fetch();
 
@@ -1142,6 +1196,7 @@ function getCurrentSitinRecords(PDO $pdo): void
             s.time_in,
             s.time_out,
             s.lab_room,
+            s.pc_number,
             s.purpose,
             s.status,
             u.id_number,
@@ -1169,6 +1224,7 @@ function getAdminSessionHistory(PDO $pdo): void
     $stmt = $pdo->prepare("SELECT
             s.id,
             s.lab_room,
+            s.pc_number,
             s.purpose,
             s.status,
             s.time_in,
@@ -1200,7 +1256,7 @@ function getStudentDashboard(PDO $pdo): void
         return;
     }
 
-    $userStmt = $pdo->prepare("SELECT id, id_number, last_name, first_name, middle_name, course, year_level, email, address, remaining_sessions, reward_points, role FROM users WHERE id_number = :id_number AND role = 'student' LIMIT 1");
+    $userStmt = $pdo->prepare("SELECT id, id_number, last_name, first_name, middle_name, course, year_level, email, address, photo, remaining_sessions, reward_points, role FROM users WHERE id_number = :id_number AND role = 'student' LIMIT 1");
     $userStmt->execute([':id_number' => $idNumber]);
     $user = $userStmt->fetch();
 
@@ -1244,8 +1300,6 @@ function getStudentDashboard(PDO $pdo): void
     $manualPointsStmt->execute([':user_id' => (int)$user['id']]);
     $manualPoints = (int)$manualPointsStmt->fetchColumn();
 
-    unset($user['role']);
-
     echo json_encode([
         'success' => true,
         'user' => $user,
@@ -1282,6 +1336,8 @@ function createReservation(PDO $pdo): void
     $preferredDate = trim((string)($data['preferred_date'] ?? '')) ?: null;
     $preferredTime = trim((string)($data['preferred_time'] ?? '')) ?: null;
 
+    $pcNumber = (int)($data['pc_number'] ?? 0);
+
     if ($idNumber === '' || $labRoom === '' || $purpose === '') {
         http_response_code(400);
         echo json_encode(['success' => false, 'message' => 'ID Number, Lab Room, and Purpose are required']);
@@ -1304,10 +1360,11 @@ function createReservation(PDO $pdo): void
         return;
     }
 
-    $insertStmt = $pdo->prepare("INSERT INTO reservations (user_id, lab_room, purpose, preferred_date, preferred_time, status) VALUES (:user_id, :lab_room, :purpose, :preferred_date, :preferred_time, 'pending')");
+    $insertStmt = $pdo->prepare("INSERT INTO reservations (user_id, lab_room, pc_number, purpose, preferred_date, preferred_time, status) VALUES (:user_id, :lab_room, :pc_number, :purpose, :preferred_date, :preferred_time, 'pending')");
     $insertStmt->execute([
         ':user_id' => (int)$user['id'],
         ':lab_room' => $labRoom,
+        ':pc_number' => $pcNumber > 0 ? $pcNumber : null,
         ':purpose' => $purpose,
         ':preferred_date' => $preferredDate,
         ':preferred_time' => $preferredTime,
@@ -1400,10 +1457,11 @@ function approveReservation(PDO $pdo): void
             return;
         }
 
-        $pdo->prepare("INSERT INTO sitin_sessions (user_id, lab_room, purpose, status, time_in) VALUES (:user_id, :lab_room, :purpose, 'active', NOW())")
+        $pdo->prepare("INSERT INTO sitin_sessions (user_id, lab_room, pc_number, purpose, status, time_in) VALUES (:user_id, :lab_room, :pc_number, :purpose, 'active', NOW())")
             ->execute([
                 ':user_id' => (int)$reservation['user_id'],
                 ':lab_room' => $reservation['lab_room'],
+                ':pc_number' => $reservation['pc_number'],
                 ':purpose' => $reservation['purpose'],
             ]);
 
@@ -1543,39 +1601,199 @@ function removeLabSoftware(PDO $pdo): void
     echo json_encode(['success' => true, 'message' => 'Software removed successfully']);
 }
 
+function savePcSchedule(PDO $pdo): void
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+        return;
+    }
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    $labRoom = trim((string)($data['lab_room'] ?? ''));
+    $scheduleDate = trim((string)($data['schedule_date'] ?? ''));
+    $timeStart = trim((string)($data['time_start'] ?? '')) ?: null;
+    $timeEnd = trim((string)($data['time_end'] ?? '')) ?: null;
+    $availablePcs = $data['available_pcs'] ?? []; // Array of PC numbers that ARE available
+
+    if ($labRoom === '' || $scheduleDate === '') {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Lab Room and Date are required']);
+        return;
+    }
+
+    $availablePcsJson = json_encode(array_map('intval', $availablePcs));
+
+    $stmt = $pdo->prepare("INSERT INTO lab_pc_schedules (lab_room, schedule_date, time_start, time_end, available_pcs) 
+        VALUES (:lab_room, :schedule_date, :time_start, :time_end, :available_pcs)
+        ON DUPLICATE KEY UPDATE available_pcs = :available_pcs, time_start = :time_start, time_end = :time_end");
+    
+    $stmt->execute([
+        ':lab_room' => $labRoom,
+        ':schedule_date' => $scheduleDate,
+        ':time_start' => $timeStart,
+        ':time_end' => $timeEnd,
+        ':available_pcs' => $availablePcsJson
+    ]);
+
+    echo json_encode(['success' => true, 'message' => 'Schedule saved successfully']);
+}
+
+function getPcSchedules(PDO $pdo): void
+{
+    $stmt = $pdo->query("SELECT * FROM lab_pc_schedules ORDER BY schedule_date DESC, created_at DESC");
+    echo json_encode([
+        'success' => true,
+        'schedules' => $stmt->fetchAll()
+    ]);
+}
+
+function deletePcSchedule(PDO $pdo): void
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+        return;
+    }
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    $id = (int)($data['id'] ?? 0);
+
+    if ($id <= 0) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Invalid schedule ID']);
+        return;
+    }
+
+    $stmt = $pdo->prepare("DELETE FROM lab_pc_schedules WHERE id = :id");
+    $stmt->execute([':id' => $id]);
+
+    echo json_encode(['success' => true, 'message' => 'Schedule deleted successfully']);
+}
+
 function getPcAvailability(PDO $pdo): void
 {
     $labRoom = trim($_GET['lab_room'] ?? '');
     
     if ($labRoom === '') {
-        http_response_code(400);
-        echo json_encode(['success' => false, 'message' => 'Lab Room is required']);
+        // Return summary for all labs (S1 to S50)
+        $availability = [];
+        
+        // 1. Get Live Occupancy counts
+        $liveStmt = $pdo->query("SELECT lab_room, COUNT(*) as occupied_count 
+            FROM sitin_sessions WHERE status = 'active' AND pc_number IS NOT NULL 
+            GROUP BY lab_room");
+        $liveCounts = $liveStmt->fetchAll(PDO::FETCH_KEY_PAIR);
+        
+        // 2. Get Scheduled Unavailability for TODAY
+        $schedStmt = $pdo->query("SELECT lab_room, available_pcs FROM lab_pc_schedules 
+            WHERE schedule_date = CURDATE() 
+            AND (
+                (time_start IS NULL AND time_end IS NULL) OR 
+                (CURTIME() BETWEEN time_start AND time_end)
+            )
+            ORDER BY created_at DESC");
+        $schedules = $schedStmt->fetchAll();
+        $labSchedules = [];
+        foreach ($schedules as $s) {
+            if (!isset($labSchedules[$s['lab_room']])) {
+                $labSchedules[$s['lab_room']] = json_decode($s['available_pcs'], true);
+            }
+        }
+
+        for ($i = 1; $i <= 50; $i++) {
+            $lab = 'S' . $i;
+            $total = 50;
+            $occupied = (int)($liveCounts[$lab] ?? 0);
+            
+            $allowedPcs = $labSchedules[$lab] ?? null;
+            $unavailableCount = 0;
+            if ($allowedPcs !== null) {
+                $unavailableCount = $total - count($allowedPcs);
+            }
+            
+            $available = max(0, $total - $occupied - $unavailableCount);
+            
+            $availability[$lab] = [
+                'total' => $total,
+                'occupied' => $occupied,
+                'unavailable' => $unavailableCount,
+                'available' => $available,
+                'occupied_pcs' => [] // Detailed list only for specific lab request
+            ];
+        }
+
+        // Add detailed occupied PCs for each lab to match frontend expectation
+        $pcsStmt = $pdo->query("SELECT lab_room, pc_number FROM sitin_sessions WHERE status = 'active' AND pc_number IS NOT NULL");
+        while ($row = $pcsStmt->fetch()) {
+            if (isset($availability[$row['lab_room']])) {
+                $availability[$row['lab_room']]['occupied_pcs'][] = (int)$row['pc_number'];
+            }
+        }
+        
+        // Merge scheduled unavailable PCs
+        foreach ($labSchedules as $lab => $allowed) {
+            if (isset($availability[$lab])) {
+                for ($p = 1; $p <= 50; $p++) {
+                    if (!in_array($p, $allowed, true)) {
+                        $availability[$lab]['occupied_pcs'][] = $p; // Mark as occupied/unavailable for simple UI
+                    }
+                }
+            }
+        }
+
+        echo json_encode([
+            'success' => true,
+            'availability' => $availability
+        ]);
         return;
     }
 
-    // Default 30 PCs per lab
+    // Return detailed PC list for ONE lab
+    // 1. Get Live Occupancy
     $stmt = $pdo->prepare("SELECT pc_number, u.first_name, u.last_name, s.time_in 
         FROM sitin_sessions s 
         INNER JOIN users u ON s.user_id = u.id 
         WHERE s.lab_room = :lab_room AND s.status = 'active' AND s.pc_number IS NOT NULL");
     $stmt->execute([':lab_room' => $labRoom]);
-    
     $activeSessions = $stmt->fetchAll();
+
+    // 2. Get Scheduled Unavailability for TODAY
+    $schedStmt = $pdo->prepare("SELECT available_pcs FROM lab_pc_schedules 
+        WHERE lab_room = :lab_room 
+        AND schedule_date = CURDATE() 
+        AND (
+            (time_start IS NULL AND time_end IS NULL) OR 
+            (CURTIME() BETWEEN time_start AND time_end)
+        )
+        ORDER BY created_at DESC LIMIT 1");
+    $schedStmt->execute([':lab_room' => $labRoom]);
+    $schedule = $schedStmt->fetch();
+    
+    $allowedPcs = null;
+    if ($schedule) {
+        $allowedPcs = json_decode($schedule['available_pcs'], true);
+    }
     
     $pcs = [];
-    for ($i = 1; $i <= 30; $i++) {
-        $pcs[$i] = ['pc_number' => $i, 'status' => 'Available', 'student' => null, 'time_in' => null];
+    for ($i = 1; $i <= 50; $i++) {
+        $status = 'Available';
+        $reason = null;
+        
+        if ($allowedPcs !== null && !in_array($i, $allowedPcs, true)) {
+            $status = 'Unavailable';
+            $reason = 'Scheduled Maintenance';
+        }
+        
+        $pcs[$i] = ['pc_number' => $i, 'status' => $status, 'student' => null, 'time_in' => null, 'reason' => $reason];
     }
     
     foreach ($activeSessions as $session) {
         $pcNum = (int)$session['pc_number'];
-        if ($pcNum > 0 && $pcNum <= 30) {
-            $pcs[$pcNum] = [
-                'pc_number' => $pcNum,
-                'status' => 'Occupied',
-                'student' => $session['first_name'] . ' ' . $session['last_name'],
-                'time_in' => $session['time_in']
-            ];
+        if ($pcNum > 0 && $pcNum <= 50) {
+            $pcs[$pcNum]['status'] = 'Occupied';
+            $pcs[$pcNum]['student'] = $session['first_name'] . ' ' . $session['last_name'];
+            $pcs[$pcNum]['time_in'] = $session['time_in'];
         }
     }
     
