@@ -38,7 +38,7 @@ php -S localhost:8080
 #### 3. Open
 For XAMPP, navigate to:
 ```text 
-http://localhost/SysArch-login-register-prototype/index.html
+http://localhost:8080/final_sysArch-1/dashboard.html
 ```
 
 If using the built-in PHP server, navigate to:
